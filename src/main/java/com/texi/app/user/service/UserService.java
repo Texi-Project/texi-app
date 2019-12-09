@@ -1,24 +1,24 @@
-package com.texi.app.post.service;
+package com.texi.app.user.service;
 
-import com.texi.app.domain.Post;
+import com.texi.app.domain.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PostService implements IPostService {
+public class UserService implements IUserServices{
     @Override
-    public Post save(Post post) {
+    public User save(User user) {
         return null;
     }
 
     @Override
-    public List<Post> findAll() {
+    public List<User> findAll() {
         return null;
     }
 
     @Override
-    public Post findById(Long id) {
+    public User findById(Long id) {
         return null;
     }
 
