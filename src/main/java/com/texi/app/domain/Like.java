@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name="[like]")
 public class Like {
@@ -21,4 +20,8 @@ public class Like {
 
     @ManyToOne
     private Post post;
+
+    public Like() {
+        this.date = LocalDateTime.now();
+    }
 }

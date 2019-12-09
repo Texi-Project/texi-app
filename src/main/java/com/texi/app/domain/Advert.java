@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,10 @@ public class Advert extends Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Future(message = "future")
     private LocalDateTime start;
+
+    @Future(message = "future")
     private LocalDateTime stop;
 
     @OneToMany
