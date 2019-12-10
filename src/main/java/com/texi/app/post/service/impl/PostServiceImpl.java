@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -25,12 +26,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseGet(null);
+    }
+
+    @Override
     public List<Post> findAll() {
         return postRepository.findAll();
     }
 
     @Override
-    public void delete(Post post) {
+    public void delete(Long id) {
+        Post post = findById(id);
         postRepository.delete(post);
     }
 

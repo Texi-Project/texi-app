@@ -6,11 +6,13 @@ import com.texi.app.domain.User;
 import java.util.List;
 
 public interface PostService {
-    public void save(Post post);
+    void save(Post post);
 
-    public List<Post> findAll();
+    Post findById(Long id);
 
-    public void delete(Post post);
+    List<Post> findAll();
 
-    public List<Post> findByUser(User user);
+    void delete(Long id);
+
+    List<Post> findByUser(User user);
 }
