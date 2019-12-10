@@ -1,29 +1,13 @@
 package com.texi.app.post.service;
 
 import com.texi.app.domain.Post;
-import org.springframework.stereotype.Service;
+import com.texi.app.domain.User;
 
 import java.util.List;
 
-@Service
-public class PostService implements IPostService {
-    @Override
-    public Post save(Post post) {
-        return null;
-    }
-
-    @Override
-    public List<Post> findAll() {
-        return null;
-    }
-
-    @Override
-    public Post findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
-    }
+public interface PostService {
+    public void save(Post post);
+    public List<Post> findAll();
+    public void delete(Long id);
+    public Post findByUser(User user);
 }
