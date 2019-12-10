@@ -2,7 +2,6 @@ package com.texi.app.post.service;
 
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
