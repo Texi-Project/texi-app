@@ -1,7 +1,9 @@
 package com.texi.app.user.service;
 
-import org.springframework.stereotype.Service;
+import com.texi.app.core.Response;
+import com.texi.app.domain.User;
 
-@Service
-public class UserServices {
+public interface UserServices {
+    Response getUser(Long id);
+    Response follow(User me, Long other);
 }

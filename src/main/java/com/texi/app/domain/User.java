@@ -4,18 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 public class User {
     @Id
@@ -37,4 +35,15 @@ public class User {
 
     @Past(message = "birthday")
     private LocalDate birthday;
+
+    @OneToMany
+    private Set<User> following;
+
+    public User(){
+        this.following = new HashSet<>();
+    }
+
+    public void addToFollowing(User user){
+        following.add(user);
+    }
 }
