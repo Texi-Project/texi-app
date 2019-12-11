@@ -4,21 +4,18 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
-import com.texi.app.user.repository.UserRepository;
-import com.texi.app.user.service.UserServices;
+import com.texi.app.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private UserServices services;
+    private UserService services;
 
     @Autowired
     private ResponseBuilder responseBuilder;
@@ -35,7 +32,12 @@ public class UserController {
         if(response.getCode() != ResponseCode.SUCCESS.getCode())
             return response;
 
-        services.follow((User) response.getData(), Long.parseLong(id));
-        return null;
+        return services.follow((User) response.getData(), Long.parseLong(id));
     }
+
+    @PostMapping("/create")
+    public @ResponseBody Response create(@Valid @RequestBody User user){
+        return services.save(user);
+    }
+
 }

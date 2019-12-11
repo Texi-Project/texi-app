@@ -1,5 +1,6 @@
 package com.texi.app.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class User {
     private Long id;
 
     @Size(min = 6, message = "size.min")
+    @Column(unique = true)
     private String username;
 
     private String password;
