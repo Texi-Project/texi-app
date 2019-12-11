@@ -45,6 +45,8 @@ public class User {
 
     @OneToMany
     private List<Comment> comments=new ArrayList<>();
+    @OneToMany
+    private List<Like> likes=new ArrayList<>();
 
     public User(){
         this.following = new HashSet<>();

@@ -6,7 +6,7 @@ import com.texi.app.core.ResponseCode;
 import com.texi.app.core.Translator;
 import com.texi.app.domain.User;
 import com.texi.app.user.repository.UserRepository;
-import com.texi.app.user.service.UserService;
+import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Transactional
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserServices {
 
     private UserRepository repository;
     private Translator translator;

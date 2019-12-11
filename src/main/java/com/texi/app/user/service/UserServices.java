@@ -5,7 +5,7 @@ import com.texi.app.domain.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserServices {
     Response getUser(Long id);
     Response follow(User me, Long other);
     Response save(User user);

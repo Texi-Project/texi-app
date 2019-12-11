@@ -20,6 +20,8 @@ public class Like {
 
     @ManyToOne
     private Post post;
+    @ManyToOne
+    private User user;
 
     public Like() {
         this.date = LocalDateTime.now();

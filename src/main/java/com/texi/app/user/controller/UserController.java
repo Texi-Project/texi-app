@@ -4,7 +4,7 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
-import com.texi.app.user.service.UserService;
+import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserService services;
+    private UserServices services;
 
     @Autowired
     private ResponseBuilder responseBuilder;
