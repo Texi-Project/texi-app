@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Resources ###
+/src/main/resources/static/scss/*
+/src/main/resources/static/img/*
