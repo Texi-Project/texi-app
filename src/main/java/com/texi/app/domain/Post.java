@@ -34,7 +34,7 @@ public class Post {
     @OneToMany
     private List<Like> likes;
 
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
     public Post() {
