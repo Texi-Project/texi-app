@@ -6,14 +6,18 @@ import com.texi.app.core.ResponseCode;
 import com.texi.app.core.Translator;
 import com.texi.app.domain.User;
 import com.texi.app.user.repository.UserRepository;
-import com.texi.app.user.service.UserServices;
+import com.texi.app.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
-public class UserServiceImpl implements UserServices {
+public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
     private Translator translator;
@@ -55,5 +59,28 @@ public class UserServiceImpl implements UserServices {
 
         return responseBuilder.buildSuccess(String.format(translator.getMessage("user.follow.success"),
                 toFollow.getFirstName()));
+    }
+
+    @Override
+    public Response save(User user){
+        repository.save(user);
+        return responseBuilder.buildSuccess(translator.getMessage("user.success"), user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
+        repository.findAll().forEach(users::add);
+        return users;
+    }
+
+    @Override
+    public void update(Long id, User user) {
+
+    }
+
+    @Override
+    public User findByUsername(String email) {
+        return repository.findByUsername(email);
     }
 }
