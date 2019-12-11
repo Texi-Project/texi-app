@@ -6,11 +6,13 @@ import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
 import com.texi.app.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -21,8 +23,11 @@ public class UserController {
     private ResponseBuilder responseBuilder;
 
     @RequestMapping("/")
-    public @ResponseBody Response index(){
-        return responseBuilder.buildSuccess("User Area");
+    public String index(Model model){
+        model.addAttribute("name", "James Bond");
+        model.addAttribute("message", "Hello World");
+        model.addAttribute("tasks", "Digging");
+        return "index";
     }
 
     // @todo extract user from principle object once implemented
