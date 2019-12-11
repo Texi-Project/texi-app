@@ -1,15 +1,9 @@
 package com.texi.app.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,8 +15,13 @@ public class Comment {
     private Long id;
     private LocalDateTime date;
 
+    @ManyToOne
+    private User user;
     @NotEmpty(message = "string.notEmpty")
     private String text;
+
+    @ManyToOne
+    private Post post;
 
     public Comment() {
         this.date = LocalDateTime.now();

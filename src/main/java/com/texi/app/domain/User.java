@@ -9,7 +9,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -40,6 +42,9 @@ public class User {
 
     @OneToMany
     private Set<User> following;
+
+    @OneToMany
+    private List<Comment> comments=new ArrayList<>();
 
     public User(){
         this.following = new HashSet<>();
