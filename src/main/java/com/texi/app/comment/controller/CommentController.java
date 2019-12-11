@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("post")//to be modified
+@RequestMapping("/comment")//to be modified
 public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("add")// to be modified to implement PRG pattern
+    @PostMapping("/add")// to be modified to implement PRG pattern
     public void addComment(@RequestBody Comment comment){
        commentService.save(comment);
     }
