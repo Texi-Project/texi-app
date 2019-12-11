@@ -37,6 +37,9 @@ public class Post {
     @OneToMany
     private List<Comment> comments;
 
+    @ManyToOne
+    private User user;
+
     public Post() {
         this.date = LocalDate.now();
     }
