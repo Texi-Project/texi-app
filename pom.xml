@@ -102,9 +102,10 @@
 		</dependency>
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
+
 			<artifactId>thymeleaf-layout-dialect</artifactId>
+
 		</dependency>
-		<!-- dependencies added  by Mulusew -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-engine</artifactId>

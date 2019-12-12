@@ -20,6 +20,6 @@ public class Notification {
     @NotEmpty(message = "string.notEmpty")
     private String text;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "notifications")
     private List<User> target;
 }
