@@ -21,11 +21,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
-
     @GetMapping("/logout/")
     public String logout() {
         return "logout";
