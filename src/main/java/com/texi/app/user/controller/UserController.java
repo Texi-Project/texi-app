@@ -5,6 +5,8 @@ import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
 import com.texi.app.user.service.UserServices;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,7 @@ public class UserController {
     }
 
     // @todo extract user from principle object once implemented
+    @ApiOperation(value = "Follow User")
     @RequestMapping(value = "/{me}/follow/{id}")
     public @ResponseBody Response follow(@PathVariable("id") String id, @PathVariable("me") String me){
         Response response = services.getUser( Long.parseLong(me));
