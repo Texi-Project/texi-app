@@ -6,4 +6,4 @@ INSERT INTO texi.user
     photo_url,
     username,
     birthday
-) VALUES ('Duncan', 'Sanya', '12345678','http://somewhere.com','duncanhan', now() )
+) VALUES ('Duncan', 'Sanya', '12345678','http://somewhere.com','duncanhan1', now() )
