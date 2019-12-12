@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="description"/>
+    <meta content="" name="keywords"/>
+    <title>Texi - Login</title>
+    <link href="images/fav.png" rel="icon" sizes="16x16" type="image/png">
+
+    <link rel="stylesheet" th:href="@{/css/main.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/color.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+    <div class="container-fluid pdng0">
+        <div class="row merged">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="land-featurearea">
+                    <div class="land-meta">
+                        <h1>Winku</h1>
+                        <p>
+                            Winku is free to use for as long as you want with two active projects.
+                        </p>
+                        <div class="friend-logo">
+                            <span><img alt="" th:src="@{/images/wink.png}"></span>
+                        </div>
+                        <a class="folow-me" href="#" title="">Follow Us on</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="login-reg-bg">
+                    <div class="log-reg-area sign">
+                        <h2 class="log-title">Login</h2>
+                        <p>
+                            Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
+                            now</a>
+                        </p>
+                        <form method="post">
+                            <div class="form-group">
+                                <input id="input" required="required" type="text"/>
+                                <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
+                            </div>
+                            <div class="form-group">
+                                <input required="required" type="password"/>
+                                <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Always Remember
+                                    Me.
+                                </label>
+                            </div>
+                            <a class="forgot-pwd" href="#" title="">Forgot Password?</a>
+                            <div class="submit-btns">
+                                <button class="mtr-btn signin" type="button"><span>Login</span></button>
+                                <button class="mtr-btn signup" type="button"><span>Register</span></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="log-reg-area reg">
+                        <h2 class="log-title">Register</h2>
+                        <p>
+                            Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
+                            now</a>
+                        </p>
+                        <form method="post">
+                            <div class="form-group">
+                                <input required="required" type="text"/>
+                                <label class="control-label" for="input">First & Last Name</label><i
+                                    class="mtrl-select"></i>
+                            </div>
+                            <div class="form-group">
+                                <input required="required" type="text"/>
+                                <label class="control-label" for="input">User Name</label><i class="mtrl-select"></i>
+                            </div>
+                            <div class="form-group">
+                                <input required="required" type="password"/>
+                                <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+                            </div>
+                            <div class="form-radio">
+                                <div class="radio">
+                                    <label>
+                                        <input checked="checked" name="radio" type="radio"/><i class="check-box"></i>Male
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input name="radio" type="radio"/><i class="check-box"></i>Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input required="required" type="text"/>
+                                <label class="control-label" for="input"><a class="__cf_email__"
+                                                                            data-cfemail="3c79515d55507c"
+                                                                            href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></label><i
+                                    class="mtrl-select"></i>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Accept Terms &
+                                    Conditions ?
+                                </label>
+                            </div>
+                            <a class="already-have" href="#" title="">Already have an account</a>
+                            <div class="submit-btns">
+                                <button class="mtr-btn signup" type="button"><span>Register</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
