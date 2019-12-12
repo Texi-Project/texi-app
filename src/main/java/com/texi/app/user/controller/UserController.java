@@ -47,7 +47,6 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes ra){
-        System.out.println("Here .....");
         if (result.hasErrors()){
             return "login";
         }

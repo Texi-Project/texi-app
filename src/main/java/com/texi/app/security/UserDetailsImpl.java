@@ -23,7 +23,6 @@ public class UserDetailsImpl implements UserDetails {
         this.password = user.getPassword();
         this.isActive = user.getStatus() == Status.ACTIVE;
         this.roles = user.getRoles();
-        System.out.println("username"+username+" pass"+password);
     }
 
     @Override
