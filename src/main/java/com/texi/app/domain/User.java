@@ -1,5 +1,6 @@
 package com.texi.app.domain;
 
+import javafx.geometry.Pos;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,9 @@ public class User {
 
     @OneToMany
     private Set<User> following;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts=new ArrayList<>();
+    @OneToMany(mappedBy = "user")
 
     private Status status;
 
@@ -54,8 +58,11 @@ public class User {
 
     @OneToMany
     private List<Comment> comments=new ArrayList<>();
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Like> likes=new ArrayList<>();
+
+    @ManyToMany
+    private List<Notification> notifications=new ArrayList<>();
 
     public User(){
         this.following = new HashSet<>();
