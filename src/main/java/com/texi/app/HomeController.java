@@ -25,4 +25,9 @@ public class HomeController {
     public String logout() {
         return "logout";
     }
+
+    @GetMapping("/sample-form/")
+    public String sampleForm() {
+        return "sample-form";
+    }
 }
