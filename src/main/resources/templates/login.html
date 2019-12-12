@@ -22,9 +22,9 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="land-featurearea">
                     <div class="land-meta">
-                        <h1>Winku</h1>
+                        <h1>Texi</h1>
                         <p>
-                            Winku is free to use for as long as you want with two active projects.
+                            Text, photos and video sharing to your friends
                         </p>
                         <div class="friend-logo">
                             <span><img alt="" th:src="@{/images/wink.png}"></span>
@@ -66,51 +66,49 @@
                     <div class="log-reg-area reg">
                         <h2 class="log-title">Register</h2>
                         <p>
-                            Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
+                            Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
                         </p>
-                        <form method="post">
+                        <form method="post" th:action="@{/user/create}" th:object="${user}">
                             <div class="form-group">
-                                <input required="required" type="text"/>
-                                <label class="control-label" for="input">First & Last Name</label><i
-                                    class="mtrl-select"></i>
+                                <input required="required" type="text" th:field="*{firstName}"/>
+                                <label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
+                                <span class="danger-color" th:if="${#fields.hasErrors('firstName')}"
+                                      th:errors="*{firstName}"></span>
                             </div>
                             <div class="form-group">
-                                <input required="required" type="text"/>
+                                <input required="required" type="text" th:field="*{lastName}"/>
+                                <label class="control-label" for="input">Last Name</label><i class="mtrl-select"></i>
+                                <span class="danger-color" th:if="${#fields.hasErrors('lastName')}"
+                                      th:errors="*{lastName}"></span>
+                            </div>
+                            <div class="form-group">
+                                <input required="required" type="text" th:field="*{username}"/>
                                 <label class="control-label" for="input">User Name</label><i class="mtrl-select"></i>
+                                <span class="danger-color" th:if="${#fields.hasErrors('username')}"
+                                      th:errors="*{username}"></span>
                             </div>
                             <div class="form-group">
-                                <input required="required" type="password"/>
+                                <input required="required" type="password"  th:field="*{password}"/>
                                 <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
-                            </div>
-                            <div class="form-radio">
-                                <div class="radio">
-                                    <label>
-                                        <input checked="checked" name="radio" type="radio"/><i class="check-box"></i>Male
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input name="radio" type="radio"/><i class="check-box"></i>Female
-                                    </label>
-                                </div>
+                                <span class="danger-color" th:if="${#fields.hasErrors('password')}"
+                                      th:errors="*{password}"></span>
                             </div>
                             <div class="form-group">
-                                <input required="required" type="text"/>
-                                <label class="control-label" for="input"><a class="__cf_email__"
-                                                                            data-cfemail="3c79515d55507c"
-                                                                            href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></label><i
-                                    class="mtrl-select"></i>
+                                <input required="required" type="date"  th:field="*{birthday}"/>
+                                <label class="control-label" for="input">Birthday <span class="small">yyyy-MM-dd</span></label><i class="mtrl-select"></i>
+                                <span class="danger-color" th:if="${#fields.hasErrors('birthday')}"
+                                      th:errors="*{birthday}"></span>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Accept Terms &
-                                    Conditions ?
-                                </label>
-                            </div>
-                            <a class="already-have" href="#" title="">Already have an account</a>
+<!--                            <div class="checkbox">-->
+<!--                                <label>-->
+<!--                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Accept Terms &-->
+<!--                                    Conditions ?-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <a class="already-have" href="#" title="">Already have an account</a>-->
                             <div class="submit-btns">
-                                <button class="mtr-btn signup" type="button"><span>Register</span></button>
+                                <button class="mtr-btn" type="submit" ><span>Register</span></button>
                             </div>
                         </form>
                     </div>
