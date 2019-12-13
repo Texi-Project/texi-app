@@ -12,39 +12,27 @@
     <div class="central-meta new-pst">
         <div class="new-postbox">
             <figure>
-                <img alt="" src="images/resources/admin2.jpg">
+                <img alt="" th:src="@{/images/resources/admin2.jpg}">
             </figure>
             <div class="newpst-input">
-                <form method="post">
-                    <textarea placeholder="write something" rows="2"></textarea>
+                <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
+                    <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
                     <div class="attachments">
                         <ul>
                             <li>
-                                <i class="fa fa-music"></i>
-                                <label class="fileContainer">
-                                    <input type="file">
-                                </label>
-                            </li>
-                            <li>
                                 <i class="fa fa-image"></i>
                                 <label class="fileContainer">
-                                    <input type="file">
+                                    <input id="image" name="image" type="file">
                                 </label>
                             </li>
                             <li>
                                 <i class="fa fa-video-camera"></i>
                                 <label class="fileContainer">
-                                    <input type="file">
+                                    <input id="video" name="video" type="file">
                                 </label>
                             </li>
                             <li>
-                                <i class="fa fa-camera"></i>
-                                <label class="fileContainer">
-                                    <input type="file">
-                                </label>
-                            </li>
-                            <li>
-                                <button type="submit">Post</button>
+                                <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
                             </li>
                         </ul>
                     </div>

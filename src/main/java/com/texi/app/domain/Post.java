@@ -1,7 +1,6 @@
 package com.texi.app.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -25,10 +24,10 @@ public class Post {
     private Text text;
     private Status status;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Photo> photos;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Video video;
 
     @OneToMany

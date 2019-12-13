@@ -14,11 +14,15 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Photo{
+public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "string.notEmpty")
     private String url;
+
+    public Photo(@NotEmpty(message = "string.notEmpty") String url) {
+        this.url = url;
+    }
 }

@@ -13,11 +13,15 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Video{
+public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String url;
     private double duration;
+
+    public Video(String url) {
+        this.url = url;
+    }
 }
