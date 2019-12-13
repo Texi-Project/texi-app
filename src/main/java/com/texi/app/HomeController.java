@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    public String loadHomePage() {
-        return "login";
-    }
+//    @GetMapping("/")
+//    public String loadHomePage() {
+//        return "login";
+//    }
 
-    @GetMapping("/auth")
+    @GetMapping({"/", "/auth"})
     public String login(@ModelAttribute User user) {
         return "login";
     }
