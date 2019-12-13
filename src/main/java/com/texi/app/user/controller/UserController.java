@@ -96,6 +96,9 @@ public class UserController {
 
     @GetMapping(value = {"/dashboard", "/timeline"})
     public String dashboard(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:auth";
+        }
         System.out.println("Principle: "+principal.getName());
 
         User u = services.findByUsername(principal.getName());

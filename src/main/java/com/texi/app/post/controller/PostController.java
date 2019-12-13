@@ -58,6 +58,9 @@ public class PostController {
         post.setDescription(title);
         post.setPhotos(photos);
         post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
+        if (principal == null) {
+            return new RedirectView("/auth");
+        }
         User user = userService.findByUsername(principal.getName());
         post.setUser(user);
         postService.save(post);

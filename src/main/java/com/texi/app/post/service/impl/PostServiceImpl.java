@@ -5,6 +5,7 @@ import com.texi.app.domain.User;
 import com.texi.app.post.repository.PostRepository;
 import com.texi.app.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,8 @@ public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
 
-    private static String UPLOADS_LOCATION = "D:/";
+    @Value("${upload.dir}")
+    private String uploads;
 
     @Autowired
     public PostServiceImpl(PostRepository postRepository) {
@@ -35,7 +37,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public String upload(MultipartFile multipartFile) throws IOException {
         String fileName = String.format("%s%s-%s",
-                UPLOADS_LOCATION, Instant.now().getEpochSecond(), multipartFile.getOriginalFilename());
+                uploads, Instant.now().getEpochSecond(), multipartFile.getOriginalFilename());
         byte[] bytes = multipartFile.getBytes();
         Path path = Paths.get(fileName);
         Files.write(path, bytes);
