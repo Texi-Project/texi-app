@@ -25,12 +25,10 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "post")
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
     private List<Photo> photos;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @OneToOne(mappedBy = "post")
+    @OneToOne(mappedBy = "post", cascade = CascadeType.PERSIST)
     private Video video;
 
     @OneToMany(mappedBy = "post")
