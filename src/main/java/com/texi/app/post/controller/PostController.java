@@ -3,22 +3,29 @@ package com.texi.app.post.controller;
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
+import com.texi.app.domain.Photo;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
+import com.texi.app.domain.Video;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
     private final UserServices userService;
     private final ResponseBuilder responseBuilder;
+    private static String UPLOADS_LOCATION = "/tmp/";
 
     @Autowired
     public PostController(PostService postService, UserServices userService, ResponseBuilder responseBuilder) {
@@ -34,10 +41,23 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public @ResponseBody
-    Response add(Post post) {
+    public String add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
+                      @RequestParam("video") MultipartFile video) throws IOException {
+        if (title.equals("") || (image.isEmpty() && video.isEmpty())) {
+            System.out.println("Blank post received, ignoring...");
+            return "redirect:/dashboard";
+        }
+        List<Photo> photos = new ArrayList<>();
+        if (!image.isEmpty()) {
+            photos.add(new Photo(postService.upload(image)));
+        }
+        Post post = new Post();
+        post.setTitle(title);
+        post.setDescription(title);
+        post.setPhotos(photos);
+        post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
         postService.save(post);
-        return responseBuilder.buildSuccess();
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/getAll")
@@ -60,7 +80,7 @@ public class PostController {
 
     @PostMapping("/delete/{postId}")
     public @ResponseBody
-    Response add(@PathVariable String postId) {
+    Response delete(@PathVariable String postId) {
         postService.delete(Long.parseLong(postId));
         return responseBuilder.buildSuccess();
     }

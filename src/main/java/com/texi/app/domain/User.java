@@ -1,9 +1,7 @@
 package com.texi.app.domain;
 
-import javafx.geometry.Pos;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -47,9 +45,9 @@ public class User {
     @OneToMany
     private Set<User> following;
     @OneToMany(mappedBy = "user")
-    private List<Post> posts=new ArrayList<>();
-    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -57,18 +55,18 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany
-    private List<Comment> comments=new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user")
-    private List<Like> likes=new ArrayList<>();
+    private List<Like> likes = new ArrayList<>();
 
     @ManyToMany
-    private List<Notification> notifications=new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>();
 
-    public User(){
+    public User() {
         this.following = new HashSet<>();
     }
 
-    public void addToFollowing(User user){
+    public void addToFollowing(User user) {
         following.add(user);
     }
 }

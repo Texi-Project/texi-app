@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Video{
+public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,4 +18,8 @@ public class Video{
     private Post post;
     private String url;
     private double duration;
+
+    public Video(String url) {
+        this.url = url;
+    }
 }
