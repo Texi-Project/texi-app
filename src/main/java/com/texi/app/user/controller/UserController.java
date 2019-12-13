@@ -3,7 +3,9 @@ package com.texi.app.user.controller;
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
+import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
+import com.texi.app.post.service.PostService;
 import com.texi.app.security.UserDetailsServiceImpl;
 import com.texi.app.user.service.UserServices;
 import io.swagger.annotations.ApiOperation;
@@ -16,11 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserServices services;
+
+    @Autowired
+    private PostService postService;
 
     @Autowired
     private ResponseBuilder responseBuilder;
@@ -86,7 +91,7 @@ public class UserController {
         if (u != null) {
             bindingResult
                     .rejectValue("username", "error.user",
-                            "There is already a user registered with the email provided");
+                            "There is already a user registered with the username provided");
             return "login";
         }
 
@@ -103,22 +108,28 @@ public class UserController {
 
         ra.addFlashAttribute("user",res.getData());
         model.addAttribute("user", res.getData());
-        return "redirect:dashboard";
+        return "redirect:auth";
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping(value = {"/dashboard", "/timeline"})
     public String dashboard(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:auth";
+        }
         System.out.println("Principle: "+principal.getName());
+
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);
 
         List<User> wtf = services.whoToFollow(u);
         model.addAttribute("wtf", wtf);
         model.addAttribute("friends", u.getFollowing());
+      
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
 
         return "dashboard";
     }
-
 
     @GetMapping("/auth")
     public String auth(@ModelAttribute User user) {

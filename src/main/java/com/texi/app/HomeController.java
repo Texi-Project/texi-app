@@ -32,9 +32,4 @@ public class HomeController {
     public String sampleForm() {
         return "sample-form";
     }
-
-//    @GetMapping("/dashboard")
-//    public String dashboard(@ModelAttribute User user) {
-//        return "dashboard";
-//    }
 }
