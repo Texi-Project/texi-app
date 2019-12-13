@@ -4,20 +4,35 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
+import com.texi.app.security.UserDetailsImpl;
+import com.texi.app.security.UserDetailsServiceImpl;
 import com.texi.app.user.service.UserServices;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private UserServices services;
@@ -45,18 +60,68 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes ra){
-        if (result.hasErrors()){
+    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
+                         @RequestParam("photo") MultipartFile photo, Model model){
+
+        if (bindingResult.hasErrors()){
             return "login";
         }
+
+        User u = services.findByUsername(user.getUsername());
+
+        if (u != null) {
+            bindingResult
+                    .rejectValue("username", "error.user",
+                            "There is already a user registered with the email provided");
+            return "login";
+        }
+
+        //StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(uploadDirectory, photo.getOriginalFilename());
+        //fileNames.append(photo.getOriginalFilename()+" ");
+        try {
+            Files.write(fileNameAndPath, photo.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        user.setPhotoUrl(fileNameAndPath.toString());
         Response res = services.save(user);
-        ra.addFlashAttribute("savedUser",res.getData() );
+
+        ra.addFlashAttribute("user",res.getData());
+        model.addAttribute("user", res.getData());
         return "redirect:dashboard";
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(Model model, Principal principal) {
+        System.out.println("Principle: "+principal.getName());
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
         return "dashboard";
+    }
+
+
+    @GetMapping("/auth")
+    public String auth(@ModelAttribute User user) {
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "logout", required = false) String logout,
+                            @ModelAttribute User user, Model model, Principal principal) {
+        System.out.println("Login.....");
+        String errorMessge = null;
+        if (error != null) {
+            errorMessge = "Username or Password is incorrect !!";
+            System.out.println("Principle: login "+principal.getName());
+            return "dashboard";
+        }
+        if (logout != null) {
+            errorMessge = "You have been successfully logged out !!";
+        }
+        model.addAttribute("errorMessge", errorMessge);
+        return "login";
     }
 
 }

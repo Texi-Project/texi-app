@@ -12,6 +12,22 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/color.css}">
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <script>
+        function readURL(input) {
+            if(input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload=function(e){
+                    $('#ImageP')
+                    .attr('src',e.target.result)
+
+                    .height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+
+        }
+    </script>
 
 </head>
 <body>
@@ -38,27 +54,27 @@
                     <div class="log-reg-area sign">
                         <h2 class="log-title">Login</h2>
                         <p>
-                            Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
+                            Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
                         </p>
-                        <form method="post">
+                        <form method="POST" th:action="@{/user/login}" th:object="${user}">
                             <div class="form-group">
-                                <input id="input" required="required" type="text"/>
+                                <input id="input" required="required" type="text" th:field="*{username}"/>
                                 <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
                             </div>
                             <div class="form-group">
-                                <input required="required" type="password"/>
+                                <input required="required" type="password" th:field="*{password}"/>
                                 <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Always Remember
-                                    Me.
-                                </label>
-                            </div>
+<!--                            <div class="checkbox">-->
+<!--                                <label>-->
+<!--                                    <input checked="checked" type="checkbox" th:field="*{rememberme}"/><i class="check-box"></i>Always Remember-->
+<!--                                    Me.-->
+<!--                                </label>-->
+<!--                            </div>-->
                             <a class="forgot-pwd" href="#" title="">Forgot Password?</a>
                             <div class="submit-btns">
-                                <button class="mtr-btn signin" type="button"><span>Login</span></button>
+                                <button class="mtr-btn" type="submit"><span>Login</span></button>
                                 <button class="mtr-btn signup" type="button"><span>Register</span></button>
                             </div>
                         </form>
@@ -69,7 +85,7 @@
                             Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
                         </p>
-                        <form method="post" th:action="@{/user/create}" th:object="${user}">
+                        <form method="post" th:action="@{/user/create}" th:object="${user}" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input required="required" type="text" th:field="*{firstName}"/>
                                 <label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
@@ -100,13 +116,20 @@
                                 <span class="danger-color" th:if="${#fields.hasErrors('birthday')}"
                                       th:errors="*{birthday}"></span>
                             </div>
+                            <div>
+                                <div>
+                                    <img id="ImageP" src="" class="img-circle"/>
+                                </div>
+                                <button id="photos" onclick="document.getElementById('photoProfile').click(); return false;">Upload Profile Photo</button>
+                                <input type="file" id="photoProfile" onchange="readURL(this);" name="photo" accept="image/*" style="visibility: hidden"/>
+                            </div>
 <!--                            <div class="checkbox">-->
 <!--                                <label>-->
 <!--                                    <input checked="checked" type="checkbox"/><i class="check-box"></i>Accept Terms &-->
 <!--                                    Conditions ?-->
 <!--                                </label>-->
 <!--                            </div>-->
-<!--                            <a class="already-have" href="#" title="">Already have an account</a>-->
+                            <a class="already-have" href="#" title="">Already have an account</a>
                             <div class="submit-btns">
                                 <button class="mtr-btn" type="submit" ><span>Register</span></button>
                             </div>
