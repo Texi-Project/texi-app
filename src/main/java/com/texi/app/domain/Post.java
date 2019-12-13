@@ -19,18 +19,21 @@ public class Post {
     @NotEmpty(message = "string.notEmpty")
     private String title;
     private LocalDate date;
+    @Lob
     private String description;
-    @OneToOne
-    private Text text;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToMany(mappedBy = "post")
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Photo> photos;
 
     @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "post")
     private Video video;
 
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<Like> likes;
 
     @OneToMany(mappedBy = "post")

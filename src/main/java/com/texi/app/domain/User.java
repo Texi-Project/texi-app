@@ -1,9 +1,11 @@
 package com.texi.app.domain;
 
+import javafx.geometry.Pos;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
@@ -18,6 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,15 +41,28 @@ public class User {
     private String photoUrl;
 
     @Past(message = "birthday")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     @OneToMany
     private Set<User> following;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts=new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+
+    private Status status;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     @OneToMany
     private List<Comment> comments=new ArrayList<>();
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Like> likes=new ArrayList<>();
+
+    @ManyToMany
+    private List<Notification> notifications=new ArrayList<>();
 
     public User(){
         this.following = new HashSet<>();

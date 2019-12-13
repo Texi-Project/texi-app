@@ -3,19 +3,23 @@ package com.texi.app.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Getter
-@Setter
 @NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
-public class Text{
+@Table(name = "role")
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long id;
-    private String content;
+
+    @Column(name = "role")
+    private String role;
 }

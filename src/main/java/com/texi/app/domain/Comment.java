@@ -18,6 +18,7 @@ public class Comment {
     @ManyToOne
     private User user;
     @NotEmpty(message = "string.notEmpty")
+    @Lob
     private String text;
 
     @ManyToOne

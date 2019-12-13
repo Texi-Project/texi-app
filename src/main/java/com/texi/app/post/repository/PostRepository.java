@@ -12,7 +12,6 @@ import java.util.List;
 @Transactional
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
-
-
     List<Post> findAllByUser(User user);
+
 }

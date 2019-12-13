@@ -4,16 +4,17 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.core.Translator;
+import com.texi.app.domain.Role;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.user.repository.UserRepository;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Transactional
 @Service
@@ -22,12 +23,15 @@ public class UserServiceImpl implements UserServices {
     private UserRepository repository;
     private Translator translator;
     private ResponseBuilder responseBuilder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, Translator messageHelper, ResponseBuilder responseBuilder) {
+    public UserServiceImpl(UserRepository repository, Translator messageHelper, ResponseBuilder responseBuilder,
+                           PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.translator = messageHelper;
         this.responseBuilder = responseBuilder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -63,6 +67,14 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public Response save(User user){
+        String encoded = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encoded);
+        user.setStatus(Status.ACTIVE);
+        Role userRole = new Role();
+        userRole.setRole("USER");
+        Set<Role> roles  = new HashSet<>();
+        roles.add(userRole);
+        user.setRoles(roles);
         repository.save(user);
         return responseBuilder.buildSuccess(translator.getMessage("user.success"), user);
     }
