@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class PostController {
     private final PostService postService;
     private final UserServices userService;
     private final ResponseBuilder responseBuilder;
-    private static String UPLOADS_LOCATION = "/tmp/";
 
     @Autowired
     public PostController(PostService postService, UserServices userService, ResponseBuilder responseBuilder) {
@@ -36,16 +36,17 @@ public class PostController {
 
     @GetMapping("/")
     public @ResponseBody
-    Response index() {
-        return responseBuilder.buildSuccess("Posts Index");
+    Response index() { // no use case for this though
+        List<Post> postList = postService.findAll();
+        return responseBuilder.buildSuccess(postList);
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
-                      @RequestParam("video") MultipartFile video) throws IOException {
+    public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
+                            @RequestParam("video") MultipartFile video) throws IOException {
         if (title.equals("") || (image.isEmpty() && video.isEmpty())) {
             System.out.println("Blank post received, ignoring...");
-            return "redirect:/dashboard";
+            return new RedirectView("/timeline");
         }
         List<Photo> photos = new ArrayList<>();
         if (!image.isEmpty()) {
@@ -56,15 +57,10 @@ public class PostController {
         post.setDescription(title);
         post.setPhotos(photos);
         post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
+        Response response = userService.getUser(1L); // todo use Principal object in session
+        post.setUser((User) response.getData());
         postService.save(post);
-        return "redirect:/dashboard";
-    }
-
-    @PostMapping("/getAll")
-    public @ResponseBody
-    Response getAll() {
-        List<Post> postList = postService.findAll();
-        return responseBuilder.buildSuccess(postList);
+        return new RedirectView("/timeline");
     }
 
     @PostMapping("/getAll/{userId}")

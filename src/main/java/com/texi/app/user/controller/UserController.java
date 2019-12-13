@@ -5,7 +5,6 @@ import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.User;
 import com.texi.app.user.service.UserServices;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +56,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        return "dashboard";
+        return "timeline";
     }
 
 }
