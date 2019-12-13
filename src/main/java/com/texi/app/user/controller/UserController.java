@@ -12,14 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+    public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
     @Autowired
     private UserServices services;
 
@@ -46,10 +51,20 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes ra){
+    public String create(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes ra,@RequestParam("photo") MultipartFile photo){
         if (result.hasErrors()){
             return "login";
         }
+
+        //StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(uploadDirectory, photo.getOriginalFilename());
+        //fileNames.append(photo.getOriginalFilename()+" ");
+        try {
+            Files.write(fileNameAndPath, photo.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        user.setPhotoUrl(fileNameAndPath.toString());
         Response res = services.save(user);
         ra.addFlashAttribute("savedUser",res.getData() );
         return "redirect:dashboard";
