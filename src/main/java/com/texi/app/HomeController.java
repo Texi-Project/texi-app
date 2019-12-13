@@ -9,18 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class HomeController {
 
     @GetMapping("/")
-    public String loadHomePage() {
+    public String loadHomePage(@ModelAttribute User user) {
         return "login";
     }
 
     @GetMapping("/auth")
     public String login(@ModelAttribute User user) {
         return "login";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
     }
 
     @GetMapping("/logout/")
@@ -37,4 +32,9 @@ public class HomeController {
     public String sampleForm() {
         return "sample-form";
     }
+
+//    @GetMapping("/dashboard")
+//    public String dashboard(@ModelAttribute User user) {
+//        return "dashboard";
+//    }
 }

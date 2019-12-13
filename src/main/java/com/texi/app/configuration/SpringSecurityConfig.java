@@ -4,17 +4,23 @@ import com.texi.app.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
@@ -23,42 +29,65 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user")
-//                .password("{noop}123456")
-//                .roles("USER")
-//                .and()
-//                .withUser("admin")
-//                .password("123456")
-//                .roles("ADMIN")
-//                .and()
-//                .passwordEncoder(passwordEncoder());
-//
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource);
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/**", "/login", "/auth").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**").hasAuthority("USER")
+                .anyRequest().authenticated() //all other urls can be access by any authenticated role
                 .and()
-                .formLogin()
-                .defaultSuccessUrl( "/dashboard" )
-//                .loginPage("/login")
-//                .usernameParameter("username")
-//                .passwordParameter("password");
-                .and()
-                .exceptionHandling().accessDeniedPage("/denied")
-                .and()
-                .rememberMe().rememberMeParameter("remember-me");
+                .formLogin() //enable form login instead of basic login
+                    .loginPage("/auth")
+                    .loginProcessingUrl("/user/login")
+                    .failureUrl("/auth")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/user/dashboard")
+                    .and()
+//                .logout()
+//                    .invalidateHttpSession(true)
+//                    .deleteCookies("JSESSIONID")
+//                    .and()
+                .csrf()
+//                .ignoringAntMatchers("/h2-console/**") //don't apply CSRF protection to /h2-console
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/denied")
+                    .and()
+                .rememberMe()
+                    .rememberMeParameter("remember-me")
+                    .tokenRepository(tokenRepository())
+        ;
+//        http.rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret");
+        http.headers().frameOptions().disable();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/swagger-ui.html",
+                        "/webjars/**"
+                );
+    }
+
+    @Bean
+    public PersistentTokenRepository tokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl=new JdbcTokenRepositoryImpl();
+        jdbcTokenRepositoryImpl.setDataSource(dataSource);
+        return jdbcTokenRepositoryImpl;
     }
 }
