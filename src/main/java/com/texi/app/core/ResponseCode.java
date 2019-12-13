@@ -12,6 +12,7 @@ public enum ResponseCode {
     ResponseCode(int code) {
         this.code = code;
     }
+
     public int getCode() {
         return code;
     }

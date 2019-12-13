@@ -44,15 +44,15 @@ public class User {
     private Set<User> following;
 
     @OneToMany
-    private List<Comment> comments=new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
     @OneToMany
-    private List<Like> likes=new ArrayList<>();
+    private List<Like> likes = new ArrayList<>();
 
-    public User(){
+    public User() {
         this.following = new HashSet<>();
     }
 
-    public void addToFollowing(User user){
+    public void addToFollowing(User user) {
         following.add(user);
     }
 }

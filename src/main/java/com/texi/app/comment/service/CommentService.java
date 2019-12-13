@@ -8,8 +8,11 @@ import java.util.List;
 
 public interface CommentService {
     public void save(Comment comment);
+
     public List<Comment> findAll();
+
     public void delete(Comment comment);
+
     public boolean deleteById(Long Id);
 
 }

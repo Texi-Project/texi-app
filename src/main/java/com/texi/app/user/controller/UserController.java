@@ -23,7 +23,7 @@ public class UserController {
     private ResponseBuilder responseBuilder;
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("name", "James Bond");
         model.addAttribute("message", "Hello World");
         model.addAttribute("tasks", "Digging");
@@ -32,16 +32,18 @@ public class UserController {
 
     // @todo extract user from principle object once implemented
     @RequestMapping(value = "/{me}/follow/{id}")
-    public @ResponseBody Response follow(@PathVariable("id") String id, @PathVariable("me") String me){
-        Response response = services.getUser( Long.parseLong(me));
-        if(response.getCode() != ResponseCode.SUCCESS.getCode())
+    public @ResponseBody
+    Response follow(@PathVariable("id") String id, @PathVariable("me") String me) {
+        Response response = services.getUser(Long.parseLong(me));
+        if (response.getCode() != ResponseCode.SUCCESS.getCode())
             return response;
 
         return services.follow((User) response.getData(), Long.parseLong(id));
     }
 
     @PostMapping("/create")
-    public @ResponseBody Response create(@Valid @RequestBody User user){
+    public @ResponseBody
+    Response create(@Valid @RequestBody User user) {
         return services.save(user);
     }
 

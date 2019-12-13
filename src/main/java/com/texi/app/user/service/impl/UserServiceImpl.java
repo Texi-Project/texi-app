@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserServices {
     @Override
     public Response getUser(Long id) {
         Optional<User> user = repository.findById(id);
-        if(!user.isPresent())
+        if (!user.isPresent())
             return responseBuilder.buildFail(ResponseCode.NOT_FOUND,
                     translator.getMessage("user.following.not.found"));
 
@@ -44,12 +44,12 @@ public class UserServiceImpl implements UserServices {
     public Response follow(User me, Long other) {
 
         Optional<User> following = repository.findById(other);
-        if(!following.isPresent())
+        if (!following.isPresent())
             return responseBuilder.buildFail("user.following.not.found");
 
         //@todo may not be necessary, hibernate may fail if duplicates appear
         User fo = repository.findFollowing(me.getId(), other);
-        if(fo!=null)
+        if (fo != null)
             return responseBuilder.buildFail(String.format(translator.getMessage("user.following.already"),
                     fo.getFirstName()));
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
-    public Response save(User user){
+    public Response save(User user) {
         repository.save(user);
         return responseBuilder.buildSuccess(translator.getMessage("user.success"), user);
     }

@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface AdvertService {
 
-	public void save(Advert advert);
-	public List<Advert> findAll();
-	public void update(Long id, Advert advert);
+    public void save(Advert advert);
+
+    public List<Advert> findAll();
+
+    public void update(Long id, Advert advert);
 }

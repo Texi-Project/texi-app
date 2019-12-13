@@ -21,7 +21,7 @@ public class Translator {
         return messageSource.getMessage(msgCode, null, locale);
     }
 
-    public String getMessage(String message, Locale locale){
-        return messageSource.getMessage(message,null, (locale != null? locale :Locale.getDefault()));
+    public String getMessage(String message, Locale locale) {
+        return messageSource.getMessage(message, null, (locale != null ? locale : Locale.getDefault()));
     }
 }

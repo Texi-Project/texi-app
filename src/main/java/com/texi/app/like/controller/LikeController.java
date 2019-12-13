@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LikeController {
     @Autowired
     private LikeService likeService;
+
     @PostMapping("/like")// to be modified to implement PRG pattern
-    public void like(@RequestBody Like like){
-       likeService.save(like);
+    public void like(@RequestBody Like like) {
+        likeService.save(like);
     }
+
     @PostMapping("/unlike/{id}")// to be modified to implement PRG pattern
-    public boolean unlike(@PathVariable Long id){
+    public boolean unlike(@PathVariable Long id) {
         return likeService.deleteById(id);
     }
 }

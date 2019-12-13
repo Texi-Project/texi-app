@@ -39,9 +39,9 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void followUnknownUser(){
+    public void followUnknownUser() {
         User user = mock(User.class);
-        Response response = services.follow(user,1L);
+        Response response = services.follow(user, 1L);
         Assert.that(response.getMessage().equals("user.following.not.found"), "You can not follow none existing user");
     }
 //

@@ -12,11 +12,12 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/add")// to be modified to implement PRG pattern
-    public void addComment(@RequestBody Comment comment){
-       commentService.save(comment);
+    public void addComment(@RequestBody Comment comment) {
+        commentService.save(comment);
     }
+
     @PostMapping("/delete/{id}")// to be modified to implement PRG pattern
-    public boolean delete(@PathVariable Long id){
+    public boolean delete(@PathVariable Long id) {
         return commentService.deleteById(id);
     }
 
