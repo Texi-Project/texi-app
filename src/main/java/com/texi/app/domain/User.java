@@ -3,6 +3,7 @@ package com.texi.app.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -64,6 +65,8 @@ public class User {
 
     public User() {
         this.following = new HashSet<>();
+        this.status = Status.ACTIVE;
+        this.roles = new HashSet<>();
     }
 
     public void addToFollowing(User user) {

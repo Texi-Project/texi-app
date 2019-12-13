@@ -61,20 +61,21 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,@RequestParam("photo") MultipartFile photo){
+    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
+                         @RequestParam("photo") MultipartFile photo, Model model){
 
         if (bindingResult.hasErrors()){
             return "login";
         }
 
-        UserDetails u = userDetailsService.loadUserByUsername(user.getUsername());
+        User u = services.findByUsername(user.getUsername());
+
         if (u != null) {
             bindingResult
                     .rejectValue("username", "error.user",
                             "There is already a user registered with the email provided");
             return "login";
         }
-
 
         //StringBuilder fileNames = new StringBuilder();
         Path fileNameAndPath = Paths.get(uploadDirectory, photo.getOriginalFilename());
@@ -86,7 +87,9 @@ public class UserController {
         }
         user.setPhotoUrl(fileNameAndPath.toString());
         Response res = services.save(user);
-        ra.addFlashAttribute("savedUser",res.getData() );
+
+        ra.addFlashAttribute("user",res.getData());
+        model.addAttribute("user", res.getData());
         return "redirect:dashboard";
     }
 
