@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class PostController {
 
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
-                            @RequestParam("video") MultipartFile video) throws IOException {
+                            @RequestParam("video") MultipartFile video, Principal principal) throws IOException {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
-            return new RedirectView("/dashboard");
+            return new RedirectView("/user/dashboard");
         }
         List<Photo> photos = new ArrayList<>();
         if (!image.isEmpty()) {
@@ -57,10 +58,10 @@ public class PostController {
         post.setDescription(title);
         post.setPhotos(photos);
         post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
-        Response response = userService.getUser(1L); // todo use Principal object in session
-        post.setUser((User) response.getData());
+        User user = userService.findByUsername(principal.getName());
+        post.setUser(user);
         postService.save(post);
-        return new RedirectView("/dashboard");
+        return new RedirectView("/user/dashboard");
     }
 
     @PostMapping("/getAll/{userId}")

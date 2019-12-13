@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
-    <title>Dashboard</title>
+    <title>Timeline</title>
 </head>
 <body>
 <section layout:fragment="top-image-area">
@@ -43,20 +43,20 @@
             </div>
         </div>
     </div><!-- add post new box -->
-    <div class="loadMore" th:each="post : ${posts}">
-        <div class="central-meta item">
+    <div class="loadMore">
+        <div class="central-meta item" th:each="post : ${posts}">
             <div class="user-post">
                 <div class="friend-info">
                     <figure>
                         <!-- todo replace avatar here with user thumbnail -->
-                        <img alt="" src="images/resources/friend-avatar10.jpg">
+                        <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
                     </figure>
                     <div class="friend-name">
                         <ins><a href="time-line.html" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
                         <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
                     </div>
                     <div class="post-meta">
-                        <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : 'images/resources/user-post.jpg'}">
+                        <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
                         <div class="we-video-info">
                             <ul>
                                 <li>
@@ -153,7 +153,7 @@
                     <ul class="we-comet">
                         <li>
                             <div class="comet-avatar">
-                                <img alt="" src="images/resources/comet-1.jpg">
+                                <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                             </div>
                             <div class="we-comment">
                                 <div class="coment-head">
@@ -170,7 +170,7 @@
                             <ul>
                                 <li>
                                     <div class="comet-avatar">
-                                        <img alt="" src="images/resources/comet-2.jpg">
+                                        <img alt="" th:src="@{/images/resources/comet-2.jpg}">
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
@@ -188,7 +188,7 @@
                                 </li>
                                 <li>
                                     <div class="comet-avatar">
-                                        <img alt="" src="images/resources/comet-3.jpg">
+                                        <img alt="" th:src="@{/images/resources/comet-3.jpg}">
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
@@ -207,7 +207,7 @@
                         </li>
                         <li>
                             <div class="comet-avatar">
-                                <img alt="" src="images/resources/comet-1.jpg">
+                                <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                             </div>
                             <div class="we-comment">
                                 <div class="coment-head">
@@ -230,7 +230,7 @@
                         </li>
                         <li class="post-comment">
                             <div class="comet-avatar">
-                                <img alt="" src="images/resources/comet-1.jpg">
+                                <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                             </div>
                             <div class="post-comt-box">
                                 <form method="post">

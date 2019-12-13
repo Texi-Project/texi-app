@@ -20,7 +20,7 @@ public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
 
-    private static String UPLOADS_LOCATION = "/tmp/";
+    private static String UPLOADS_LOCATION = "D:/";
 
     @Autowired
     public PostServiceImpl(PostRepository postRepository) {
