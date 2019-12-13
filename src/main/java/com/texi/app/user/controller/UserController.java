@@ -61,9 +61,8 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes ra,@RequestParam("photo") MultipartFile photo){
-        if (result.hasErrors()){
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra){
+    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,@RequestParam("photo") MultipartFile photo){
+
         if (bindingResult.hasErrors()){
             return "login";
         }
