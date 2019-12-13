@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -1206,7 +1207,7 @@
                                                                           th:src="@{/images/resources/friend-avatar9.jpg}"></a>
                                             </figure>
                                             <div class="page-meta">
-                                                <a class="underline" href="#" title="">My page</a>
+                                                <a class="underline" href="#" title=""> <span th:text="${user.getUsername()}"></span></a>
                                                 <span><i class="ti-comment"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
                                                 <span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
                                             </div>

@@ -12,7 +12,7 @@ import org.thymeleaf.model.IModel;
 public class HomeController {
 
     @GetMapping("/")
-    public String loadHomePage() {
+    public String loadHomePage(@ModelAttribute User user) {
         return "login";
     }
 
@@ -35,4 +35,9 @@ public class HomeController {
     public String sampleForm() {
         return "sample-form";
     }
+
+//    @GetMapping("/dashboard")
+//    public String dashboard(@ModelAttribute User user) {
+//        return "dashboard";
+//    }
 }
