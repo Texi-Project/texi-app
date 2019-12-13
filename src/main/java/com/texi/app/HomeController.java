@@ -1,4 +1,4 @@
-package com.texi.app.controller;
+package com.texi.app;
 
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseCode;
@@ -7,20 +7,22 @@ import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
 @Controller
-public class TimelineController {
+public class HomeController {
     private final PostService postService;
     private final UserServices userService;
 
     @Autowired
-    public TimelineController(PostService postService, UserServices userService) {
+    public HomeController(PostService postService, UserServices userService) {
         this.postService = postService;
         this.userService = userService;
     }
@@ -35,14 +37,15 @@ public class TimelineController {
         return "login";
     }
 
-    @GetMapping("/timeline")
-    public String timeline(Model model) {
+    @GetMapping(value = {"/dashboard", "/timeline"})
+    @ResponseStatus(HttpStatus.OK)
+    public String dashboard(Model model) {
         Response response = userService.getUser(1L); // todo use Principal object in session
-        if (response.getCode() != ResponseCode.SUCCESS.getCode()) return "timeline";
+        if (response.getCode() != ResponseCode.SUCCESS.getCode()) return "dashboard";
         List<Post> postList = postService.findByUser((User) response.getData());
         model.addAttribute("user", response.getData());
         model.addAttribute("posts", postList);
-        return "timeline";
+        return "dashboard";
     }
 
     @GetMapping("/logout/")

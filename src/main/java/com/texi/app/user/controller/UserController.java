@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        return "timeline";
+        return "dashboard";
     }
 
 }

@@ -44,9 +44,9 @@ public class PostController {
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
                             @RequestParam("video") MultipartFile video) throws IOException {
-        if (title.equals("") || (image.isEmpty() && video.isEmpty())) {
+        if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
-            return new RedirectView("/timeline");
+            return new RedirectView("/dashboard");
         }
         List<Photo> photos = new ArrayList<>();
         if (!image.isEmpty()) {
@@ -60,7 +60,7 @@ public class PostController {
         Response response = userService.getUser(1L); // todo use Principal object in session
         post.setUser((User) response.getData());
         postService.save(post);
-        return new RedirectView("/timeline");
+        return new RedirectView("/dashboard");
     }
 
     @PostMapping("/getAll/{userId}")

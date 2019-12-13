@@ -56,6 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/denied")
                 .and()
                 .rememberMe().rememberMeParameter("remember-me");
+        http.csrf().disable();
     }
 
     @Bean
