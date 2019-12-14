@@ -10,6 +10,10 @@ public interface PostService {
 
     Post findById(Long id);
 
+    List<Post> getUnhealthyPosts();
+
+    void enablePost(Long id);
+
     List<Post> findAll();
 
     void delete(Long id);

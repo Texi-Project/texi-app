@@ -1,6 +1,7 @@
 package com.texi.app.post.service.impl;
 
 import com.texi.app.domain.Post;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.repository.PostRepository;
 import com.texi.app.post.service.PostService;
@@ -27,6 +28,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseGet(null);
+    }
+
+    @Override
+    public List<Post> getUnhealthyPosts() {
+        return postRepository.findByStatus(Status.DEACTIVATED);
+    }
+
+    @Override
+    public void enablePost(Long id) {
+        postRepository.enablePost(id);
     }
 
     @Override

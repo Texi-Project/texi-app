@@ -1,8 +1,10 @@
 package com.texi.app.post.repository;
 
 import com.texi.app.domain.Post;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +19,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
 
     List<Post> findAllByUser(User user);
+    List<Post> findByStatus(Status status);
 
+    @Modifying
+    @Query("update Post p set p.status = 'ACTIVE' where p.id = :id")
+    void enablePost(Long id);
     // should load the latest posts from followers' posts and own posts order by created Date
     @Query(nativeQuery = true,
 //            value = "from Post p join p.user u join u.following f where u.id = :id " +
