@@ -326,18 +326,82 @@
                                 <aside class="sidebar static">
                                     <div class="widget" layout:replace="components :: left-shortcuts">
                                         Nothing here
+                                    <div class="widget" sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <h4 class="widget-title">Manage Texi</h4>
+                                        <ul class="naves">
+                                            <li>
+                                                <i class="ti-files"></i>
+                                                <a href="fav-page.html" title="">Manage Adverts</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a href="timeline-friends.html" title="">Manage Users</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-image"></i>
+                                                <a href="#" th:href="@{/posts/unhealthy}" title="">Unhealthy Posts</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-video-camera"></i>
+                                                <a href="timeline-videos.html" title="">videos</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-bell"></i>
+                                                <a href="notifications.html" title="">Notifications</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-power-off"></i>
+                                                <a href="/logout" title="">Logout</a>
+                                            </li>
+                                        </ul>
                                     </div><!-- Shortcuts -->
+
+                                    <div class="widget" sec:authorize="hasRole('ROLE_USER')">
+                                        <h4 class="widget-title">Shortcuts</h4>
+                                        <ul class="naves">
+                                            <li>
+                                                <i class="ti-clipboard"></i>
+                                                <a href="newsfeed.html" title="">News feed</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-files"></i>
+                                                <a href="fav-page.html" title="">My profile</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a href="timeline-friends.html" title="">friends</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-image"></i>
+                                                <a href="timeline-photos.html" title="">images</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-video-camera"></i>
+                                                <a href="timeline-videos.html" title="">videos</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-bell"></i>
+                                                <a href="notifications.html" title="">Notifications</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-power-off"></i>
+                                                <a href="/logout" title="">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </div><!-- Shortcuts -->
+
                                     <div class="widget stick-widget">
                                         <h4 class="widget-title">Who to follow</h4>
-                                        <ul class="followers" th:each="suggested: ${wtf}">
-
-                                            <div class="chat-box">
-                                                <li th:if="${suggested.isEmpty()}">
+                                        <div class="chat-box" th:if="${wtf.isEmpty()}">
+                                            <ul>
+                                                <li>
                                                     <div class="friend-meta">
                                                         <h4><a href="#" title="">We didn't find any today</a></h4>
                                                     </div>
                                                 </li>
-                                            </div>
+                                            </ul>
+                                        </div>
+                                        <ul class="followers" th:each="suggested: ${wtf}">
                                             <li th:id="${suggested.id}">
                                                 <figure><img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
                                                 </figure>
@@ -1083,10 +1147,17 @@
                                     </div>
                                     <div class="widget friend-list stick-widget">
                                         <h4 class="widget-title">Friends</h4>
-                                        <div id="searchDir"></div>
-                                        <div class="chat-box">
-                                            <p th:if="${friends.isEmpty()}">You have no friends yet</p>
+
+                                        <div class="chat-box" th:if="${friends.isEmpty()}">
+                                            <ul>
+                                                <li>
+                                                    <div class="friend-meta">
+                                                        <h4><a href="#" title="">You have no friends yet</a></h4>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
+                                        <div id="searchDir"></div>
                                         <ul class="friendz-list" id="people-list" th:each="friend: ${friends}">
                                             <li th:id="${'un'+friend.id}">
                                                 <figure>
@@ -1094,7 +1165,7 @@
                                                     <span class="status f-online"></span>
                                                 </figure>
                                                 <div class="friendz-meta">
-                                                    <a th:href="@{/user/timeline}"><span th:text="${friend.firstName}"></span></a>
+                                                    <a href="time-line.html"><span th:text="${friend.firstName}"></span></a>
                                                     <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
                                                 </div>
                                             </li>

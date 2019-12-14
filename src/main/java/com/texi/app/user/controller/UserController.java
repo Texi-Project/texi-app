@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"user","wtf","friends"})
 @RequestMapping("/user")
 public class UserController {
     public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
@@ -41,6 +44,27 @@ public class UserController {
 
     @Autowired
     private ResponseBuilder responseBuilder;
+
+    @ModelAttribute
+    public void loadInitData(Principal principal, Model model, HttpSession session){
+        if (principal != null) {
+            System.out.println("loadInitData Principle: "+principal.getName());
+            User u = services.findByUsername(principal.getName());
+            model.addAttribute("user", u);
+
+            List<User> wtf = services.whoToFollow(u);
+            model.addAttribute("wtf", wtf);
+            model.addAttribute("friends", u.getFollowing());
+
+            List<Post> postList = postService.getPostsForUser(u);
+            model.addAttribute("posts", postList);
+
+            session.setAttribute("wtf", wtf);
+            session.setAttribute("friends", u.getFollowing());
+            session.setAttribute("posts", postList);
+        }
+
+    }
 
     @RequestMapping("/")
     public String index(Model model){
@@ -64,7 +88,8 @@ public class UserController {
     @ApiOperation(value = "Follow User")
     @RequestMapping(value = "/follow")
     public String followNew(@RequestParam("f") String id, Model model){
-        User user = (User) model.getAttribute("user");
+        User user = (User) model.asMap().get("user");
+        System.out.println("follow: "+user.getId());
         services.follow(user, Long.parseLong(id));
         return "redirect:dashboard";
     }
@@ -73,7 +98,7 @@ public class UserController {
     @RequestMapping(value = "/unfollow")
     public String unfollow(@RequestParam("f") String username, Model model){
         System.out.println(".......here.......");
-        User user = (User) model.getAttribute("user");
+        User user = (User) model.asMap().get("user");
         services.unfollow(user, username);
         return "redirect:dashboard";
     }
@@ -134,17 +159,15 @@ public class UserController {
         if (principal == null) {
             return "redirect:auth";
         }
-        System.out.println("Principle: "+principal.getName());
 
-        User u = services.findByUsername(principal.getName());
-        model.addAttribute("user", u);
-
-        List<User> wtf = services.whoToFollow(u);
-        model.addAttribute("wtf", wtf);
-        model.addAttribute("friends", u.getFollowing());
-
-        List<Post> postList = postService.getPostsForUser(u);
-        model.addAttribute("posts", postList);
+        User u = (User) model.asMap().get("user");
+//
+//        List<User> wtf = services.whoToFollow(u);
+//        model.addAttribute("wtf", wtf);
+//        model.addAttribute("friends", u.getFollowing());
+//
+//        List<Post> postList = postService.getPostsForUser(u);
+//        model.addAttribute("posts", postList);
 
         return "dashboard";
     }
