@@ -57,6 +57,7 @@
                     </div>
                     <div class="post-meta">
                         <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
+<!--                        <img alt="" src="/images/resources/user-post.jpg">-->
                         <div class="we-video-info">
                             <ul>
                                 <li>
@@ -137,11 +138,9 @@
                             </ul>
                         </div>
                         <div class="description">
-
                             <p th:text="${post.title}">
                                 <span th:text="${user.getUsername()}"></span>
-                                World's most beautiful car in Curabitur <a href="#"
-                                                                           title="">#test
+                                World's most beautiful car in Curabitur <a href="#" title="">#test
                                 drive booking !</a> the most beatuiful car available in
                                 america and the saudia arabia, you can book your test drive
                                 by our official website
