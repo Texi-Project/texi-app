@@ -104,7 +104,7 @@ public class UserController {
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);
 
-        List<Post> postList = postService.findByUser(u);
+        List<Post> postList = postService.getPostsForUser(u);
         model.addAttribute("posts", postList);
 
         return "dashboard";

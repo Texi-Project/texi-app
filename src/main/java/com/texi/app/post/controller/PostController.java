@@ -2,7 +2,6 @@ package com.texi.app.post.controller;
 
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
-import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.Photo;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
@@ -69,13 +68,11 @@ public class PostController {
 
     @PostMapping("/getAll/{userId}")
     public @ResponseBody
-    Response getByUser(@PathVariable String userId) {
-        // todo: review what should be returned by service
-        Response response = userService.getUser(Long.parseLong(userId));
-        if (response.getCode() != ResponseCode.SUCCESS.getCode())
-            return response;
-        List<Post> postList = postService.findByUser((User) response.getData());
-        return responseBuilder.buildSuccess(postList);
+    String getByUser(@PathVariable String userId, Principal principal) {
+        if (principal == null) return "redirect:/auth";
+        User user = userService.findByUsername(principal.getName());
+        List<Post> postList = postService.findByUser(user);
+        return "/user-profile"; // todo create view template 'user-profile'
     }
 
     @PostMapping("/delete/{postId}")
