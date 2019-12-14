@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
+@SessionAttributes({"user","wtf","friends"})
 public class PostController {
 
     private final PostService postService;
@@ -86,8 +89,10 @@ public class PostController {
 
     @GetMapping("/unhealthy")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPER')")
-    public String unhealthyPosts(Model model){
-        model.addAttribute("unhealthy",postService.getUnhealthyPosts());
+    public String unhealthyPosts(Model model, HttpSession session){
+        List<Post> posts = postService.getUnhealthyPosts();
+        model.addAttribute("unhealthy",posts);
+        session.setAttribute("unhealthy",posts);
         return "unhealthy-posts";
     }
 

@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"user","wtf","friends"})
 @RequestMapping("/user")
 public class UserController {
     public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
@@ -43,11 +46,22 @@ public class UserController {
     private ResponseBuilder responseBuilder;
 
     @ModelAttribute
-    public void loadInitData(Principal principal, Model model){
+    public void loadInitData(Principal principal, Model model, HttpSession session){
         if (principal != null) {
             System.out.println("loadInitData Principle: "+principal.getName());
             User u = services.findByUsername(principal.getName());
             model.addAttribute("user", u);
+
+            List<User> wtf = services.whoToFollow(u);
+            model.addAttribute("wtf", wtf);
+            model.addAttribute("friends", u.getFollowing());
+
+            List<Post> postList = postService.getPostsForUser(u);
+            model.addAttribute("posts", postList);
+
+            session.setAttribute("wtf", wtf);
+            session.setAttribute("friends", u.getFollowing());
+            session.setAttribute("posts", postList);
         }
 
     }
@@ -122,13 +136,13 @@ public class UserController {
         }
 
         User u = (User) model.asMap().get("user");
-
-        List<User> wtf = services.whoToFollow(u);
-        model.addAttribute("wtf", wtf);
-        model.addAttribute("friends", u.getFollowing());
-
-        List<Post> postList = postService.getPostsForUser(u);
-        model.addAttribute("posts", postList);
+//
+//        List<User> wtf = services.whoToFollow(u);
+//        model.addAttribute("wtf", wtf);
+//        model.addAttribute("friends", u.getFollowing());
+//
+//        List<Post> postList = postService.getPostsForUser(u);
+//        model.addAttribute("posts", postList);
 
         return "dashboard";
     }
