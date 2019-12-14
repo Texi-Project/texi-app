@@ -312,8 +312,58 @@
         </div>
     </div><!-- topbar -->
 
-    <section layout:replace="components :: top-image-area">
-        Nothing in this file
+    <section layout:fragment="top-image-area">
+        <div class="feature-photo">
+            <figure><img alt="" th:src="@{/images/resources/timeline-1.jpg}"></figure>
+            <div class="add-btn">
+                <span>1205 followers</span>
+                <a data-ripple="" href="#" title="">Add Friend</a>
+            </div>
+            <form class="edit-phto">
+                <i class="fa fa-camera-retro"></i>
+                <label class="fileContainer">
+                    Edit Cover Photo
+                    <input type="file"/>
+                </label>
+            </form>
+            <div class="container-fluid">
+                <div class="row merged">
+                    <div class="col-lg-2 col-sm-3">
+                        <div class="user-avatar">
+                            <figure>
+                                <img alt="" th:src="@{/images/resources/user-avatar.jpg}">
+                                <form class="edit-phto">
+                                    <i class="fa fa-camera-retro"></i>
+                                    <label class="fileContainer">
+                                        Edit Display Photo
+                                        <input type="file"/>
+                                    </label>
+                                </form>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-sm-9">
+                        <div class="timeline-info">
+                            <ul>
+                                <li class="admin-name">
+                                    <h5>Janice Griffith</h5>
+                                    <span>Group Admin</span>
+                                </li>
+                                <li>
+                                    <a class="" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
+                                    <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
+                                    <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
+                                    <a class="" data-ripple="" href="timeline-friends.html" title="">Friends</a>
+                                    <a class="" data-ripple="" href="groups.html" title="">Groups</a>
+                                    <a class="" data-ripple="" href="about.html" title="">about</a>
+                                    <a class="active" data-ripple="" href="#" title="">more</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section><!-- top area -->
 
     <section>
@@ -324,8 +374,38 @@
                         <div class="row merged20" id="page-contents" layout:fragment="page-content">
                             <div class="col-lg-3" layout:fragment="left-sidebar">
                                 <aside class="sidebar static">
-                                    <div class="widget" layout:replace="components :: left-shortcuts">
-                                        Nothing here
+                                    <div class="widget" layout:fragment="left-shortcuts">
+                                        <h4 class="widget-title">Shortcuts</h4>
+                                        <ul class="naves">
+                                            <li>
+                                                <i class="ti-clipboard"></i>
+                                                <a th:href="@{/user/dashboard}" title="">News feed</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-files"></i>
+                                                <a th:href="@{/user/manage-profile}" title="">My profile</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a href="timeline-friends.html" title="">friends</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-image"></i>
+                                                <a href="timeline-photos.html" title="">images</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-video-camera"></i>
+                                                <a href="timeline-videos.html" title="">videos</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-bell"></i>
+                                                <a href="notifications.html" title="">Notifications</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-power-off"></i>
+                                                <a th:href="@{/logout/}" title="">Logout</a>
+                                            </li>
+                                        </ul>
                                     </div><!-- Shortcuts -->
                                     <div class="widget stick-widget">
                                         <h4 class="widget-title">Who to follow</h4>
@@ -356,8 +436,31 @@
                                         <figure>
                                             <img alt="" th:src="@{/images/resources/admin2.jpg}">
                                         </figure>
-                                        <div class="newpst-input" layout:replace="components :: newpost-form">
-                                           Intentionally left blank
+                                        <div class="newpst-input" layout:fragment="newpost-form">
+                                            <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
+                                                <!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+                                                <!--                    <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>-->
+                                                <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
+                                                <div class="attachments">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-image"></i>
+                                                            <label class="fileContainer">
+                                                                <input id="image" name="image" type="file">
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-video-camera"></i>
+                                                            <label class="fileContainer">
+                                                                <input id="video" name="video" type="file">
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div><!-- add post new box -->
@@ -1061,8 +1164,97 @@
                             </div><!-- centerl meta -->
                             <div class="col-lg-3" layout:fragment="right-sidebar">
                                 <aside class="sidebar static">
-                                    <div class="widget" layout:replace="components :: page-like-area">
-                                        Nothing here
+                                    <div class="widget" layout:fragment="page-like-area">
+                                        <h4 class="widget-title">Your page</h4>
+                                        <div class="your-page">
+                                            <figure>
+                                                <a href="#" title=""><img alt=""
+                                                                          th:src="@{/images/resources/friend-avatar9.jpg}"></a>
+                                            </figure>
+                                            <div class="page-meta">
+                                                <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
+                                                <span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
+                                            </div>
+                                            <div class="page-likes">
+                                                <ul class="nav nav-tabs likes-btn">
+                                                    <li class="nav-item"><a class="active" data-toggle="tab"
+                                                                            href="#link1">likes</a></li>
+                                                    <li class="nav-item"><a class="" data-toggle="tab" href="#link2">views</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active fade show " id="link1">
+                                                        <span><i class="ti-heart"></i>884</span>
+                                                        <a href="#" title="weekly-likes">35 new likes this week</a>
+                                                        <div class="users-thumb-list">
+                                                            <a data-toggle="tooltip" href="#" title="Anderw">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-1.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="frank">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-2.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sara">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-3.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Amy">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-4.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Ema">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-5.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sophie">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-6.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Maria">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-7.jpg}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="link2">
+                                                        <span><i class="ti-eye"></i>440</span>
+                                                        <a href="#" title="weekly-likes">440 new views this week</a>
+                                                        <div class="users-thumb-list">
+                                                            <a data-toggle="tooltip" href="#" title="Anderw">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-1.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="frank">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-2.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sara">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-3.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Amy">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-4.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Ema">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-5.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sophie">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-6.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Maria">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-7.jpg}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div><!-- page like widget -->
                                     <div class="widget">
                                         <div class="banner medium-opacity bluesh">

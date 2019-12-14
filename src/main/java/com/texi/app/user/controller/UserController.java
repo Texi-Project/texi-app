@@ -104,6 +104,31 @@ public class UserController {
         return "redirect:auth";
     }
 
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("user") User user,
+                         BindingResult bindingResult, Principal principal, Model model){
+        if (principal == null) return "redirect:auth";
+        if (bindingResult.hasErrors()) {
+            return "manage-profile";
+        }
+
+        // Assume it is the user logged in who is updating their info
+        User u = services.findByUsername(user.getUsername());
+        if (u != null && !user.getUsername().equals(principal.getName())) { // validate the new username
+            bindingResult.rejectValue("username", "error.user", "There is already a user registered with the username provided");
+            return "redirect:auth";
+        }
+        u = services.findByUsername(principal.getName());
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setUsername(user.getUsername());
+        u.setBirthday(user.getBirthday());
+        u.setPassword(user.getPassword());
+        services.save(u);
+        model.addAttribute("status", "Success");
+        return "redirect:manage-profile";
+    }
+
     @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
         if (principal == null) {

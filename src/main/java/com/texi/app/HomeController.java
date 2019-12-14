@@ -13,6 +13,11 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/auth")
+    public String login(@ModelAttribute User user) {
+        return "login";
+    }
+
     @GetMapping("/logout/")
     public String logout() {
         return "logout";
