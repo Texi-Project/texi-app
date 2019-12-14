@@ -146,6 +146,7 @@
                                 america and the saudia arabia, you can book your test drive
                                 by our official website
                             </p>
+                            <p th:id="postid"><span th:text= "${post.id}" style="display: none"></span></p>
                         </div>
                     </div>
                 </div>
@@ -233,8 +234,8 @@
                                 <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                             </div>
                             <div class="post-comt-box">
-                                <form method="post">
-                                    <textarea placeholder="Post your comment"></textarea>
+                                <form id="commentForm" method="post" action="/comment/add">
+                                    <textarea id="pcomment" name="pcomment" placeholder="Post your comment"></textarea>
                                     <div class="add-smiles">
                                             <span class="em em-expressionless"
                                                   title="add icon"></span>
@@ -253,7 +254,8 @@
                                         <i class="em em-rage"></i>
                                         <i class="em em-stuck_out_tongue"></i>
                                     </div>
-                                    <button type="submit"></button>
+                                    <input type="hidden" th:value="${post.id}" th:attr="name='postId'" />
+                                    <button  type="submit"></button>
                                 </form>
                             </div>
                         </li>

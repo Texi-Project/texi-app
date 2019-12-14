@@ -5,9 +5,11 @@ import com.texi.app.domain.User;
 import com.texi.app.post.repository.PostRepository;
 import com.texi.app.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +22,7 @@ public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
 
-    private static String UPLOADS_LOCATION = "D:/";
+    public static String UPLOADS_LOCATION=System.getProperty("user.home")+ File.separator+"photos"+File.separator;
 
     @Autowired
     public PostServiceImpl(PostRepository postRepository) {

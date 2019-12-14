@@ -1,5 +1,6 @@
 package com.texi.app;
 
+import com.texi.app.post.service.impl.PostServiceImpl;
 import com.texi.app.user.controller.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		new File(UserController.uploadDirectory).mkdir();
+		new File(PostServiceImpl.UPLOADS_LOCATION).mkdir();
 		SpringApplication.run(Application.class, args);
 	}
 }

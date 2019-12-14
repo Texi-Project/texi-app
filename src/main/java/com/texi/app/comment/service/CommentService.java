@@ -11,5 +11,6 @@ public interface CommentService {
     public List<Comment> findAll();
     public void delete(Comment comment);
     public boolean deleteById(Long Id);
+    public List<Comment> findByPost(Post post);
 
 }
