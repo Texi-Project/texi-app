@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAll();
 
-    List<Post> findAllByUser(User user);
+    List<Post> findAllByUserOrderByDateDesc(User user);
     List<Post> findByStatus(Status status);
 
     @Modifying

@@ -53,7 +53,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByUser(User user) {
-        return postRepository.findAllByUser(user);
+        return postRepository.findAllByUserOrderByDateDesc(user);
     }
 
     @Override

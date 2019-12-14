@@ -129,7 +129,32 @@ public class UserController {
         return "redirect:auth";
     }
 
-    @GetMapping(value = {"/dashboard", "/timeline"})
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("user") User user,
+                         BindingResult bindingResult, Principal principal, Model model){
+        if (principal == null) return "redirect:auth";
+        if (bindingResult.hasErrors()) {
+            return "manage-profile";
+        }
+
+        // Assume it is the user logged in who is updating their info
+        User u = services.findByUsername(user.getUsername());
+        if (u != null && !user.getUsername().equals(principal.getName())) { // validate the new username
+            bindingResult.rejectValue("username", "error.user", "There is already a user registered with the username provided");
+            return "redirect:auth";
+        }
+        u = services.findByUsername(principal.getName());
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setUsername(user.getUsername());
+        u.setBirthday(user.getBirthday());
+        u.setPassword(user.getPassword());
+        services.save(u);
+        model.addAttribute("status", "Success");
+        return "redirect:manage-profile";
+    }
+
+    @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:auth";
@@ -168,6 +193,37 @@ public class UserController {
         }
         model.addAttribute("errorMessge", errorMessge);
         return "login";
+    }
+
+    @GetMapping("/manage-profile")
+    public String manageProfile(Model model, Principal principal) {
+        if (principal == null) return "redirect:auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        return "manage-profile";
+    }
+
+    @GetMapping("/timeline")
+    public String timeline(Model model, Principal principal) {
+        if (principal == null) return "redirect:auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
+
+        return "timeline";
     }
 
 }

@@ -27,9 +27,4 @@ public class HomeController {
     public String denied() {
         return "denied";
     }
-
-    @GetMapping("/sample-form/")
-    public String sampleForm() {
-        return "sample-form";
-    }
 }

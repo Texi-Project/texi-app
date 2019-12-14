@@ -3,8 +3,6 @@ package com.texi.app.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,6 +28,7 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @Size(min = 5, message = "size.min")
     private String password;
 
     @Size(min = 2, message = "size.min")

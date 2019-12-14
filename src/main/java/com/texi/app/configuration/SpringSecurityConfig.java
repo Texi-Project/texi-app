@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureUrl("/auth")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/user/timeline")
+                    .defaultSuccessUrl("/user/dashboard")
                     .and()
 //                .logout()
 //                    .invalidateHttpSession(true)

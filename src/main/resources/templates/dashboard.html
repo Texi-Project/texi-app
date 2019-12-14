@@ -15,31 +15,8 @@
             <figure>
                 <img alt="" th:src="@{/images/resources/admin2.jpg}">
             </figure>
-            <div class="newpst-input">
-                <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
-<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-<!--                    <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>-->
-                    <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
-                    <div class="attachments">
-                        <ul>
-                            <li>
-                                <i class="fa fa-image"></i>
-                                <label class="fileContainer">
-                                    <input id="image" name="image" type="file">
-                                </label>
-                            </li>
-                            <li>
-                                <i class="fa fa-video-camera"></i>
-                                <label class="fileContainer">
-                                    <input id="video" name="video" type="file">
-                                </label>
-                            </li>
-                            <li>
-                                <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
+            <div class="newpst-input" layout:replace="components :: newpost-form">
+               Intentionally left blank
             </div>
         </div>
     </div><!-- add post new box -->
@@ -52,7 +29,7 @@
                         <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
                     </figure>
                     <div class="friend-name">
-                        <ins><a href="time-line.html" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
+                        <ins><a th:href="@{/user/timeline}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
                         <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
                     </div>
                     <div class="post-meta">
@@ -156,7 +133,7 @@
                             </div>
                             <div class="we-comment">
                                 <div class="coment-head">
-                                    <h5><a href="time-line.html" title="">Jason borne</a>
+                                    <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
                                     </h5>
                                     <span>1 year ago</span>
                                     <a class="we-reply" href="#" title="Reply"><i
@@ -173,7 +150,7 @@
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
-                                            <h5><a href="time-line.html" title="">alexendra
+                                            <h5><a th:href="@{/user/timeline}" title="">alexendra
                                                 dadrio</a></h5>
                                             <span>1 month ago</span>
                                             <a class="we-reply" href="#" title="Reply"><i
@@ -191,7 +168,7 @@
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
-                                            <h5><a href="time-line.html" title="">Olivia</a>
+                                            <h5><a th:href="@{/user/timeline}" title="">Olivia</a>
                                             </h5>
                                             <span>16 days ago</span>
                                             <a class="we-reply" href="#" title="Reply"><i
@@ -210,7 +187,7 @@
                             </div>
                             <div class="we-comment">
                                 <div class="coment-head">
-                                    <h5><a href="time-line.html" title="">Donald Trump</a>
+                                    <h5><a th:href="@{/user/timeline}" title="">Donald Trump</a>
                                     </h5>
                                     <span>1 week ago</span>
                                     <a class="we-reply" href="#" title="Reply"><i
