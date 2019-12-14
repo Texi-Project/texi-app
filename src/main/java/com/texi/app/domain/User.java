@@ -3,6 +3,7 @@ package com.texi.app.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -45,6 +46,7 @@ public class User {
 
     @OneToMany
     private Set<User> following;
+
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 

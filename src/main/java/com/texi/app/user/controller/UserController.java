@@ -8,6 +8,7 @@ import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.security.UserDetailsServiceImpl;
 import com.texi.app.user.service.UserServices;
+import com.texi.app.utility.Upload;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -38,6 +35,9 @@ public class UserController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private Upload upload;
 
     @Autowired
     private ResponseBuilder responseBuilder;
@@ -61,6 +61,23 @@ public class UserController {
         return services.follow((User) response.getData(), Long.parseLong(id));
     }
 
+    @ApiOperation(value = "Follow User")
+    @RequestMapping(value = "/follow")
+    public String followNew(@RequestParam("f") String id, Model model){
+        User user = (User) model.getAttribute("user");
+        services.follow(user, Long.parseLong(id));
+        return "redirect:dashboard";
+    }
+
+    @ApiOperation(value = "Un follow User")
+    @RequestMapping(value = "/unfollow")
+    public String unfollow(@RequestParam("f") String username, Model model){
+        System.out.println(".......here.......");
+        User user = (User) model.getAttribute("user");
+        services.unfollow(user, username);
+        return "redirect:dashboard";
+    }
+
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
                          @RequestParam("photo") MultipartFile photo, Model model){
@@ -78,15 +95,8 @@ public class UserController {
             return "login";
         }
 
-        //StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(uploadDirectory, photo.getOriginalFilename());
-        //fileNames.append(photo.getOriginalFilename()+" ");
-        try {
-            Files.write(fileNameAndPath, photo.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        user.setPhotoUrl(fileNameAndPath.toString());
+        String fileNameAndPath = upload.upload(photo);
+        user.setPhotoUrl(fileNameAndPath);
         Response res = services.save(user);
 
         ra.addFlashAttribute("user",res.getData());
@@ -96,12 +106,19 @@ public class UserController {
 
     @GetMapping(value = {"/dashboard", "/timeline"})
     public String dashboard(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:auth";
+        }
         System.out.println("Principle: "+principal.getName());
 
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);
 
-        List<Post> postList = postService.findByUser(u);
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        List<Post> postList = postService.getPostsForUser(u);
         model.addAttribute("posts", postList);
 
         return "dashboard";

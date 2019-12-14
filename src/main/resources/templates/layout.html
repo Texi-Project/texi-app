@@ -409,46 +409,22 @@
                                         </ul>
                                     </div><!-- Shortcuts -->
                                     <div class="widget stick-widget">
-                                        <h4 class="widget-title">Who's follownig</h4>
-                                        <ul class="followers">
-                                            <li>
+                                        <h4 class="widget-title">Who to follow</h4>
+                                        <ul class="followers" th:each="suggested: ${wtf}">
+
+                                            <div class="chat-box">
+                                                <li th:if="${suggested.isEmpty()}">
+                                                    <div class="friend-meta">
+                                                        <h4><a href="#" title="">We didn't find any today</a></h4>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                            <li th:id="${suggested.id}">
                                                 <figure><img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
                                                 </figure>
                                                 <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Kelly Bill</a></h4>
-                                                    <a class="underline" href="#" title="">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img alt="" th:src="@{/images/resources/friend-avatar4.jpg}">
-                                                </figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Issabel</a></h4>
-                                                    <a class="underline" href="#" title="">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img alt="" th:src="@{/images/resources/friend-avatar6.jpg}">
-                                                </figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Andrew</a></h4>
-                                                    <a class="underline" href="#" title="">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img alt="" th:src="@{/images/resources/friend-avatar8.jpg}">
-                                                </figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Sophia</a></h4>
-                                                    <a class="underline" href="#" title="">Add Friend</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure><img alt="" th:src="@{/images/resources/friend-avatar3.jpg}">
-                                                </figure>
-                                                <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title="">Allen</a></h4>
-                                                    <a class="underline" href="#" title="">Add Friend</a>
+                                                    <h4><a href="time-line.html" title=""><span th:text="${suggested.firstName}"></span></a></h4>
+                                                    <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}">Add Friend</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -1312,118 +1288,18 @@
                                     <div class="widget friend-list stick-widget">
                                         <h4 class="widget-title">Friends</h4>
                                         <div id="searchDir"></div>
-                                        <ul class="friendz-list" id="people-list">
-                                            <li>
+                                        <div class="chat-box">
+                                            <p th:if="${friends.isEmpty()}">You have no friends yet</p>
+                                        </div>
+                                        <ul class="friendz-list" id="people-list" th:each="friend: ${friends}">
+                                            <li th:id="${'un'+friend.id}">
                                                 <figure>
                                                     <img alt="" th:src="@{/images/resources/friend-avatar.jpg}">
                                                     <span class="status f-online"></span>
                                                 </figure>
                                                 <div class="friendz-meta">
-                                                    <a href="time-line.html">bucky barnes</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="3d4a545349584f4e525159584f7d5a505c5451135e5250"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Sarah Loren</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="1e7c7f6c707b6d5e79737f7772307d7173"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar3.jpg}">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">jason borne</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="c7ada6b4a8a9a587a0aaa6aeabe9a4a8aa"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar4.jpg}">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Cameron diaz</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="cba1aab8a4a5a98baca6aaa2a7e5a8a4a6"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar5.jpg}">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">daniel warber</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="1c767d6f73727e5c7b717d7570327f7371"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar6.jpg}">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">andrew</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="5c363d2f33323e1c3b313d3530723f3331"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar7.jpg}">
-                                                    <span class="status f-off"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">amy watson</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="026863716d6c6042656f636b6e2c616d6f"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar5.jpg}">
-                                                    <span class="status f-online"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">daniel warber</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="523833213d3c3012353f333b3e7c313d3f"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
-                                                </div>
-                                            </li>
-                                            <li>
-
-                                                <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
-                                                    <span class="status f-away"></span>
-                                                </figure>
-                                                <div class="friendz-meta">
-                                                    <a href="time-line.html">Sarah Loren</a>
-                                                    <i><a class="__cf_email__"
-                                                          data-cfemail="284a495a464d5b684f45494144064b4745"
-                                                          href="https://wpkixx.com/cdn-cgi/l/email-protection">[email&#160;protected]</a></i>
+                                                    <a href="time-line.html"><span th:text="${friend.firstName}"></span></a>
+                                                    <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
                                                 </div>
                                             </li>
                                         </ul>
