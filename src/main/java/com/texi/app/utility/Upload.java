@@ -2,6 +2,7 @@ package com.texi.app.utility;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,11 @@ public class Upload {
 
     @Value("${upload.dir}")
     private String uploads;
+
+    @Autowired
+    public Upload(Cloudinary cloudinary) {
+        this.cloudinary = cloudinary;
+    }
 
     public String upload(MultipartFile multipartFile) {
         String url = String.format("%s%s-%s",
