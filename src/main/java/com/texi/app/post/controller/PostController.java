@@ -2,12 +2,7 @@ package com.texi.app.post.controller;
 
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
-import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.*;
-import com.texi.app.domain.Photo;
-import com.texi.app.domain.Post;
-import com.texi.app.domain.User;
-import com.texi.app.domain.Video;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
 import com.texi.app.utility.Upload;
@@ -62,7 +57,6 @@ public class PostController {
         post.setTitle(title);
         post.setDescription(title);
         post.setPhotos(photos);
-        post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
         post.setStatus(Status.ACTIVE);
         post.setVideo(video.isEmpty() ? null : new Video(upload.upload(video)));
         if (principal == null) {
