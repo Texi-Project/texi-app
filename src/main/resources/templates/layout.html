@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -45,13 +45,13 @@
                         <li><a href="index2.html" title="">Home Social 2</a></li>
                         <li><a href="index-company.html" title="">Home Company</a></li>
                         <li><a href="landing.html" title="">Login page</a></li>
-                        <li><a href="/logout" title="">Logout Page</a></li>
+                        <li><a th:href="@{/logout/}" title="">Logout Page</a></li>
                         <li><a href="newsfeed.html" title="">news feed</a></li>
                     </ul>
                 </li>
                 <li><span>Time Line</span>
                     <ul>
-                        <li><a href="time-line.html" title="">timeline</a></li>
+                        <li><a th:href="@{/user/timeline}" title="">timeline</a></li>
                         <li><a href="timeline-friends.html" title="">timeline friends</a></li>
                         <li><a href="timeline-groups.html" title="">timeline groups</a></li>
                         <li><a href="timeline-pages.html" title="">timeline pages</a></li>
@@ -220,7 +220,7 @@
                 </form>
             </div>
             <ul class="setting-area">
-                <li><a data-ripple="" href="newsfeed.html" title="Home"><i class="ti-home"></i></a></li>
+                <li><a data-ripple="" th:href="@{/user/dashboard}" title="Home"><i class="ti-home"></i></a></li>
                 <li>
                     <a data-ripple="" href="#" title="Notification">
                         <i class="ti-bell"></i><span>20</span>
@@ -307,7 +307,7 @@
                     <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                     <a href="#" title=""><i class="ti-target"></i>activity log</a>
                     <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                    <a href="#" title=""><i class="ti-power-off"></i>log out</a>
+                    <a th:href="@{/logout}" title=""><i class="ti-power-off"></i>log out</a>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                                     <span>Group Admin</span>
                                 </li>
                                 <li>
-                                    <a class="" data-ripple="" href="time-line.html" title="">time line</a>
+                                    <a class="" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
                                     <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
                                     <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
                                     <a class="" data-ripple="" href="timeline-friends.html" title="">Friends</a>
@@ -375,16 +375,16 @@
                         <div class="row merged20" id="page-contents" layout:fragment="page-content">
                             <div class="col-lg-3" layout:fragment="left-sidebar">
                                 <aside class="sidebar static">
-                                    <div class="widget">
+                                    <div class="widget" layout:fragment="left-shortcuts">
                                         <h4 class="widget-title">Shortcuts</h4>
                                         <ul class="naves">
                                             <li>
                                                 <i class="ti-clipboard"></i>
-                                                <a href="newsfeed.html" title="">News feed</a>
+                                                <a th:href="@{/user/dashboard}" title="">News feed</a>
                                             </li>
                                             <li>
                                                 <i class="ti-files"></i>
-                                                <a href="fav-page.html" title="">My profile</a>
+                                                <a th:href="@{/user/manage-profile}" title="">My profile</a>
                                             </li>
                                             <li>
                                                 <i class="ti-user"></i>
@@ -404,7 +404,7 @@
                                             </li>
                                             <li>
                                                 <i class="ti-power-off"></i>
-                                                <a href="/logout" title="">Logout</a>
+                                                <a th:href="@{/logout/}" title="">Logout</a>
                                             </li>
                                         </ul>
                                     </div><!-- Shortcuts -->
@@ -423,7 +423,7 @@
                                                 <figure><img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
                                                 </figure>
                                                 <div class="friend-meta">
-                                                    <h4><a href="time-line.html" title=""><span th:text="${suggested.firstName}"></span></a></h4>
+                                                    <h4><a th:href="@{/user/timeline}" title=""><span th:text="${suggested.firstName}"></span></a></h4>
                                                     <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}">Add Friend</a>
                                                 </div>
                                             </li>
@@ -483,7 +483,7 @@
                                                     <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
+                                                    <ins><a th:href="@{/user/timeline}" title="">Janice Griffith</a></ins>
                                                     <span>published: june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
@@ -587,7 +587,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
                                                                 </h5>
                                                                 <span>1 year ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -605,7 +605,7 @@
                                                                 </div>
                                                                 <div class="we-comment">
                                                                     <div class="coment-head">
-                                                                        <h5><a href="time-line.html" title="">alexendra
+                                                                        <h5><a th:href="@{/user/timeline}" title="">alexendra
                                                                             dadrio</a></h5>
                                                                         <span>1 month ago</span>
                                                                         <a class="we-reply" href="#" title="Reply"><i
@@ -624,7 +624,7 @@
                                                                 </div>
                                                                 <div class="we-comment">
                                                                     <div class="coment-head">
-                                                                        <h5><a href="time-line.html" title="">Olivia</a>
+                                                                        <h5><a th:href="@{/user/timeline}" title="">Olivia</a>
                                                                         </h5>
                                                                         <span>16 days ago</span>
                                                                         <a class="we-reply" href="#" title="Reply"><i
@@ -643,7 +643,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Donald Trump</a>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Donald Trump</a>
                                                                 </h5>
                                                                 <span>1 week ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -700,7 +700,7 @@
                                                     <img alt="" th:src="@{/images/resources/nearly1.jpg}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Sara Grey</a></ins>
+                                                    <ins><a th:href="@{/user/timeline}" title="">Sara Grey</a></ins>
                                                     <span>published: june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
@@ -809,7 +809,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
                                                                 </h5>
                                                                 <span>1 year ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -827,7 +827,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Sophia</a></h5>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Sophia</a></h5>
                                                                 <span>1 week ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
                                                                         class="fa fa-reply"></i></a>
@@ -882,7 +882,7 @@
                                                     <img alt="" th:src="@{/images/resources/nearly6.jpg}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Sophia</a></ins>
+                                                    <ins><a th:href="@{/user/timeline}" title="">Sophia</a></ins>
                                                     <span>published: january,5 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
@@ -991,7 +991,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Jason borne</a>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
                                                                 </h5>
                                                                 <span>1 year ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -1009,7 +1009,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a href="time-line.html" title="">Sophia</a></h5>
+                                                                <h5><a th:href="@{/user/timeline}" title="">Sophia</a></h5>
                                                                 <span>1 week ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
                                                                         class="fa fa-reply"></i></a>
@@ -1064,7 +1064,7 @@
                                                     <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
+                                                    <ins><a th:href="@{/user/timeline}" title="">Janice Griffith</a></ins>
                                                     <span>published: june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="description">
@@ -1183,8 +1183,7 @@
                                                                           th:src="@{/images/resources/friend-avatar9.jpg}"></a>
                                             </figure>
                                             <div class="page-meta">
-                                                <a class="underline" href="#" title=""> <span th:text="${user.getUsername()}"></span></a>
-                                                <span><i class="ti-comment"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
+                                                <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
                                                 <span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
                                             </div>
                                             <div class="page-likes">
@@ -1298,7 +1297,7 @@
                                                     <span class="status f-online"></span>
                                                 </figure>
                                                 <div class="friendz-meta">
-                                                    <a href="time-line.html"><span th:text="${friend.firstName}"></span></a>
+                                                    <a th:href="@{/user/timeline}"><span th:text="${friend.firstName}"></span></a>
                                                     <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
                                                 </div>
                                             </li>

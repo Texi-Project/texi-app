@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAll();
 
-    List<Post> findAllByUser(User user);
+    List<Post> findAllByUserOrderByDateDesc(User user);
 
     // should load the latest posts from followers' posts and own posts order by created Date
     @Query(nativeQuery = true,

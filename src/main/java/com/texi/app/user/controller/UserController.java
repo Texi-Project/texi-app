@@ -104,7 +104,7 @@ public class UserController {
         return "redirect:auth";
     }
 
-    @GetMapping(value = {"/dashboard", "/timeline"})
+    @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:auth";
@@ -145,6 +145,37 @@ public class UserController {
         }
         model.addAttribute("errorMessge", errorMessge);
         return "login";
+    }
+
+    @GetMapping("/manage-profile")
+    public String manageProfile(Model model, Principal principal) {
+        if (principal == null) return "redirect:auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        return "manage-profile";
+    }
+
+    @GetMapping("/timeline")
+    public String timeline(Model model, Principal principal) {
+        if (principal == null) return "redirect:auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
+
+        return "timeline";
     }
 
 }

@@ -13,11 +13,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/auth")
-    public String login(@ModelAttribute User user) {
-        return "login";
-    }
-
     @GetMapping("/logout/")
     public String logout() {
         return "logout";
@@ -26,10 +21,5 @@ public class HomeController {
     @GetMapping("/denied")
     public String denied() {
         return "denied";
-    }
-
-    @GetMapping("/sample-form/")
-    public String sampleForm() {
-        return "sample-form";
     }
 }
