@@ -61,6 +61,23 @@ public class UserController {
         return services.follow((User) response.getData(), Long.parseLong(id));
     }
 
+    @ApiOperation(value = "Follow User")
+    @RequestMapping(value = "/follow")
+    public String followNew(@RequestParam("f") String id, Model model){
+        User user = (User) model.getAttribute("user");
+        services.follow(user, Long.parseLong(id));
+        return "redirect:dashboard";
+    }
+
+    @ApiOperation(value = "Un follow User")
+    @RequestMapping(value = "/unfollow")
+    public String unfollow(@RequestParam("f") String username, Model model){
+        System.out.println(".......here.......");
+        User user = (User) model.getAttribute("user");
+        services.unfollow(user, username);
+        return "redirect:dashboard";
+    }
+
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
                          @RequestParam("photo") MultipartFile photo, Model model){
@@ -104,6 +121,10 @@ public class UserController {
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);
 
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+      
         List<Post> postList = postService.findByUser(u);
         model.addAttribute("posts", postList);
 

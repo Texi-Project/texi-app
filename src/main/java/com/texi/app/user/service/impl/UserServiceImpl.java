@@ -66,6 +66,13 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
+    public Response unfollow(User user, String username) {
+        User removable = findByUsername(username);
+        user.getFollowing().remove(removable);
+        return responseBuilder.buildSuccess("removed");
+    }
+
+    @Override
     public Response save(User user){
         String encoded = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoded);
@@ -77,6 +84,12 @@ public class UserServiceImpl implements UserServices {
         user.setRoles(roles);
         repository.save(user);
         return responseBuilder.buildSuccess(translator.getMessage("user.success"), user);
+    }
+
+    @Override
+    public List<User> whoToFollow(User user) {
+//        return findAll();
+        return repository.whoToFollow(user.getId());
     }
 
     @Override

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User,Long> {
 
@@ -14,5 +16,10 @@ public interface UserRepository extends PagingAndSortingRepository<User,Long> {
 
     @Query("select u from User u where u.username = :username")
     User findByUsername(String username);
+
+    @Query(nativeQuery = true, value = "select * from user u left join user_following f on u.id = f.user_id where u.id " +
+            "not in (select h.following_id from user_following h where h.user_id = :id) AND u.id != :id")
+
+    List<User> whoToFollow(Long id);
 
 }
