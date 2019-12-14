@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,14 +18,15 @@ public class Post {
 
     @NotEmpty(message = "string.notEmpty")
     private String title;
-    private LocalDate date;
+    private LocalDateTime date;
     @Lob
     private String description;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id")
     private List<Photo> photos;
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.PERSIST)
@@ -41,6 +42,6 @@ public class Post {
     private User user;
 
     public Post() {
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
     }
 }

@@ -4,8 +4,13 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.*;
+import com.texi.app.domain.Photo;
+import com.texi.app.domain.Post;
+import com.texi.app.domain.User;
+import com.texi.app.domain.Video;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
+import com.texi.app.utility.Upload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +30,14 @@ public class PostController {
     private final PostService postService;
     private final UserServices userService;
     private final ResponseBuilder responseBuilder;
+    private final Upload upload;
 
     @Autowired
-    public PostController(PostService postService, UserServices userService, ResponseBuilder responseBuilder) {
+    public PostController(PostService postService, UserServices userService, ResponseBuilder responseBuilder, Upload upload) {
         this.postService = postService;
         this.userService = userService;
         this.responseBuilder = responseBuilder;
+        this.upload = upload;
     }
 
     @GetMapping("/")
@@ -43,14 +49,14 @@ public class PostController {
 
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
-                            @RequestParam("video") MultipartFile video, Principal principal) throws IOException {
+                            @RequestParam("video") MultipartFile video, Principal principal) {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
         }
         List<Photo> photos = new ArrayList<>();
         if (!image.isEmpty()) {
-            photos.add(new Photo(postService.upload(image)));
+            photos.add(new Photo(upload.upload(image)));
         }
         Post post = new Post();
         post.setTitle(title);
@@ -58,6 +64,7 @@ public class PostController {
         post.setPhotos(photos);
         post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
         post.setStatus(Status.ACTIVE);
+        post.setVideo(video.isEmpty() ? null : new Video(upload.upload(video)));
         if (principal == null) {
             return new RedirectView("/auth");
         }
@@ -69,13 +76,11 @@ public class PostController {
 
     @PostMapping("/getAll/{userId}")
     public @ResponseBody
-    Response getByUser(@PathVariable String userId) {
-        // todo: review what should be returned by service
-        Response response = userService.getUser(Long.parseLong(userId));
-        if (response.getCode() != ResponseCode.SUCCESS.getCode())
-            return response;
-        List<Post> postList = postService.findByUser((User) response.getData());
-        return responseBuilder.buildSuccess(postList);
+    String getByUser(@PathVariable String userId, Principal principal) {
+        if (principal == null) return "redirect:/auth";
+        User user = userService.findByUsername(principal.getName());
+        List<Post> postList = postService.findByUser(user);
+        return "/user-profile"; // todo create view template 'user-profile'
     }
 
     @PostMapping("/delete/{postId}")
