@@ -42,6 +42,16 @@ public class UserController {
     @Autowired
     private ResponseBuilder responseBuilder;
 
+    @ModelAttribute
+    public void loadInitData(Principal principal, Model model){
+        if (principal != null) {
+            System.out.println("loadInitData Principle: "+principal.getName());
+            User u = services.findByUsername(principal.getName());
+            model.addAttribute("user", u);
+        }
+
+    }
+
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("name", "James Bond");
@@ -64,7 +74,8 @@ public class UserController {
     @ApiOperation(value = "Follow User")
     @RequestMapping(value = "/follow")
     public String followNew(@RequestParam("f") String id, Model model){
-        User user = (User) model.getAttribute("user");
+        User user = (User) model.asMap().get("user");
+        System.out.println("follow: "+user.getId());
         services.follow(user, Long.parseLong(id));
         return "redirect:dashboard";
     }
@@ -73,7 +84,7 @@ public class UserController {
     @RequestMapping(value = "/unfollow")
     public String unfollow(@RequestParam("f") String username, Model model){
         System.out.println(".......here.......");
-        User user = (User) model.getAttribute("user");
+        User user = (User) model.asMap().get("user");
         services.unfollow(user, username);
         return "redirect:dashboard";
     }
@@ -116,10 +127,8 @@ public class UserController {
         if (principal == null) {
             return "redirect:auth";
         }
-        System.out.println("Principle: "+principal.getName());
 
-        User u = services.findByUsername(principal.getName());
-        model.addAttribute("user", u);
+        User u = (User) model.asMap().get("user");
 
         List<User> wtf = services.whoToFollow(u);
         model.addAttribute("wtf", wtf);

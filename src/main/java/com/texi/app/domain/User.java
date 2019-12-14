@@ -26,7 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 6, message = "size.min")
+    @Size(min = 4, message = "size.min")
     @Column(unique = true)
     private String username;
 

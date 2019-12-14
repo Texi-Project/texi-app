@@ -3,14 +3,13 @@ package com.texi.app.post.controller;
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
-import com.texi.app.domain.Photo;
-import com.texi.app.domain.Post;
-import com.texi.app.domain.User;
-import com.texi.app.domain.Video;
+import com.texi.app.domain.*;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -58,6 +57,7 @@ public class PostController {
         post.setDescription(title);
         post.setPhotos(photos);
         post.setVideo(video.isEmpty() ? null : new Video(postService.upload(video)));
+        post.setStatus(Status.ACTIVE);
         if (principal == null) {
             return new RedirectView("/auth");
         }
@@ -83,6 +83,20 @@ public class PostController {
     Response delete(@PathVariable String postId) {
         postService.delete(Long.parseLong(postId));
         return responseBuilder.buildSuccess();
+    }
+
+    @GetMapping("/unhealthy")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPER')")
+    public String unhealthyPosts(Model model){
+        model.addAttribute("unhealthy",postService.getUnhealthyPosts());
+        return "unhealthy-posts";
+    }
+
+    @GetMapping("/enable")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPER')")
+    public String enablePosts(@RequestParam("p") Long id,  Model model){
+        postService.enablePost(id);
+        return "unhealthy-posts";
     }
 
 }

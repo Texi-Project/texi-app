@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserServices {
             return responseBuilder.buildFail("user.following.not.found");
 
         //@todo may not be necessary, hibernate may fail if duplicates appear
+        System.out.println("UserServiceImpl me:"+me.getId()+" other: "+other);
         User fo = repository.findFollowing(me.getId(), other);
         if(fo!=null)
             return responseBuilder.buildFail(String.format(translator.getMessage("user.following.already"),
@@ -77,8 +78,7 @@ public class UserServiceImpl implements UserServices {
         String encoded = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoded);
         user.setStatus(Status.ACTIVE);
-        Role userRole = new Role();
-        userRole.setRole("USER");
+        Role userRole = new Role("USER");
         Set<Role> roles  = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
@@ -88,8 +88,8 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public List<User> whoToFollow(User user) {
-//        return findAll();
-        return repository.whoToFollow(user.getId());
+        List<User> users = repository.whoToFollow(user.getId());
+        return users != null ? users : new ArrayList<>();
     }
 
     @Override
