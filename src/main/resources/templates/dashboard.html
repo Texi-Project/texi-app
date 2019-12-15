@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layout}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
     <title>Timeline</title>
@@ -10,39 +10,11 @@
     <!-- leave blank so nothing shows up for the dashboard -->
 </section><!-- top area -->
 <div class="col-lg-6" layout:fragment="main-content">
-    <div class="central-meta new-pst">
-        <div class="new-postbox">
-            <figure>
-                <img alt="" th:src="@{/images/resources/admin2.jpg}">
-            </figure>
-            <div class="newpst-input">
-                <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
-<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-<!--                    <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>-->
-                    <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
-                    <div class="attachments">
-                        <ul>
-                            <li>
-                                <i class="fa fa-image"></i>
-                                <label class="fileContainer">
-                                    <input id="image" name="image" type="file">
-                                </label>
-                            </li>
-                            <li>
-                                <i class="fa fa-video-camera"></i>
-                                <label class="fileContainer">
-                                    <input id="video" name="video" type="file">
-                                </label>
-                            </li>
-                            <li>
-                                <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="central-meta new-pst" layout:replace="components :: newpost-form">
+        Intentionally left blank
     </div><!-- add post new box -->
+    <div class="loadMore" layout:replace="components :: posts-area">
+        Intentionally left blank
     <div class="loadMore">
         <div class="central-meta item" th:each="post : ${posts}">
             <div class="user-post">

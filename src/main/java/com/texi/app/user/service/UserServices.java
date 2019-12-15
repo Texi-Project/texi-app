@@ -8,9 +8,15 @@ import java.util.List;
 public interface UserServices {
     Response getUser(Long id);
     Response follow(User me, Long other);
+    Response unfollow(User user, String username);
     Response save(User user);
 
+    List<User> whoToFollow(User user);
     public List<User> findAll();
     public void update(Long id, User user);
     public User findByUsername(String email);
+
+    void updateStatus(String username, String status);
+
+    void update(User user);
 }

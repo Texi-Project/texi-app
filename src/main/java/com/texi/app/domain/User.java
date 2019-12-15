@@ -3,7 +3,6 @@ package com.texi.app.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,16 +18,17 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Data
+//@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 6, message = "size.min")
+    @Size(min = 4, message = "size.min")
     @Column(unique = true)
     private String username;
 
+    @Size(min = 5, message = "size.min")
     private String password;
 
     @Size(min = 2, message = "size.min")
@@ -45,6 +45,7 @@ public class User {
 
     @OneToMany
     private Set<User> following;
+
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 

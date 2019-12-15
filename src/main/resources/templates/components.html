@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="description"/>
+    <meta content="" name="keywords"/>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Texi</title>
+    <link rel="icon" sizes="16x16" th:href="@{/images/fav.png}" type="image/png}">
+
+    <link rel="stylesheet" th:href="@{/css/main.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/color.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+    <div class="postoverlay"></div>
+    <div class="responsive-header">
+        <div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+            <span class="mh-text">
+				<a href="/user/dashboard" title=""><img alt="" th:src="@{/images/logo2.png}"></a>
+			</span>
+            <span class="mh-btns-right">
+				<a class="fa fa-sliders" href="#shoppingbag"></a>
+			</span>
+        </div>
+        <div class="mh-head second">
+            <form class="mh-form">
+                <input placeholder="search"/>
+                <a class="fa fa-search" href="#/"></a>
+            </form>
+        </div>
+        <nav class="res-menu" id="menu">
+            <ul>
+                <li><span>Home</span>
+                    <ul>
+                        <li><a href="index-2.html" title="">Home Social</a></li>
+                        <li><a href="index2.html" title="">Home Social 2</a></li>
+                        <li><a href="index-company.html" title="">Home Company</a></li>
+                        <li><a href="landing.html" title="">Login page</a></li>
+                        <li><a th:href="@{/logout/}" title="">Logout Page</a></li>
+                        <li><a href="newsfeed.html" title="">news feed</a></li>
+                    </ul>
+                </li>
+                <li><span>Time Line</span>
+                    <ul>
+                        <li><a th:href="@{/user/timeline}" title="">timeline</a></li>
+                        <li><a href="timeline-friends.html" title="">timeline friends</a></li>
+                        <li><a href="timeline-groups.html" title="">timeline groups</a></li>
+                        <li><a href="timeline-pages.html" title="">timeline pages</a></li>
+                        <li><a href="timeline-photos.html" title="">timeline photos</a></li>
+                        <li><a href="timeline-videos.html" title="">timeline videos</a></li>
+                        <li><a href="fav-page.html" title="">favourit page</a></li>
+                        <li><a href="groups.html" title="">groups page</a></li>
+                        <li><a href="page-likers.html" title="">Likes page</a></li>
+                        <li><a href="people-nearby.html" title="">people nearby</a></li>
+
+
+                    </ul>
+                </li>
+                <li><span>Account Setting</span>
+                    <ul>
+                        <li><a href="create-fav-page.html" title="">create fav page</a></li>
+                        <li><a href="edit-account-setting.html" title="">edit account setting</a></li>
+                        <li><a href="edit-interest.html" title="">edit-interest</a></li>
+                        <li><a href="edit-password.html" title="">edit-password</a></li>
+                        <li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
+                        <li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
+                        <li><a href="messages.html" title="">message box</a></li>
+                        <li><a href="inbox.html" title="">Inbox</a></li>
+                        <li><a href="notifications.html" title="">notifications page</a></li>
+                    </ul>
+                </li>
+                <li><span>forum</span>
+                    <ul>
+                        <li><a href="forum.html" title="">Forum Page</a></li>
+                        <li><a href="forums-category.html" title="">Fourm Category</a></li>
+                        <li><a href="forum-open-topic.html" title="">Forum Open Topic</a></li>
+                        <li><a href="forum-create-topic.html" title="">Forum Create Topic</a></li>
+                    </ul>
+                </li>
+                <li><span>Our Shop</span>
+                    <ul>
+                        <li><a href="shop.html" title="">Shop Products</a></li>
+                        <li><a href="shop-masonry.html" title="">Shop Masonry Products</a></li>
+                        <li><a href="shop-single.html" title="">Shop Detail Page</a></li>
+                        <li><a href="shop-cart.html" title="">Shop Product Cart</a></li>
+                        <li><a href="shop-checkout.html" title="">Product Checkout</a></li>
+                    </ul>
+                </li>
+                <li><span>Our Blog</span>
+                    <ul>
+                        <li><a href="blog-grid-wo-sidebar.html" title="">Our Blog</a></li>
+                        <li><a href="blog-grid-right-sidebar.html" title="">Blog with R-Sidebar</a></li>
+                        <li><a href="blog-grid-left-sidebar.html" title="">Blog with L-Sidebar</a></li>
+                        <li><a href="blog-masonry.html" title="">Blog Masonry Style</a></li>
+                        <li><a href="blog-list-wo-sidebar.html" title="">Blog List Style</a></li>
+                        <li><a href="blog-list-right-sidebar.html" title="">Blog List with R-Sidebar</a></li>
+                        <li><a href="blog-list-left-sidebar.html" title="">Blog List with L-Sidebar</a></li>
+                        <li><a href="blog-detail.html" title="">Blog Post Detail</a></li>
+                    </ul>
+                </li>
+                <li><span>Portfolio</span>
+                    <ul>
+                        <li><a href="portfolio-2colm.html" title="">Portfolio 2col</a></li>
+                        <li><a href="portfolio-3colm.html" title="">Portfolio 3col</a></li>
+                        <li><a href="portfolio-4colm.html" title="">Portfolio 4col</a></li>
+                    </ul>
+                </li>
+                <li><span>Support & Help</span>
+                    <ul>
+                        <li><a href="support-and-help.html" title="">Support & Help</a></li>
+                        <li><a href="support-and-help-detail.html" title="">Support & Help Detail</a></li>
+                        <li><a href="support-and-help-search-result.html" title="">Support & Help Search Result</a></li>
+                    </ul>
+                </li>
+                <li><span>More pages</span>
+                    <ul>
+                        <li><a href="careers.html" title="">Careers</a></li>
+                        <li><a href="career-detail.html" title="">Career Detail</a></li>
+                        <li><a href="404.html" title="">404 error page</a></li>
+                        <li><a href="404-2.html" title="">404 Style2</a></li>
+                        <li><a href="faq.html" title="">faq's page</a></li>
+                        <li><a href="insights.html" title="">insights</a></li>
+                        <li><a href="knowledge-base.html" title="">knowledge base</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" title="">about</a></li>
+                <li><a href="about-company.html" title="">About Us2</a></li>
+                <li><a href="contact.html" title="">contact</a></li>
+                <li><a href="contact-branches.html" title="">Contact Us2</a></li>
+                <li><a href="widgets.html" title="">Widgts</a></li>
+            </ul>
+        </nav>
+        <nav id="shoppingbag">
+            <div>
+                <div class="">
+                    <form method="post">
+                        <div class="setting-row">
+                            <span>use night mode</span>
+                            <input id="nightmode" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="nightmode"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Notifications</span>
+                            <input id="switch2" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch2"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Notification sound</span>
+                            <input id="switch3" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch3"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>My profile</span>
+                            <input id="switch4" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch4"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Show profile</span>
+                            <input id="switch5" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch5"></label>
+                        </div>
+                    </form>
+                    <h4 class="panel-title">Account Setting</h4>
+                    <form method="post">
+                        <div class="setting-row">
+                            <span>Sub users</span>
+                            <input id="switch6" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch6"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>personal account</span>
+                            <input id="switch7" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch7"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Business account</span>
+                            <input id="switch8" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch8"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Show me online</span>
+                            <input id="switch9" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch9"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Delete history</span>
+                            <input id="switch10" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch10"></label>
+                        </div>
+                        <div class="setting-row">
+                            <span>Expose author name</span>
+                            <input id="switch11" type="checkbox"/>
+                            <label data-off-label="OFF" data-on-label="ON" for="switch11"></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div><!-- responsive header -->
+
+    <div class="topbar stick">
+        <div class="logo">
+            <a href="/user/dashboard" title=""><img alt="" th:src="@{/images/logo.png}"></a>
+        </div>
+
+        <div class="top-area">
+            <div class="top-search">
+                <form class="" method="post">
+                    <input placeholder="Search Friend" type="text">
+                    <button data-ripple><i class="ti-search"></i></button>
+                </form>
+            </div>
+            <ul class="setting-area">
+                <li><a data-ripple="" th:href="@{/user/dashboard}" title="Home"><i class="ti-home"></i></a></li>
+                <li>
+                    <a data-ripple="" href="#" title="Notification">
+                        <i class="ti-bell"></i><span>20</span>
+                    </a>
+                    <div class="dropdowns">
+                        <span>4 New Notifications</span>
+                        <ul class="drops-menu">
+                            <li>
+                                <a href="notifications.html" title="">
+                                    <img alt="" th:src="@{/images/resources/thumb-1.jpg}">
+                                    <div class="mesg-meta">
+                                        <h6>sarah Loren</h6>
+                                        <span>Hi, how r u dear ...?</span>
+                                        <i>2 min ago</i>
+                                    </div>
+                                </a>
+                                <span class="tag green">New</span>
+                            </li>
+                            <li>
+                                <a href="notifications.html" title="">
+                                    <img alt="" th:src="@{/images/resources/thumb-2.jpg}">
+                                    <div class="mesg-meta">
+                                        <h6>Jhon doe</h6>
+                                        <span>Hi, how r u dear ...?</span>
+                                        <i>2 min ago</i>
+                                    </div>
+                                </a>
+                                <span class="tag red">Reply</span>
+                            </li>
+                            <li>
+                                <a href="notifications.html" title="">
+                                    <img alt="" th:src="@{/images/resources/thumb-3.jpg}">
+                                    <div class="mesg-meta">
+                                        <h6>Andrew</h6>
+                                        <span>Hi, how r u dear ...?</span>
+                                        <i>2 min ago</i>
+                                    </div>
+                                </a>
+                                <span class="tag blue">Unseen</span>
+                            </li>
+                            <li>
+                                <a href="notifications.html" title="">
+                                    <img alt="" th:src="@{/images/resources/thumb-4.jpg}">
+                                    <div class="mesg-meta">
+                                        <h6>Tom cruse</h6>
+                                        <span>Hi, how r u dear ...?</span>
+                                        <i>2 min ago</i>
+                                    </div>
+                                </a>
+                                <span class="tag">New</span>
+                            </li>
+                            <li>
+                                <a href="notifications.html" title="">
+                                    <img alt="" th:src="@{/images/resources/thumb-5.jpg}">
+                                    <div class="mesg-meta">
+                                        <h6>Amy</h6>
+                                        <span>Hi, how r u dear ...?</span>
+                                        <i>2 min ago</i>
+                                    </div>
+                                </a>
+                                <span class="tag">New</span>
+                            </li>
+                        </ul>
+                        <a class="more-mesg" href="notifications.html" title="">view more</a>
+                    </div>
+                </li>
+                <li><a data-ripple="" href="#" title="Languages"><i class="fa fa-globe"></i></a>
+                    <div class="dropdowns languages">
+                        <a href="#" title=""><i class="ti-check"></i>English</a>
+                        <a href="#" title="">Arabic</a>
+                        <a href="#" title="">Dutch</a>
+                        <a href="#" title="">French</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="user-img" style="margin-right: 2rem;">
+                <img alt="" th:src="@{/images/resources/admin.jpg}">
+                <span class="status f-online"></span>
+                <div class="user-setting">
+                    <a href="#" title=""><span class="status f-online"></span>online</a>
+                    <a href="#" title=""><span class="status f-away"></span>away</a>
+                    <a href="#" title=""><span class="status f-off"></span>offline</a>
+                    <a href="#" title=""><i class="ti-user"></i> view profile</a>
+                    <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
+                    <a href="#" title=""><i class="ti-target"></i>activity log</a>
+                    <a href="#" title=""><i class="ti-settings"></i>account setting</a>
+                    <a th:href="@{/logout}" title=""><i class="ti-power-off"></i>log out</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- topbar -->
+
+    <section layout:fragment="top-image-area">
+        <div class="feature-photo">
+            <figure><img alt="" th:src="@{/images/resources/timeline-1.jpg}"></figure>
+            <!--todo Scale the timeline photos to these dimensions before saving-->
+            <!--<figure><img alt="" th:src="${user.photoUrl}" th:height="350" th:width="1366"></figure>-->
+            <div class="add-btn">
+                <span th:text="${user.following.size() + ' follower(s)'}">1205 followers</span>
+                <a data-ripple="" href="#" title="">Add Friend</a>
+            </div>
+            <form class="edit-phto">
+                <i class="fa fa-camera-retro"></i>
+                <label class="fileContainer">
+                    Edit Cover Photo
+                    <input type="file"/>
+                </label>
+            </form>
+            <div class="container-fluid">
+                <div class="row merged">
+                    <div class="col-lg-2 col-sm-3">
+                        <div class="user-avatar">
+                            <figure>
+                                <img alt="" th:src="${user.photoUrl}">
+                                <form class="edit-phto">
+                                    <i class="fa fa-camera-retro"></i>
+                                    <label class="fileContainer">
+                                        Edit Display Photo
+                                        <input type="file"/>
+                                    </label>
+                                </form>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-sm-9">
+                        <div class="timeline-info">
+                            <ul>
+                                <li class="admin-name">
+                                    <h5 th:text="${user.firstName + ' ' + user.lastName}">Janice Griffith</h5>
+                                    <!--<span>Group Admin</span>-->
+                                </li>
+                                <li>
+                                    <a class="active" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
+                                    <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
+                                    <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
+                                    <a class="" data-ripple="" href="timeline-friends.html" title="">Friends</a>
+                                    <a class="" data-ripple="" href="groups.html" title="">Groups</a>
+                                    <a class="" data-ripple="" href="about.html" title="">about</a>
+                                    <a class="" data-ripple="" href="#" title="">more</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- top area -->
+
+    <section>
+        <div class="gap gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row merged20" id="page-contents" layout:fragment="page-content">
+                            <div class="col-lg-3" layout:fragment="left-sidebar">
+                                <aside class="sidebar static">
+                                    <div class="widget" layout:fragment="left-shortcuts-admin" sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <h4 class="widget-title">Manage Texi</h4>
+                                        <ul class="naves" sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <li>
+                                                <i class="ti-files"></i>
+                                                <a th:href="@{/admin/adverts}" title="">Manage Adverts</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a th:href="@{/admin/users}" title="">Manage Users</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-image"></i>
+                                                <a href="#" th:href="@{/posts/unhealthy}" title="">Unhealthy Posts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="widget" layout:fragment="left-shortcuts-user" sec:authorize="hasRole('ROLE_USER')">
+                                        <h4 class="widget-title">Shortcuts</h4>
+                                        <ul class="naves">
+                                            <li>
+                                                <i class="ti-clipboard"></i>
+                                                <a th:href="@{/user/dashboard}" title="">News feed</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-files"></i>
+                                                <a th:href="@{/user/manage-profile}" title="">My profile</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-user"></i>
+                                                <a href="timeline-friends.html" title="">friends</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-image"></i>
+                                                <a href="timeline-photos.html" title="">images</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-video-camera"></i>
+                                                <a href="timeline-videos.html" title="">videos</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-bell"></i>
+                                                <a href="notifications.html" title="">Notifications</a>
+                                            </li>
+                                            <li>
+                                                <i class="ti-power-off"></i>
+                                                <a th:href="@{/logout/}" title="">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </div><!-- Shortcuts -->
+
+                                    <div class="widget stick-widget" layout:fragment="who-to-follow">
+                                        <h4 class="widget-title">Who to follow</h4>
+                                        <div class="chat-box" th:if="${wtf.isEmpty()}">
+                                            <ul>
+                                                <li>
+                                                    <div class="friend-meta">
+                                                        <h4><a href="#" title="">We didn't find any today</a></h4>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ul class="followers" th:each="suggested: ${wtf}">
+                                            <li th:id="${suggested.id}">
+                                                <figure><img alt="" th:src="${suggested.photoUrl}">
+                                                </figure>
+                                                <div class="friend-meta">
+                                                    <h4><a th:href="${'/user/timeline/' + suggested.id}" title=""><span th:text="${suggested.firstName + ' ' + suggested.lastName}"></span></a></h4>
+                                                    <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}">Add Friend</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div><!-- who's following -->
+                                </aside>
+                            </div><!-- sidebar -->
+                            <div class="col-lg-6" layout:fragment="main-content">
+                                <div class="central-meta new-pst" layout:fragment="newpost-form">
+                                    <div class="new-postbox">
+                                        <figure>
+                                            <img alt="" th:src="${user.photoUrl}">
+                                        </figure>
+                                        <div class="newpst-input">
+                                            <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
+                                                <!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+                                                <!--                    <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>-->
+                                                <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
+                                                <div class="attachments">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-image"></i>
+                                                            <label class="fileContainer">
+                                                                <input id="image" name="image" type="file">
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-video-camera"></i>
+                                                            <label class="fileContainer">
+                                                                <input id="video" name="video" type="file">
+                                                            </label>
+                                                        </li>
+                                                        <input type="hidden" value="post" name="type" />
+                                                        <li>
+                                                            <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div><!-- add post new box -->
+
+                                <div class="loadMore" layout:fragment="posts-area">
+                                    <div class="central-meta item" th:each="post : ${posts}">
+                                        <div class="user-post">
+                                            <div class="friend-info">
+                                                <figure>
+                                                    <!-- todo replace avatar here with user thumbnail -->
+                                                    <img alt="" th:src="${post.user.photoUrl}">
+                                                </figure>
+                                                <div class="friend-name">
+                                                    <ins><a th:href="@{/user/timeline}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
+                                                    <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
+                                                </div>
+                                                <div class="post-meta">
+                                                    <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
+                                                    <!--                        <img alt="" src="/images/resources/user-post.jpg">-->
+                                                    <div class="we-video-info">
+                                                        <ul>
+                                                            <li>
+                                    <span class="views" data-toggle="tooltip" title="views">
+                                        <i class="fa fa-eye"></i>
+                                        <ins>1.2k</ins>
+                                    </span>
+                                                            </li>
+                                                            <li>
+                                    <span class="comment" data-toggle="tooltip"
+                                          title="Comments">
+                                        <i class="fa fa-comments-o"></i>
+                                        <ins>52</ins>
+                                    </span>
+                                                            </li>
+                                                            <li>
+                                    <span class="like" data-toggle="tooltip" title="like">
+                                        <i class="ti-heart"></i>
+                                        <ins>2.2k</ins>
+                                    </span>
+                                                            </li>
+                                                            <li>
+                                    <span class="dislike" data-toggle="tooltip" title="dislike">
+                                        <i class="ti-heart-broken"></i>
+                                        <ins>200</ins>
+                                    </span>
+                                                            </li>
+                                                            <li class="social-media">
+                                                                <div class="menu">
+                                                                    <div class="btn trigger"><i
+                                                                            class="fa fa-share-alt"></i></div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-html5"></i></a></div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-facebook"></i></a></div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-google-plus"></i></a></div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-twitter"></i></a></div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-css3"></i></a></div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-instagram"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-dribbble"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="rotater">
+                                                                        <div class="btn btn-icon"><a href="#"
+                                                                                                     title=""><i
+                                                                                class="fa fa-pinterest"></i></a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="description">
+                                                        <p th:text="${post.title}">
+                                                            <span th:text="${user.getUsername()}"></span>
+                                                            World's most beautiful car in Curabitur <a href="#" title="">#test
+                                                            drive booking !</a> the most beatuiful car available in
+                                                            america and the saudia arabia, you can book your test drive
+                                                            by our official website
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="coment-area">
+                                                <ul class="we-comet">
+                                                    <li>
+                                                        <div class="comet-avatar">
+                                                            <img alt="" th:src="@{/images/resources/comet-1.jpg}">
+                                                        </div>
+                                                        <div class="we-comment">
+                                                            <div class="coment-head">
+                                                                <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
+                                                                </h5>
+                                                                <span>1 year ago</span>
+                                                                <a class="we-reply" href="#" title="Reply"><i
+                                                                        class="fa fa-reply"></i></a>
+                                                            </div>
+                                                            <p>we are working for the dance and sing songs. this car is
+                                                                very awesome for the youngster. please vote this car and
+                                                                like our post</p>
+                                                        </div>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="comet-avatar">
+                                                                    <img alt="" th:src="@{/images/resources/comet-2.jpg}">
+                                                                </div>
+                                                                <div class="we-comment">
+                                                                    <div class="coment-head">
+                                                                        <h5><a th:href="@{/user/timeline}" title="">alexendra
+                                                                            dadrio</a></h5>
+                                                                        <span>1 month ago</span>
+                                                                        <a class="we-reply" href="#" title="Reply"><i
+                                                                                class="fa fa-reply"></i></a>
+                                                                    </div>
+                                                                    <p>yes, really very awesome car i see the features
+                                                                        of this car in the official website of <a
+                                                                                href="#" title="">#Mercedes-Benz</a> and
+                                                                        really impressed :-)</p>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="comet-avatar">
+                                                                    <img alt="" th:src="@{/images/resources/comet-3.jpg}">
+                                                                </div>
+                                                                <div class="we-comment">
+                                                                    <div class="coment-head">
+                                                                        <h5><a th:href="@{/user/timeline}" title="">Olivia</a>
+                                                                        </h5>
+                                                                        <span>16 days ago</span>
+                                                                        <a class="we-reply" href="#" title="Reply"><i
+                                                                                class="fa fa-reply"></i></a>
+                                                                    </div>
+                                                                    <p>i like lexus cars, lexus cars are most beautiful
+                                                                        with the awesome features, but this car is
+                                                                        really outstanding than lexus</p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <div class="comet-avatar">
+                                                            <img alt="" th:src="@{/images/resources/comet-1.jpg}">
+                                                        </div>
+                                                        <div class="we-comment">
+                                                            <div class="coment-head">
+                                                                <h5><a th:href="@{/user/timeline}" title="">Donald Trump</a>
+                                                                </h5>
+                                                                <span>1 week ago</span>
+                                                                <a class="we-reply" href="#" title="Reply"><i
+                                                                        class="fa fa-reply"></i></a>
+                                                            </div>
+                                                            <p>we are working for the dance and sing songs. this video
+                                                                is very awesome for the youngster. please vote this
+                                                                video and like our channel
+                                                                <i class="em em-smiley"></i>
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <a class="showmore underline" href="#" title="">more
+                                                            comments</a>
+                                                    </li>
+                                                    <li class="post-comment">
+                                                        <div class="comet-avatar">
+                                                            <img alt="" th:src="@{/images/resources/comet-1.jpg}">
+                                                        </div>
+                                                        <div class="post-comt-box">
+                                                            <form method="post">
+                                                                <textarea placeholder="Post your comment"></textarea>
+                                                                <div class="add-smiles">
+                                            <span class="em em-expressionless"
+                                                  title="add icon"></span>
+                                                                </div>
+                                                                <div class="smiles-bunch">
+                                                                    <i class="em em---1"></i>
+                                                                    <i class="em em-smiley"></i>
+                                                                    <i class="em em-anguished"></i>
+                                                                    <i class="em em-laughing"></i>
+                                                                    <i class="em em-angry"></i>
+                                                                    <i class="em em-astonished"></i>
+                                                                    <i class="em em-blush"></i>
+                                                                    <i class="em em-disappointed"></i>
+                                                                    <i class="em em-worried"></i>
+                                                                    <i class="em em-kissing_heart"></i>
+                                                                    <i class="em em-rage"></i>
+                                                                    <i class="em em-stuck_out_tongue"></i>
+                                                                </div>
+                                                                <button type="submit"></button>
+                                                            </form>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- centerl meta -->
+                            <div class="col-lg-3" layout:fragment="right-sidebar">
+                                <aside class="sidebar static">
+                                    <div class="widget" layout:fragment="page-like-area">
+                                        <h4 class="widget-title">Your page</h4>
+                                        <div class="your-page">
+                                            <figure>
+                                                <a href="#" title=""><img alt="" th:src="${user.photoUrl}"></a>
+                                            </figure>
+                                            <div class="page-meta">
+                                                <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
+                                                <span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
+                                            </div>
+                                            <div class="page-likes">
+                                                <ul class="nav nav-tabs likes-btn">
+                                                    <li class="nav-item"><a class="active" data-toggle="tab"
+                                                                            href="#link1">likes</a></li>
+                                                    <li class="nav-item"><a class="" data-toggle="tab" href="#link2">views</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active fade show " id="link1">
+                                                        <span><i class="ti-heart"></i>884</span>
+                                                        <a href="#" title="weekly-likes">35 new likes this week</a>
+                                                        <div class="users-thumb-list">
+                                                            <a data-toggle="tooltip" href="#" title="Anderw">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-1.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="frank">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-2.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sara">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-3.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Amy">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-4.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Ema">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-5.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sophie">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-6.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Maria">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-7.jpg}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="link2">
+                                                        <span><i class="ti-eye"></i>440</span>
+                                                        <a href="#" title="weekly-likes">440 new views this week</a>
+                                                        <div class="users-thumb-list">
+                                                            <a data-toggle="tooltip" href="#" title="Anderw">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-1.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="frank">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-2.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sara">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-3.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Amy">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-4.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Ema">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-5.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Sophie">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-6.jpg}">
+                                                            </a>
+                                                            <a data-toggle="tooltip" href="#" title="Maria">
+                                                                <img alt=""
+                                                                     th:src="@{/images/resources/userlist-7.jpg}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- page like widget -->
+                                    <div class="widget" layout:fragment="advert-area">
+                                        <div class="banner medium-opacity bluesh">
+                                            <div class="bg-image"
+                                                 style="background-image: url(/images/resources/baner-widgetbg.jpg)"></div>
+                                            <div class="baner-top">
+                                                <span><img alt="" th:src="@{/images/book-icon.png}"></span>
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </div>
+                                            <div class="banermeta">
+                                                <p>
+                                                    create your own favourit page.
+                                                </p>
+                                                <span>like them all</span>
+                                                <a data-ripple="" href="#" title="">start now!</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget friend-list stick-widget" layout:fragment="friends-list-area">
+                                        <h4 class="widget-title">Friends</h4>
+
+                                        <div class="chat-box" th:if="${friends.isEmpty()}">
+                                            <ul>
+                                                <li>
+                                                    <div class="friend-meta">
+                                                        <h4><a href="#" title="">You have no friends yet</a></h4>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="searchDir"></div>
+                                        <ul class="friendz-list" id="people-list" th:each="friend: ${friends}">
+                                            <li th:id="${'un'+friend.id}">
+                                                <figure>
+                                                    <img alt="" th:src="${friend.photoUrl}">
+                                                    <span class="status f-online"></span>
+                                                </figure>
+                                                <div class="friendz-meta">
+                                                    <a th:href="${'/user/timeline/' + friend.id}"><span th:text="${friend.firstName + ' ' + friend.lastName}"></span></a>
+                                                    <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="chat-box">
+                                            <div class="chat-head">
+                                                <span class="status f-online"></span>
+                                                <h6>Bucky Barnes</h6>
+                                                <div class="more">
+                                                    <span><i class="ti-more-alt"></i></span>
+                                                    <span class="close-mesage"><i class="ti-close"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="chat-list">
+                                                <ul>
+                                                    <li class="me">
+                                                        <div class="chat-thumb"><img
+                                                                alt="" th:src="@{/images/resources/chatlist1.jpg}">
+                                                        </div>
+                                                        <div class="notification-event">
+															<span class="chat-message-item">
+																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+															</span>
+                                                            <span class="notification-date"><time
+                                                                    class="entry-date updated"
+                                                                    datetime="2004-07-24T18:18">Yesterday at 8:10pm</time></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="you">
+                                                        <div class="chat-thumb"><img
+                                                                alt="" th:src="@{/images/resources/chatlist2.jpg}">
+                                                        </div>
+                                                        <div class="notification-event">
+															<span class="chat-message-item">
+																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+															</span>
+                                                            <span class="notification-date"><time
+                                                                    class="entry-date updated"
+                                                                    datetime="2004-07-24T18:18">Yesterday at 8:10pm</time></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="me">
+                                                        <div class="chat-thumb"><img
+                                                                alt="" th:src="@{/images/resources/chatlist1.jpg}">
+                                                        </div>
+                                                        <div class="notification-event">
+															<span class="chat-message-item">
+																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+															</span>
+                                                            <span class="notification-date"><time
+                                                                    class="entry-date updated"
+                                                                    datetime="2004-07-24T18:18">Yesterday at 8:10pm</time></span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <form class="text-box">
+                                                    <textarea placeholder="Post enter to post..."></textarea>
+                                                    <div class="add-smiles">
+                                                        <span class="em em-expressionless" title="add icon"></span>
+                                                    </div>
+                                                    <div class="smiles-bunch">
+                                                        <i class="em em---1"></i>
+                                                        <i class="em em-smiley"></i>
+                                                        <i class="em em-anguished"></i>
+                                                        <i class="em em-laughing"></i>
+                                                        <i class="em em-angry"></i>
+                                                        <i class="em em-astonished"></i>
+                                                        <i class="em em-blush"></i>
+                                                        <i class="em em-disappointed"></i>
+                                                        <i class="em em-worried"></i>
+                                                        <i class="em em-kissing_heart"></i>
+                                                        <i class="em em-rage"></i>
+                                                        <i class="em em-stuck_out_tongue"></i>
+                                                    </div>
+                                                    <button type="submit"></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div><!-- friends list sidebar -->
+                                </aside>
+                            </div><!-- sidebar -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="widget">
+                        <div class="foot-logo">
+                            <div class="logo">
+                                <a href="index-2.html" title=""><img alt="" th:src="@{/images/logo.png}"></a>
+                            </div>
+                            <p>
+                                The trio took this simple idea and built it into the world’s leading carpooling
+                                platform.
+                            </p>
+                        </div>
+                        <ul class="location">
+                            <li>
+                                <i class="ti-map-alt"></i>
+                                <p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
+                            </li>
+                            <li>
+                                <i class="ti-mobile"></i>
+                                <p>+1-56-346 345</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="widget">
+                        <div class="widget-title"><h4>follow</h4></div>
+                        <ul class="list-style">
+                            <li><i class="fa fa-facebook-square"></i> <a href="https://web.facebook.com/shopcircut/"
+                                                                         title="">facebook</a></li>
+                            <li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/login?lang=en"
+                                                                       title="">twitter</a></li>
+                            <li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/?hl=en" title="">instagram</a>
+                            </li>
+                            <li><i class="fa fa-google-plus-square"></i> <a href="https://plus.google.com/discover"
+                                                                            title="">Google+</a></li>
+                            <li><i class="fa fa-pinterest-square"></i> <a href="https://www.pinterest.com/" title="">Pintrest</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="widget">
+                        <div class="widget-title"><h4>Navigate</h4></div>
+                        <ul class="list-style">
+                            <li><a href="about.html" title="">about us</a></li>
+                            <li><a href="contact.html" title="">contact us</a></li>
+                            <li><a href="terms.html" title="">terms & Conditions</a></li>
+                            <li><a href="#" title="">RSS syndication</a></li>
+                            <li><a href="sitemap.html" title="">Sitemap</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="widget">
+                        <div class="widget-title"><h4>useful links</h4></div>
+                        <ul class="list-style">
+                            <li><a href="#" title="">leasing</a></li>
+                            <li><a href="#" title="">submit route</a></li>
+                            <li><a href="#" title="">how does it work?</a></li>
+                            <li><a href="#" title="">agent listings</a></li>
+                            <li><a href="#" title="">view All</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="widget">
+                        <div class="widget-title"><h4>download apps</h4></div>
+                        <ul class="colla-apps">
+                            <li><a href="https://play.google.com/store?hl=en" title=""><i class="fa fa-android"></i>android</a>
+                            </li>
+                            <li><a href="https://www.apple.com/lae/ios/app-store/" title=""><i class="ti-apple"></i>iPhone</a>
+                            </li>
+                            <li><a href="https://www.microsoft.com/store/apps" title=""><i class="fa fa-windows"></i>Windows</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer><!-- footer -->
+    <div class="bottombar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="copyright">© Winku 2018. All rights reserved.</span>
+                    <i><img alt="" th:src="@{/images/credit-cards.png}"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<!--<script th:src="@{js/map-init.js}"></script>-->
+<!--<script th:src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>-->
+</body>
+</html>

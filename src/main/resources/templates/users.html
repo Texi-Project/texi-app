@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<section layout:fragment="top-image-area">
+    <!-- leave blank so nothing shows up for the dashboard -->
+</section><!-- top area -->
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta">
+        <div class="editing-interest">
+            <h5 class="f-title"><i class="ti-bell"></i>All Users</h5>
+            <div class="notification-box">
+
+                <ul class="followers" th:each="user: ${users}">
+                    <li >
+                        <figure><img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
+                        </figure>
+                        <div class="friend-meta">
+                            <h4><a href="time-line.html" title=""><span th:text="${user.firstName+' -  '+user.status}"></span> <span></span></a></h4>
+                            <a th:href="@{'/admin/user/'+${user.username}+'/status/block'}" th:if="${user.status.equals('ACTIVE')}">Block</a>
+
+                            <a th:href="@{'/admin/user/'+${user.username}+'/status/active'}" th:if="${user.status != 'ACTIVE'}">Activate</a>
+                        </div>
+                    </li>
+<!--                    <li>-->
+<!--                        <figure><img src="images/resources/friend-avatar.jpg" alt=""></figure>-->
+<!--                        <div class="notifi">-->
+<!--                            <p th:text="${user.firstName}"></p>-->
+<!--                            <a th:href="@{'/admin/user/'+${user.username}+'/status/block'}">-->
+<!--                                <span class="del" th:if="${user.status == 'ACTIVE'}">Block</span></a>-->
+<!--                            <a th:href="@{'/admin/user/'+${user.username}+'/status/active'}">-->
+<!--                                <span th:if="${user.status != 'ACTIVE'}">Activate</span></a>-->
+<!--                        </div>-->
+<!--                        <i class="del fa fa-close"></i>-->
+<!--                    </li>-->
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div><!-- centerl meta -->
+</body>
+</html>

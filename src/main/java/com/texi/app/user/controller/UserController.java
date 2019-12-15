@@ -1,7 +1,6 @@
 package com.texi.app.user.controller;
 
 import com.texi.app.core.Response;
-import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
@@ -14,18 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"user","wtf","friends"})
 @RequestMapping("/user")
 //@SessionAttributes("user")
 public class UserController {
@@ -40,12 +35,26 @@ public class UserController {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private ResponseBuilder responseBuilder;
-//    @ModelAttribute("user")
-//    public User user(){
-//        return new User();
-//    }
+    @ModelAttribute
+    public void loadInitData(Principal principal, Model model, HttpSession session){
+        if (principal != null) {
+            System.out.println("loadInitData Principle: "+principal.getName());
+            User u = services.findByUsername(principal.getName());
+            model.addAttribute("user", u);
+
+            List<User> wtf = services.whoToFollow(u);
+            model.addAttribute("wtf", wtf);
+            model.addAttribute("friends", u.getFollowing());
+
+            List<Post> postList = postService.getPostsForUser(u);
+            model.addAttribute("posts", postList);
+
+            session.setAttribute("wtf", wtf);
+            session.setAttribute("friends", u.getFollowing());
+            session.setAttribute("posts", postList);
+        }
+
+    }
 
     @RequestMapping("/")
     public String index(Model model){
@@ -66,48 +75,63 @@ public class UserController {
         return services.follow((User) response.getData(), Long.parseLong(id));
     }
 
-    @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
-                         @RequestParam("photo") MultipartFile photo, Model model){
-
-        if (bindingResult.hasErrors()){
-            return "login";
-        }
-
-        User u = services.findByUsername(user.getUsername());
-
-        if (u != null) {
-            bindingResult
-                    .rejectValue("username", "error.user",
-                            "There is already a user registered with the username provided");
-            return "login";
-        }
-
-        //StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(uploadDirectory, photo.getOriginalFilename());
-        //fileNames.append(photo.getOriginalFilename()+" ");
-        try {
-            Files.write(fileNameAndPath, photo.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        user.setPhotoUrl(fileNameAndPath.toString());
-        Response res = services.save(user);
-
-        ra.addFlashAttribute("user",res.getData());
-        model.addAttribute("user", res.getData());
-        return "redirect:auth";
+    @ApiOperation(value = "Follow User")
+    @RequestMapping(value = "/follow")
+    public String followNew(@RequestParam("f") String id, Model model){
+        User user = (User) model.asMap().get("user");
+        System.out.println("follow: "+user.getId());
+        services.follow(user, Long.parseLong(id));
+        return "redirect:dashboard";
     }
 
-    @GetMapping(value = {"/dashboard", "/timeline"})
+    @ApiOperation(value = "Un follow User")
+    @RequestMapping(value = "/unfollow")
+    public String unfollow(@RequestParam("f") String username, Model model){
+        System.out.println(".......here.......");
+        User user = (User) model.asMap().get("user");
+        services.unfollow(user, username);
+        return "redirect:dashboard";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("user") User user,
+                         BindingResult bindingResult, Principal principal, Model model){
+        if (principal == null) return "redirect:/auth";
+        if (bindingResult.hasErrors()) {
+            return "manage-profile";
+        }
+
+        // Assume it is the user logged in who is updating their info
+        User u = services.findByUsername(user.getUsername());
+        if (u != null && !user.getUsername().equals(principal.getName())) { // validate the new username
+            bindingResult.rejectValue("username", "error.user", "There is already a user registered with the username provided");
+            return "redirect:/auth";
+        }
+        u = services.findByUsername(principal.getName());
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setUsername(user.getUsername());
+        u.setBirthday(user.getBirthday());
+        u.setPassword(user.getPassword());
+        services.save(u);
+        model.addAttribute("status", "Success");
+        return "redirect:manage-profile";
+    }
+
+    @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
-        System.out.println("Principle: "+principal.getName());
+        if (principal == null) {
+            return "redirect:/auth";
+        }
 
-        User u = services.findByUsername(principal.getName());
-        model.addAttribute("user", u);
-
-        List<Post> postList = postService.findByUser(u);
-        model.addAttribute("posts", postList);
+        User u = (User) model.asMap().get("user");
+//
+//        List<User> wtf = services.whoToFollow(u);
+//        model.addAttribute("wtf", wtf);
+//        model.addAttribute("friends", u.getFollowing());
+//
+//        List<Post> postList = postService.getPostsForUser(u);
+//        model.addAttribute("posts", postList);
 
         return "dashboard";
     }
@@ -133,6 +157,50 @@ public class UserController {
         }
         model.addAttribute("errorMessge", errorMessge);
         return "login";
+    }
+
+    @GetMapping("/manage-profile")
+    public String manageProfile(Model model, Principal principal) {
+        if (principal == null) return "redirect:/auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        return "manage-profile";
+    }
+
+    @GetMapping("/timeline")
+    public String timeline(Model model, Principal principal) {
+        if (principal == null) return "redirect:/auth";
+
+        User u = services.findByUsername(principal.getName());
+        model.addAttribute("user", u);
+
+        List<User> wtf = services.whoToFollow(u);
+        model.addAttribute("wtf", wtf);
+        model.addAttribute("friends", u.getFollowing());
+
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
+
+        return "timeline";
+    }
+
+    @GetMapping("/timeline/{userId}")
+    public String timeline(Model model, Principal principal, @PathVariable("userId") Long userId) {
+        if (principal == null) return "redirect:/auth";
+
+        User u = (User) services.getUser(userId).getData();
+        model.addAttribute("user", u);
+
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
+
+        return "timeline";
     }
 
 }

@@ -35,6 +35,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/**", "/login", "/auth").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/super/**").hasAuthority("SUPER")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .anyRequest().authenticated() //all other urls can be access by any authenticated role
                 .and()
@@ -44,14 +45,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureUrl("/auth")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/user/timeline")
+                    .defaultSuccessUrl("/user/dashboard")
                     .and()
 //                .logout()
 //                    .invalidateHttpSession(true)
 //                    .deleteCookies("JSESSIONID")
-//                    .and()
-//                .csrf()
-//                .ignoringAntMatchers("/h2-console/**") //don't apply CSRF protection to /h2-console
 //                    .and()
                 .exceptionHandling()
                     .accessDeniedPage("/denied")
@@ -59,7 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                     .rememberMeParameter("remember-me")
                     .tokenRepository(tokenRepository())
-                .and()
+                    .and()
                 .csrf()
                 .disable()
         ;

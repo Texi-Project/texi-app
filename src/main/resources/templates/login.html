@@ -85,7 +85,7 @@
                             Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
                         </p>
-                        <form method="post" th:action="@{/user/create}" th:object="${user}" enctype="multipart/form-data">
+                        <form method="post" th:action="@{/create}" th:object="${user}" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input required="required" type="text" th:field="*{firstName}"/>
                                 <label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
