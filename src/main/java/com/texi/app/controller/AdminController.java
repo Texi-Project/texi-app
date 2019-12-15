@@ -1,4 +1,4 @@
-package com.texi.app.admin.controllers;
+package com.texi.app.controller;
 
 import com.texi.app.domain.Advert;
 import com.texi.app.domain.User;
@@ -7,7 +7,10 @@ import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
