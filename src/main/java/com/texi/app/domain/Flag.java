@@ -20,6 +20,6 @@ public class Flag {
     @OneToOne
     private Post post;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 }

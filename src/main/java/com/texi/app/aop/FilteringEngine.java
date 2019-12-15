@@ -5,6 +5,8 @@ import com.texi.app.domain.Post;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.flag.FlagRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +17,13 @@ import java.util.stream.Collectors;
 @Component
 public class FilteringEngine {
 
-    @Autowired
-    private FlagRepository flagRepository;
-//  @todo Logging
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private List<String> badWords;
 
     public Post filterPost(Post post, User user) {
-        List<String> words = Arrays.asList(post.getDescription());
-        List<String> badWordsFound = words.stream().filter(w -> badWords.contains(w)).collect(Collectors.toList());
+        List<String> words = Arrays.asList(post.getDescription().split(" "));
+        List<String> badWordsFound = words.stream().filter(w -> badWords.contains(w.toLowerCase()) ).collect(Collectors.toList());
 
         if(badWordsFound.isEmpty()){
             return post;
@@ -32,15 +33,17 @@ public class FilteringEngine {
         flag.setNoOfWords(badWordsFound.size());
         flag.setPost(post);
         flag.setUser(user);
-        flagRepository.save(flag);
         post.setStatus(Status.DEACTIVATED);
+        post.setFlag(flag);
+        logger.info("post:flagged "+user.getUsername()+" "+post.getId()+" UNHEALTHY");
+//        @TODO notify by sending to a queue
         return post;
     }
 
     // @todo get these words from a file | database
     public FilteringEngine(){
-        String[] words = {"evil", "fuck", "Shit", "Dick head", "Asshole", "Bastard", "Bitch", "Damn", "Bollocks", "Bugger",
-        "Bloody Hell"};
+        String[] words = {"evil", "fuck", "shit", "dick head", "asshole", "bastard", "bitch", "damn", "bollocks", "bugger",
+        "bloody", "hell"};
         badWords = Arrays.asList(words);
     }
 
