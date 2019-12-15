@@ -15,13 +15,13 @@ public class Comment {
     private Long id;
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @NotEmpty(message = "string.notEmpty")
-    @Lob
+//    @NotEmpty(message = "string.notEmpty")
+//    @Lob
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Post post;
 
     public Comment() {

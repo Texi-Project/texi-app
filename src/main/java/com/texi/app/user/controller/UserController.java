@@ -22,6 +22,7 @@ import java.util.List;
 @Controller
 @SessionAttributes({"user","wtf","friends"})
 @RequestMapping("/user")
+//@SessionAttributes("user")
 public class UserController {
     public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
 
