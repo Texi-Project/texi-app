@@ -7,7 +7,7 @@ import com.texi.app.domain.User;
 import java.util.List;
 
 public interface PostService {
-    void save(Post post);
+    void save(Post post, User user);
 
     Post findById(Long id);
 
