@@ -499,12 +499,11 @@
                                                     <img alt="" th:src="${post.user.photoUrl}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a th:href="@{/user/timeline}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
+                                                    <ins><a th:href="${'/user/timeline/' + post.user.id}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
                                                     <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
                                                     <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
-                                                    <!--                        <img alt="" src="/images/resources/user-post.jpg">-->
                                                     <div class="we-video-info">
                                                         <ul>
                                                             <li>
@@ -585,13 +584,16 @@
                                                         </ul>
                                                     </div>
                                                     <div class="description">
+
                                                         <p th:text="${post.title}">
                                                             <span th:text="${user.getUsername()}"></span>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test
+                                                            World's most beautiful car in Curabitur <a href="#"
+                                                                                                       title="">#test
                                                             drive booking !</a> the most beatuiful car available in
                                                             america and the saudia arabia, you can book your test drive
                                                             by our official website
                                                         </p>
+                                                        <p th:id="postid"><span th:text= "${post.id}" style="display: none"></span></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -603,7 +605,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a th:href="@{/user/timeline}" title="">Jason borne</a>
+                                                                <h5><a href="time-line.html" title="">Jason borne</a>
                                                                 </h5>
                                                                 <span>1 year ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -620,7 +622,7 @@
                                                                 </div>
                                                                 <div class="we-comment">
                                                                     <div class="coment-head">
-                                                                        <h5><a th:href="@{/user/timeline}" title="">alexendra
+                                                                        <h5><a href="time-line.html" title="">alexendra
                                                                             dadrio</a></h5>
                                                                         <span>1 month ago</span>
                                                                         <a class="we-reply" href="#" title="Reply"><i
@@ -638,7 +640,7 @@
                                                                 </div>
                                                                 <div class="we-comment">
                                                                     <div class="coment-head">
-                                                                        <h5><a th:href="@{/user/timeline}" title="">Olivia</a>
+                                                                        <h5><a href="time-line.html" title="">Olivia</a>
                                                                         </h5>
                                                                         <span>16 days ago</span>
                                                                         <a class="we-reply" href="#" title="Reply"><i
@@ -657,7 +659,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><a th:href="@{/user/timeline}" title="">Donald Trump</a>
+                                                                <h5><a href="time-line.html" title="">Donald Trump</a>
                                                                 </h5>
                                                                 <span>1 week ago</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
@@ -679,8 +681,8 @@
                                                             <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                                                         </div>
                                                         <div class="post-comt-box">
-                                                            <form method="post">
-                                                                <textarea placeholder="Post your comment"></textarea>
+                                                            <form class="commentForm" method="post" action="/comment/add">
+                                                                <textarea id="pcomment" name="pcomment" placeholder="Post your comment"></textarea>
                                                                 <div class="add-smiles">
                                             <span class="em em-expressionless"
                                                   title="add icon"></span>
@@ -699,7 +701,8 @@
                                                                     <i class="em em-rage"></i>
                                                                     <i class="em em-stuck_out_tongue"></i>
                                                                 </div>
-                                                                <button type="submit"></button>
+                                                                <input type="hidden" th:value="${post.id}" class="something" th:attr="name='postId'" />
+                                                                <button  type="submit"></button>
                                                             </form>
                                                         </div>
                                                     </li>
@@ -708,7 +711,9 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div><!-- centerl meta -->
+
                             <div class="col-lg-3" layout:fragment="right-sidebar">
                                 <aside class="sidebar static">
                                     <div class="widget" layout:fragment="page-like-area">
