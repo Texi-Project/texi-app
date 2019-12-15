@@ -234,7 +234,7 @@
                                 <img alt="" th:src="@{/images/resources/comet-1.jpg}">
                             </div>
                             <div class="post-comt-box">
-                                <form id="commentForm" method="post" action="/comment/add">
+                                <form class="commentForm" method="post" action="/comment/add">
                                     <textarea id="pcomment" name="pcomment" placeholder="Post your comment"></textarea>
                                     <div class="add-smiles">
                                             <span class="em em-expressionless"
@@ -254,7 +254,7 @@
                                         <i class="em em-rage"></i>
                                         <i class="em em-stuck_out_tongue"></i>
                                     </div>
-                                    <input type="hidden" th:value="${post.id}" th:attr="name='postId'" />
+                                    <input type="hidden" th:value="${post.id}" class="something" th:attr="name='postId'" />
                                     <button  type="submit"></button>
                                 </form>
                             </div>
