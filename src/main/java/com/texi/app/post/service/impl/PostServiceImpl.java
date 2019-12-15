@@ -1,5 +1,6 @@
 package com.texi.app.post.service.impl;
 
+import com.texi.app.aop.FilteringEngine;
 import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.Status;
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class PostServiceImpl implements PostService {
 
+
     PostRepository postRepository;
 
     @Autowired
@@ -22,7 +24,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void save(Post post) {
+    public void save(Post post, User user) {
         postRepository.save(post);
     }
 

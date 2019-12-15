@@ -48,8 +48,8 @@ public class PostController {
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
                             @RequestParam("video") MultipartFile video, Principal principal,
-                            @RequestParam("type") String type, @RequestParam(required = false) String start,
-                            @RequestParam(required = false) String end) {
+                            @RequestParam("type") String type, @RequestParam(value = "start", required = false) String start,
+                            @RequestParam(value = "end", required = false) String end) {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
@@ -79,7 +79,7 @@ public class PostController {
         }
         User user = userService.findByUsername(principal.getName());
         post.setUser(user);
-        postService.save(post);
+        postService.save(post, user);
         return new RedirectView("/user/dashboard");
     }
 
