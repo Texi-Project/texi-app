@@ -46,12 +46,12 @@ public class UserController {
             model.addAttribute("wtf", wtf);
             model.addAttribute("friends", u.getFollowing());
 
-            List<Post> postList = postService.getPostsForUser(u);
-            model.addAttribute("posts", postList);
+            List<User> followers = services.getFollowers(u.getId());
+            model.addAttribute("followers", followers);
 
             session.setAttribute("wtf", wtf);
             session.setAttribute("friends", u.getFollowing());
-            session.setAttribute("posts", postList);
+            session.setAttribute("followers", followers);
         }
 
     }
@@ -120,18 +120,12 @@ public class UserController {
 
     @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/auth";
-        }
+        if (principal == null)  return "redirect:/auth";
 
         User u = (User) model.asMap().get("user");
-//
-//        List<User> wtf = services.whoToFollow(u);
-//        model.addAttribute("wtf", wtf);
-//        model.addAttribute("friends", u.getFollowing());
-//
-//        List<Post> postList = postService.getPostsForUser(u);
-//        model.addAttribute("posts", postList);
+
+        List<Post> postList = postService.getPostsForUser(u);
+        model.addAttribute("posts", postList);
 
         return "dashboard";
     }

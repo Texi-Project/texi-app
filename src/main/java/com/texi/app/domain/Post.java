@@ -26,7 +26,7 @@ public class Post implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private List<Photo> photos;
 

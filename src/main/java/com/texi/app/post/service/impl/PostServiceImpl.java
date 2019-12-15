@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByUser(User user) {
-        return postRepository.findAllByUserOrderByDateDesc(user);
+        return postRepository.findAllByUserOrderByDateDesc(user.getId());
     }
 
     @Override
@@ -82,19 +82,6 @@ public class PostServiceImpl implements PostService {
     public void handlePostProcessing(PostData postData) {
         // the big assumption here is that the @Transactional annotation will take care of the persisting, and/or merging for us
         Post post = postRepository.getOne(postData.getPostId());
-
-        List<Photo> photos = new ArrayList<>();
-        if (postData.getImage() != null) {
-            logger.info("uploading photo: {}", postData.getImageName());
-            photos.add(new Photo(upload.upload(postData.getImageName(), postData.getImage())));
-        }
-        post.setPhotos(photos);
-
-        if (postData.getVideo() != null) {
-            logger.info("uploading video: {}", postData.getVideoName());
-            String url = upload.upload(postData.getVideoName(), postData.getVideo());
-            post.setVideo(new Video(url));
-        }
 
         if (postData.getNotify()) {
             String fullName = String.format("%s %s", post.getUser().getFirstName(), post.getUser().getLastName());

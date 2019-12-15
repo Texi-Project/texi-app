@@ -123,4 +123,9 @@ public class UserServiceImpl implements UserServices {
     public void update(User user) {
 
     }
+
+    @Override
+    public List<User> getFollowers(Long userId) {
+        return repository.getFollowers(userId);
+    }
 }

@@ -14,4 +14,9 @@ public class PostData implements Serializable {
     String videoName;
     byte[] video;
     Boolean notify;
+
+    public PostData(Long postId, Boolean notify) {
+        this.postId = postId;
+        this.notify = notify;
+    }
 }

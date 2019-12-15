@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -58,6 +59,10 @@ public class PostController {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
         }
+
+        if (principal == null) return new RedirectView("/auth");
+        User user = userService.findByUsername(principal.getName());
+
         Post post;
         if (type.equals("post")) {
             post = new Post();
@@ -71,20 +76,16 @@ public class PostController {
         post.setDescription(title);
         post.setStatus(Status.ACTIVE);
 
-        if (principal == null) return new RedirectView("/auth");
-        User user = userService.findByUsername(principal.getName());
+        List<Photo> photos = new ArrayList<>();
+        if (image != null && !image.getOriginalFilename().equals("")) photos.add(new Photo(upload.upload(image)));
+        post.setPhotos(photos);
 
-        // save to DB, and handle the rest asynchronously
+        if (video != null && !video.getOriginalFilename().equals("")) post.setVideo(new Video(upload.upload(video)));
+
+        // save to DB, and handle the notifications asynchronously
         post = postService.save(post, user);
 
-        PostData postData = new PostData(
-                post.getId(),
-                image.isEmpty() ? null : image.getOriginalFilename(),
-                image.isEmpty() ? null : image.getBytes(),
-                video.isEmpty() ? null : video.getOriginalFilename(),
-                video.isEmpty() ? null : video.getBytes(),
-                notify
-        );
+        PostData postData = new PostData(post.getId(), notify);
         producer.produce(postData);
 
         return new RedirectView("/user/dashboard");
