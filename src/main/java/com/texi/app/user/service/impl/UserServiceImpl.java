@@ -108,4 +108,16 @@ public class UserServiceImpl implements UserServices {
     public User findByUsername(String email) {
         return repository.findByUsername(email);
     }
+
+    @Override
+    public void updateStatus(String username, String status) {
+        User user = findByUsername(username);
+        user.setStatus(status.equals("active")? Status.ACTIVE: Status.DEACTIVATED);
+        repository.save(user);
+    }
+
+    @Override
+    public void update(User user) {
+
+    }
 }

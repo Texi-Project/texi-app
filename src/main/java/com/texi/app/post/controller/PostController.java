@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,9 @@ public class PostController {
 
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
-                            @RequestParam("video") MultipartFile video, Principal principal) {
+                            @RequestParam("video") MultipartFile video, Principal principal,
+                            @RequestParam("type") String type, @RequestParam("start") String start,
+                            @RequestParam("end") String end) {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
@@ -56,7 +60,17 @@ public class PostController {
         if (!image.isEmpty()) {
             photos.add(new Photo(upload.upload(image)));
         }
-        Post post = new Post();
+
+        Post post;
+        if (type.equals("post")) {
+            post = new Post();
+        }else{
+            Advert advert = new Advert();
+            advert.setStart(LocalDate.parse(start));
+            advert.setStop(LocalDate.parse(end));
+            post = advert;
+        }
+
         post.setTitle(title);
         post.setDescription(title);
         post.setPhotos(photos);
@@ -90,6 +104,7 @@ public class PostController {
     @GetMapping("/unhealthy")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPER')")
     public String unhealthyPosts(Model model, HttpSession session){
+        System.out.println("unhealthy");
         List<Post> posts = postService.getUnhealthyPosts();
         model.addAttribute("unhealthy",posts);
         session.setAttribute("unhealthy",posts);

@@ -20,7 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Data
+//@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
