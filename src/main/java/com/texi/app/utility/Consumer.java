@@ -20,7 +20,7 @@ public class Consumer {
     @Value("${amqp.queues.posts}")
     private String queue;
 
-    @RabbitListener(queues = {"${amqp.queues.posts}"})
+    @RabbitListener(queues = {"#{postsQueue.name}"})
     public void consume(Payload payload) throws InterruptedException {
         logger.info("received {} from {} queue", payload, queue);
         postService.handlePostProcessing(payload);

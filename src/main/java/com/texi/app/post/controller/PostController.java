@@ -80,7 +80,7 @@ public class PostController {
                 post,
                 image.isEmpty() ? null : image,
                 video.isEmpty() ? null : video,
-                !notify.isEmpty()
+                notify != null & !notify.isEmpty()
         );
         Payload<PostData> postDataPayload = new Payload<>(postData);
         producer.produce(postDataPayload);
