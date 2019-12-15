@@ -1,24 +1,19 @@
 package com.texi.app.user.controller;
 
 import com.texi.app.core.Response;
-import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.security.UserDetailsServiceImpl;
 import com.texi.app.user.service.UserServices;
-import com.texi.app.utility.Upload;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -38,12 +33,6 @@ public class UserController {
 
     @Autowired
     private PostService postService;
-
-    @Autowired
-    private Upload upload;
-
-    @Autowired
-    private ResponseBuilder responseBuilder;
 
     @ModelAttribute
     public void loadInitData(Principal principal, Model model, HttpSession session){
@@ -103,36 +92,10 @@ public class UserController {
         return "redirect:dashboard";
     }
 
-    @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes ra,
-                         @RequestParam("photo") MultipartFile photo, Model model){
-
-        if (bindingResult.hasErrors()){
-            return "login";
-        }
-
-        User u = services.findByUsername(user.getUsername());
-
-        if (u != null) {
-            bindingResult
-                    .rejectValue("username", "error.user",
-                            "There is already a user registered with the username provided");
-            return "login";
-        }
-
-        String fileNameAndPath = upload.upload(photo);
-        user.setPhotoUrl(fileNameAndPath);
-        Response res = services.save(user);
-
-        ra.addFlashAttribute("user",res.getData());
-        model.addAttribute("user", res.getData());
-        return "redirect:auth";
-    }
-
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("user") User user,
                          BindingResult bindingResult, Principal principal, Model model){
-        if (principal == null) return "redirect:auth";
+        if (principal == null) return "redirect:/auth";
         if (bindingResult.hasErrors()) {
             return "manage-profile";
         }
@@ -141,7 +104,7 @@ public class UserController {
         User u = services.findByUsername(user.getUsername());
         if (u != null && !user.getUsername().equals(principal.getName())) { // validate the new username
             bindingResult.rejectValue("username", "error.user", "There is already a user registered with the username provided");
-            return "redirect:auth";
+            return "redirect:/auth";
         }
         u = services.findByUsername(principal.getName());
         u.setFirstName(user.getFirstName());
@@ -157,7 +120,7 @@ public class UserController {
     @GetMapping(value = {"/dashboard"})
     public String dashboard(Model model, Principal principal) {
         if (principal == null) {
-            return "redirect:auth";
+            return "redirect:/auth";
         }
 
         User u = (User) model.asMap().get("user");
@@ -197,7 +160,7 @@ public class UserController {
 
     @GetMapping("/manage-profile")
     public String manageProfile(Model model, Principal principal) {
-        if (principal == null) return "redirect:auth";
+        if (principal == null) return "redirect:/auth";
 
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);
@@ -211,7 +174,7 @@ public class UserController {
 
     @GetMapping("/timeline")
     public String timeline(Model model, Principal principal) {
-        if (principal == null) return "redirect:auth";
+        if (principal == null) return "redirect:/auth";
 
         User u = services.findByUsername(principal.getName());
         model.addAttribute("user", u);

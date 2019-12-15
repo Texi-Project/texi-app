@@ -7,6 +7,7 @@ import com.texi.app.core.Translator;
 import com.texi.app.domain.Role;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
+import com.texi.app.user.repository.RoleRepository;
 import com.texi.app.user.repository.UserRepository;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,17 @@ import java.util.*;
 public class UserServiceImpl implements UserServices {
 
     private UserRepository repository;
+    private RoleRepository roleRepository;
     private Translator translator;
     private ResponseBuilder responseBuilder;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, Translator messageHelper, ResponseBuilder responseBuilder,
-                           PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository,
+                           Translator translator, ResponseBuilder responseBuilder, PasswordEncoder passwordEncoder) {
         this.repository = repository;
-        this.translator = messageHelper;
+        this.roleRepository = roleRepository;
+        this.translator = translator;
         this.responseBuilder = responseBuilder;
         this.passwordEncoder = passwordEncoder;
     }
@@ -78,7 +81,7 @@ public class UserServiceImpl implements UserServices {
         String encoded = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoded);
         user.setStatus(Status.ACTIVE);
-        Role userRole = new Role("USER");
+        Role userRole = roleRepository.findByRole("ROLE_USER");
         Set<Role> roles  = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
