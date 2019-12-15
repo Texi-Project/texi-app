@@ -323,11 +323,37 @@ jQuery(document).ready(function ($) {
 	jQuery(".post-comt-box textarea").on("keydown", function (event) {
 
 		if (event.keyCode == 13) {
+
+			let v = $(this).parent().find(".something").val();
+			console.log("Value : "+v);
+
 			var comment = jQuery(this).val();
+			var commentjson={}
+			commentjson["commentText"]=comment;
+			commentjson["postId"]=v;
 			var parent = jQuery(".showmore").parent("li");
 			var comment_HTML = '	<li><div class="comet-avatar"><img src="images/resources/comet-1.jpg" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">Jason borne</a></h5><span>1 year ago</span><a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a></div><p>' + comment + '</p></div></li>';
+
 			$(comment_HTML).insertBefore(parent);
+
+			$.ajax({
+				type:"POST",
+				contentType:"application/json",
+				url:"/comment/add",
+				data:JSON.stringify(commentjson),
+				dataType:'json',
+				cache:false,
+				timeout:600000,
+				success: function (data) {
+
+				},
+				error:function(e){
+
+				}
+			});
+			// $(".commentForm").submit();
 			jQuery(this).val('');
+
 		}
 	});
 

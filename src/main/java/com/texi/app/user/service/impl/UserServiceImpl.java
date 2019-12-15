@@ -7,6 +7,7 @@ import com.texi.app.core.Translator;
 import com.texi.app.domain.Role;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
+import com.texi.app.user.repository.RoleRepository;
 import com.texi.app.user.repository.UserRepository;
 import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,17 @@ import java.util.*;
 public class UserServiceImpl implements UserServices {
 
     private UserRepository repository;
+    private RoleRepository roleRepository;
     private Translator translator;
     private ResponseBuilder responseBuilder;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, Translator messageHelper, ResponseBuilder responseBuilder,
-                           PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository,
+                           Translator translator, ResponseBuilder responseBuilder, PasswordEncoder passwordEncoder) {
         this.repository = repository;
-        this.translator = messageHelper;
+        this.roleRepository = roleRepository;
+        this.translator = translator;
         this.responseBuilder = responseBuilder;
         this.passwordEncoder = passwordEncoder;
     }
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserServices {
             return responseBuilder.buildFail("user.following.not.found");
 
         //@todo may not be necessary, hibernate may fail if duplicates appear
+        System.out.println("UserServiceImpl me:"+me.getId()+" other: "+other);
         User fo = repository.findFollowing(me.getId(), other);
         if(fo!=null)
             return responseBuilder.buildFail(String.format(translator.getMessage("user.following.already"),
@@ -77,8 +81,7 @@ public class UserServiceImpl implements UserServices {
         String encoded = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoded);
         user.setStatus(Status.ACTIVE);
-        Role userRole = new Role();
-        userRole.setRole("USER");
+        Role userRole = roleRepository.findByRole("ROLE_USER");
         Set<Role> roles  = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
@@ -88,8 +91,8 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public List<User> whoToFollow(User user) {
-//        return findAll();
-        return repository.whoToFollow(user.getId());
+        List<User> users = repository.whoToFollow(user.getId());
+        return users != null ? users : new ArrayList<>();
     }
 
     @Override
@@ -107,5 +110,17 @@ public class UserServiceImpl implements UserServices {
     @Override
     public User findByUsername(String email) {
         return repository.findByUsername(email);
+    }
+
+    @Override
+    public void updateStatus(String username, String status) {
+        User user = findByUsername(username);
+        user.setStatus(status.equals("active")? Status.ACTIVE: Status.DEACTIVATED);
+        repository.save(user);
+    }
+
+    @Override
+    public void update(User user) {
+
     }
 }

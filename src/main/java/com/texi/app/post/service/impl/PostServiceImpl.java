@@ -1,16 +1,21 @@
 package com.texi.app.post.service.impl;
 
+import com.texi.app.aop.FilteringEngine;
+import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.repository.PostRepository;
 import com.texi.app.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
+
 
     PostRepository postRepository;
 
@@ -20,13 +25,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void save(Post post) {
+    public void save(Post post, User user) {
         postRepository.save(post);
     }
 
     @Override
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseGet(null);
+    }
+
+    @Override
+    public List<Post> getUnhealthyPosts() {
+        return postRepository.findByStatus(Status.DEACTIVATED);
+    }
+
+    @Override
+    public void enablePost(Long id) {
+        postRepository.enablePost(id);
     }
 
     @Override
@@ -42,11 +57,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByUser(User user) {
-        return postRepository.findAllByUser(user);
+        return postRepository.findAllByUserOrderByDateDesc(user);
     }
 
     @Override
     public List<Post> getPostsForUser(User user) {
         return postRepository.getPostsForUser(user.getId());
+    }
+
+    @Override
+    public List<Advert> getAdverts() {
+        return postRepository.findAllAdverts();
     }
 }

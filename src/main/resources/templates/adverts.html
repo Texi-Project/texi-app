@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Adverts</title>
+</head>
+<body>
+<section layout:fragment="top-image-area">
+    <!-- leave blank so nothing shows up for the dashboard -->
+</section><!-- top area -->
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta new-pst">
+        <div class="new-postbox">
+            <figure>
+                <img alt="" th:src="@{/images/resources/admin2.jpg}">
+            </figure>
+            <div class="newpst-input">
+                <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
+                    <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
+                    <div class="attachments">
+                        <ul>
+                            <li>
+                                <i class="fa fa-image"></i>
+                                <label class="fileContainer">
+                                    <input id="image" name="image" type="file">
+                                </label>
+                            </li>
+                            <li>
+                                <i class="fa fa-video-camera"></i>
+                                <label class="fileContainer">
+                                    <input id="video" name="video" type="file">
+                                </label>
+                            </li>
+                            <input type="hidden" value="advert" name="type" />
+                            <li>
+                                <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group half">
+                        <input required="required" type="date" name="start" placeholder="Choose start date">
+                        <label class="control-label" for="start">From</label><i class="mtrl-select"></i>
+                    </div>
+                    <div class="form-group half">
+                        <input required="required" type="date" name="end" placeholder="Choose start date">
+                        <label class="control-label" for="end">To</label><i class="mtrl-select"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- add post new box -->
+    <div class="loadMore">
+        <div class="central-meta item" th:each="post : ${adverts}">
+            <div class="user-post">
+                <div class="friend-info">
+                    <figure>
+                        <!-- todo replace avatar here with user thumbnail -->
+                        <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
+                    </figure>
+                    <div class="friend-name">
+                        <ins><a href="time-line.html" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
+                        <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
+                    </div>
+                    <div class="post-meta">
+                        <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
+                        <!--                        <img alt="" src="/images/resources/user-post.jpg">-->
+                        <div class="we-video-info">
+                            <ul>
+                                <li>
+                                    <span class="views" data-toggle="tooltip" title="views">
+                                        <i class="fa fa-eye"></i>
+                                        <ins>1.2k</ins>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="comment" data-toggle="tooltip"
+                                          title="Comments">
+                                        <i class="fa fa-comments-o"></i>
+                                        <ins>52</ins>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="like" data-toggle="tooltip" title="like">
+                                        <i class="ti-heart"></i>
+                                        <ins>2.2k</ins>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="dislike" data-toggle="tooltip" title="dislike">
+                                        <i class="ti-heart-broken"></i>
+                                        <ins>200</ins>
+                                    </span>
+                                </li>
+                                <li class="social-media">
+                                    <div class="menu">
+                                        <div class="btn trigger"><i
+                                                class="fa fa-share-alt"></i></div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-html5"></i></a></div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-facebook"></i></a></div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-google-plus"></i></a></div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-twitter"></i></a></div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-css3"></i></a></div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-dribbble"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="rotater">
+                                            <div class="btn btn-icon"><a href="#"
+                                                                         title=""><i
+                                                    class="fa fa-pinterest"></i></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="description">
+                            <p th:text="${post.title}">
+                                <span th:text="${user.getUsername()}"></span>
+                                World's most beautiful car in Curabitur <a href="#" title="">#test
+                                drive booking !</a> the most beatuiful car available in
+                                america and the saudia arabia, you can book your test drive
+                                by our official website
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div><!-- centerl meta -->
+</body>
+</html>

@@ -15,4 +15,8 @@ public interface UserServices {
     public List<User> findAll();
     public void update(Long id, User user);
     public User findByUsername(String email);
+
+    void updateStatus(String username, String status);
+
+    void update(User user);
 }
