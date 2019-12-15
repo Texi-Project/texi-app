@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +48,8 @@ public class PostController {
     @PostMapping("/add")
     public RedirectView add(@RequestParam("title") String title, @RequestParam("image") MultipartFile image,
                             @RequestParam("video") MultipartFile video, Principal principal,
-                            @RequestParam("type") String type, @RequestParam("start") String start,
-                            @RequestParam("end") String end) {
+                            @RequestParam("type") String type, @RequestParam(required = false) String start,
+                            @RequestParam(required = false) String end) {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
