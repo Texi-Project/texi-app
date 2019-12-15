@@ -41,6 +41,9 @@ public class Post {
     @ManyToOne
     private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Flag flag;
+
     public Post() {
         this.date = LocalDateTime.now();
     }
