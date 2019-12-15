@@ -326,9 +326,14 @@
                         <div class="row merged20" id="page-contents" layout:fragment="page-content">
                             <div class="col-lg-3" layout:fragment="left-sidebar">
                                 <aside class="sidebar static">
-                                    <div class="widget" layout:replace="components :: left-shortcuts">
-                                        Nothing here
-                                    </div><!-- Shortcuts -->
+
+                                    <div class="widget" layout:replace="components :: left-shortcuts-admin">
+                                        Intentionally left blank
+                                    </div> <!-- Admin Shortcuts -->
+
+                                    <div class="widget" layout:replace="components :: left-shortcuts-user">
+                                        Intentionally left blank
+                                    </div><!-- User Shortcuts -->
 
                                     <div class="widget stick-widget">
                                         <h4 class="widget-title">Who to follow</h4>
