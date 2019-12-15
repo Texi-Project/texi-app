@@ -189,4 +189,17 @@ public class UserController {
         return "timeline";
     }
 
+    @GetMapping("/timeline/{userId}")
+    public String timeline(Model model, Principal principal, @PathVariable("userId") Long userId) {
+        if (principal == null) return "redirect:/auth";
+
+        User u = (User) services.getUser(userId).getData();
+        model.addAttribute("user", u);
+
+        List<Post> postList = postService.findByUser(u);
+        model.addAttribute("posts", postList);
+
+        return "timeline";
+    }
+
 }

@@ -441,10 +441,10 @@
                                         </div>
                                         <ul class="followers" th:each="suggested: ${wtf}">
                                             <li th:id="${suggested.id}">
-                                                <figure><img alt="" th:src="@{/images/resources/friend-avatar2.jpg}">
+                                                <figure><img alt="" th:src="${suggested.photoUrl}">
                                                 </figure>
                                                 <div class="friend-meta">
-                                                    <h4><a th:href="@{/user/timeline}" title=""><span th:text="${suggested.firstName}"></span></a></h4>
+                                                    <h4><a th:href="${'/user/timeline/' + suggested.id}" title=""><span th:text="${suggested.firstName + ' ' + suggested.lastName}"></span></a></h4>
                                                     <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}">Add Friend</a>
                                                 </div>
                                             </li>
@@ -456,7 +456,7 @@
                                 <div class="central-meta new-pst" layout:fragment="newpost-form">
                                     <div class="new-postbox">
                                         <figure>
-                                            <img alt="" th:src="@{/images/resources/admin2.jpg}">
+                                            <img alt="" th:src="${user.photoUrl}">
                                         </figure>
                                         <div class="newpst-input">
                                             <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
@@ -494,7 +494,7 @@
                                             <div class="friend-info">
                                                 <figure>
                                                     <!-- todo replace avatar here with user thumbnail -->
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar10.jpg}">
+                                                    <img alt="" th:src="${post.user.photoUrl}">
                                                 </figure>
                                                 <div class="friend-name">
                                                     <ins><a th:href="@{/user/timeline}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
@@ -713,8 +713,7 @@
                                         <h4 class="widget-title">Your page</h4>
                                         <div class="your-page">
                                             <figure>
-                                                <a href="#" title=""><img alt=""
-                                                                          th:src="@{/images/resources/friend-avatar9.jpg}"></a>
+                                                <a href="#" title=""><img alt="" th:src="${user.photoUrl}"></a>
                                             </figure>
                                             <div class="page-meta">
                                                 <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
@@ -834,11 +833,11 @@
                                         <ul class="friendz-list" id="people-list" th:each="friend: ${friends}">
                                             <li th:id="${'un'+friend.id}">
                                                 <figure>
-                                                    <img alt="" th:src="@{/images/resources/friend-avatar.jpg}">
+                                                    <img alt="" th:src="${friend.photoUrl}">
                                                     <span class="status f-online"></span>
                                                 </figure>
                                                 <div class="friendz-meta">
-                                                    <a href="time-line.html"><span th:text="${friend.firstName}"></span></a>
+                                                    <a th:href="${'/user/timeline/' + friend.id}"><span th:text="${friend.firstName + ' ' + friend.lastName}"></span></a>
                                                     <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
                                                 </div>
                                             </li>
