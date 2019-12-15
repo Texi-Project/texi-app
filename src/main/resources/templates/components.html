@@ -317,8 +317,10 @@
     <section layout:fragment="top-image-area">
         <div class="feature-photo">
             <figure><img alt="" th:src="@{/images/resources/timeline-1.jpg}"></figure>
+            <!--todo Scale the timeline photos to these dimensions before saving-->
+            <!--<figure><img alt="" th:src="${user.photoUrl}" th:height="350" th:width="1366"></figure>-->
             <div class="add-btn">
-                <span>1205 followers</span>
+                <span th:text="${user.following.size() + ' follower(s)'}">1205 followers</span>
                 <a data-ripple="" href="#" title="">Add Friend</a>
             </div>
             <form class="edit-phto">
@@ -333,7 +335,7 @@
                     <div class="col-lg-2 col-sm-3">
                         <div class="user-avatar">
                             <figure>
-                                <img alt="" th:src="@{/images/resources/user-avatar.jpg}">
+                                <img alt="" th:src="${user.photoUrl}">
                                 <form class="edit-phto">
                                     <i class="fa fa-camera-retro"></i>
                                     <label class="fileContainer">
@@ -348,17 +350,17 @@
                         <div class="timeline-info">
                             <ul>
                                 <li class="admin-name">
-                                    <h5>Janice Griffith</h5>
-                                    <span>Group Admin</span>
+                                    <h5 th:text="${user.firstName + ' ' + user.lastName}">Janice Griffith</h5>
+                                    <!--<span>Group Admin</span>-->
                                 </li>
                                 <li>
-                                    <a class="" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
+                                    <a class="active" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
                                     <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
                                     <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
                                     <a class="" data-ripple="" href="timeline-friends.html" title="">Friends</a>
                                     <a class="" data-ripple="" href="groups.html" title="">Groups</a>
                                     <a class="" data-ripple="" href="about.html" title="">about</a>
-                                    <a class="active" data-ripple="" href="#" title="">more</a>
+                                    <a class="" data-ripple="" href="#" title="">more</a>
                                 </li>
                             </ul>
                         </div>
