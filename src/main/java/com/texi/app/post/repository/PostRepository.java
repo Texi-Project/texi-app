@@ -1,5 +1,6 @@
 package com.texi.app.post.repository;
 
+import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
@@ -19,6 +20,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
 
     List<Post> findAllByUserOrderByDateDesc(User user);
+
+    @Query("from Post p where p.status =:status")
     List<Post> findByStatus(Status status);
 
     @Modifying
@@ -31,5 +34,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             value = "select * from post po, photo ph where po.id = ph.post_id and po.user_id = :id or po.user_id in " +
                     "(select following_id from user_following where user_id = :id) order by po.date desc")
     List<Post> getPostsForUser(@Param("id") Long id);
+
+    @Query(nativeQuery = true, value = "select * from post p where p.dtype = 'Advert'")
+    List<Advert> findAllAdverts();
 
 }

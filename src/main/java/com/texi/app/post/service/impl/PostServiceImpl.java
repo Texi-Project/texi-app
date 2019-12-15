@@ -1,5 +1,6 @@
 package com.texi.app.post.service.impl;
 
+import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
@@ -59,5 +60,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getPostsForUser(User user) {
         return postRepository.getPostsForUser(user.getId());
+    }
+
+    @Override
+    public List<Advert> getAdverts() {
+        return postRepository.findAllAdverts();
     }
 }

@@ -1,5 +1,6 @@
 package com.texi.app.post.service;
 
+import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
 
@@ -21,4 +22,6 @@ public interface PostService {
     List<Post> findByUser(User user);
 
     List<Post> getPostsForUser(User user);
+
+    List<Advert> getAdverts();
 }
