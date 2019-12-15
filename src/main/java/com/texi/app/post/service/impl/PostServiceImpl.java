@@ -79,22 +79,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void handlePostProcessing(Payload payload) {
-        PostData postData = (PostData) payload.getT();
-
+    public void handlePostProcessing(PostData postData) {
         // the big assumption here is that the @Transactional annotation will take care of the persisting, and/or merging for us
-        Post post = postData.getPost();
+        Post post = postRepository.getOne(postData.getPostId());
 
         List<Photo> photos = new ArrayList<>();
         if (postData.getImage() != null) {
-            logger.info("uploading photo: {}", postData.getImage().getOriginalFilename());
-            photos.add(new Photo(upload.upload(postData.getImage())));
+            logger.info("uploading photo: {}", postData.getImageName());
+            photos.add(new Photo(upload.upload(postData.getImageName(), postData.getImage())));
         }
         post.setPhotos(photos);
 
         if (postData.getVideo() != null) {
-            logger.info("uploading video: {}", postData.getVideo().getOriginalFilename());
-            String url = upload.upload(postData.getVideo());
+            logger.info("uploading video: {}", postData.getVideoName());
+            String url = upload.upload(postData.getVideoName(), postData.getVideo());
             post.setVideo(new Video(url));
         }
 

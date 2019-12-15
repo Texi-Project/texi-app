@@ -1,6 +1,6 @@
 package com.texi.app.utility;
 
-import com.texi.app.domain.Payload;
+import com.texi.app.domain.PostData;
 import com.texi.app.post.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class Consumer {
     private String queue;
 
     @RabbitListener(queues = {"#{postsQueue.name}"})
-    public void consume(Payload payload) throws InterruptedException {
+    public void consume(PostData payload) throws InterruptedException {
         logger.info("received {} from {} queue", payload, queue);
         postService.handlePostProcessing(payload);
     }

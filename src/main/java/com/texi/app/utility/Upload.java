@@ -41,4 +41,16 @@ public class Upload {
         }
         return url;
     }
+
+    public String upload(String fileName, byte[] bytes) {
+        String url = String.format("%s%s-%s", uploads, Instant.now().getEpochSecond(), fileName); // placeholder
+        try {
+            Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.emptyMap());
+            url = (String) uploadResult.get("url");
+            logger.info("{} uploaded successfully to {}\n", fileName, url);
+        } catch (IOException e) {
+            logger.error(e.getStackTrace().toString());
+        }
+        return url;
+    }
 }

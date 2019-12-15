@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -52,7 +53,7 @@ public class PostController {
                             @RequestParam("video") MultipartFile video, Principal principal,
                             @RequestParam("type") String type, @RequestParam(value = "start", required = false) String start,
                             @RequestParam(value = "end", required = false) String end,
-                            @RequestParam(value = "end", required = false) String notify) {
+                            @RequestParam(required = false, defaultValue = "false") boolean notify) throws IOException {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
             return new RedirectView("/user/dashboard");
@@ -77,13 +78,14 @@ public class PostController {
         post = postService.save(post, user);
 
         PostData postData = new PostData(
-                post,
-                image.isEmpty() ? null : image,
-                video.isEmpty() ? null : video,
-                notify != null & !notify.isEmpty()
+                post.getId(),
+                image.isEmpty() ? null : image.getOriginalFilename(),
+                image.isEmpty() ? null : image.getBytes(),
+                video.isEmpty() ? null : video.getOriginalFilename(),
+                video.isEmpty() ? null : video.getBytes(),
+                notify
         );
-        Payload<PostData> postDataPayload = new Payload<>(postData);
-        producer.produce(postDataPayload);
+        producer.produce(postData);
 
         return new RedirectView("/user/dashboard");
     }

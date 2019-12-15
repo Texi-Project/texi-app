@@ -6,11 +6,15 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.DefaultClassMapper;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class RabbitMqConfig {
@@ -26,7 +30,7 @@ public class RabbitMqConfig {
 
     @Bean
     public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+        return new SimpleMessageConverter();
     }
 
     @Bean
@@ -47,7 +51,7 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Binding postsQueue(DirectExchange postsExchange, Queue postsQueue) {
-        return BindingBuilder.bind(postsQueue).to(postsExchange).with(postsKey);
+    public Binding postsQueueBinding() {
+        return BindingBuilder.bind(postsQueue()).to(postsExchange()).with(postsKey);
     }
 }

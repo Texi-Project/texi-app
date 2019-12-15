@@ -1,9 +1,6 @@
 package com.texi.app.post.service;
 
-import com.texi.app.domain.Advert;
-import com.texi.app.domain.Payload;
-import com.texi.app.domain.Post;
-import com.texi.app.domain.User;
+import com.texi.app.domain.*;
 
 import java.util.List;
 
@@ -26,5 +23,5 @@ public interface PostService {
 
     List<Advert> getAdverts();
 
-    void handlePostProcessing(Payload payload);
+    void handlePostProcessing(PostData postData);
 }
