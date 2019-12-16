@@ -2,8 +2,10 @@ package com.texi.app.user.controller;
 
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseCode;
+import com.texi.app.domain.Notification;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.User;
+import com.texi.app.notifications.service.NotifyService;
 import com.texi.app.post.service.PostService;
 import com.texi.app.security.UserDetailsServiceImpl;
 import com.texi.app.user.service.UserServices;
@@ -20,7 +22,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"user","wtf","friends"})
+@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
 @RequestMapping("/user")
 //@SessionAttributes("user")
 public class UserController {
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private NotifyService notifyService;
 
     @ModelAttribute
     public void loadInitData(Principal principal, Model model, HttpSession session){
@@ -49,9 +54,14 @@ public class UserController {
             List<User> followers = services.getFollowers(u.getId());
             model.addAttribute("followers", followers);
 
+            List<Notification> notifications = notifyService.getNotificationsForUser(u.getId());
+            model.addAttribute("notifications", notifications);
+
+            session.setAttribute("user", u);
             session.setAttribute("wtf", wtf);
             session.setAttribute("friends", u.getFollowing());
             session.setAttribute("followers", followers);
+            session.setAttribute("notifications", notifications);
         }
 
     }

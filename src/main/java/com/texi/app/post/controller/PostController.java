@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
-@SessionAttributes({"user", "wtf", "friends"})
+@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
 public class PostController {
 
     private final PostService postService;

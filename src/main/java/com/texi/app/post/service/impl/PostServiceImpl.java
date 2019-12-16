@@ -86,8 +86,8 @@ public class PostServiceImpl implements PostService {
         if (postData.getNotify()) {
             String fullName = String.format("%s %s", post.getUser().getFirstName(), post.getUser().getLastName());
             logger.info("notify {}'s followers", fullName);
-            String text = String.format("%s just posted on Texi. Click <a href='/user/timeline/%d'>here</a> to view post.",
-                    fullName, post.getUser().getId());
+            // just store the post owner's id for the text
+            String text = String.format("%s", post.getUser().getId());
             Notification notification = new Notification();
             notification.setText(text);
 
