@@ -60,6 +60,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Like> likes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Flag> flags;
+
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
@@ -67,9 +70,14 @@ public class User {
         this.following = new HashSet<>();
         this.status = Status.ACTIVE;
         this.roles = new HashSet<>();
+        this.flags = new ArrayList<>();
     }
 
     public void addToFollowing(User user) {
         following.add(user);
+    }
+    public void addFlag(Flag flag){
+        flag.setUser(this);
+        flags.add(flag);
     }
 }
