@@ -1,6 +1,7 @@
 package com.texi.app.user.service;
 
 import com.texi.app.core.Response;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface UserServices {
     public User findByUsername(String email);
 
     void updateStatus(String username, String status);
+    void updateStatus(User username, Status status);
 
     void update(User user);
 }
