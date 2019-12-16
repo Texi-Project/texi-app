@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -23,14 +24,20 @@ public class PostsAOP {
     @Autowired
     FilteringEngine filteringEngine;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    //    private static final String EXCHANGE = "texi.post.unhelthy";
+//    private static final String ROUTING_KEY = "texi.post.unhealthy";
+    private static final String EXCHANGE = "duncan";
+    private static final String ROUTING_KEY = "msg";
+
     @Around("execution(* com.texi.app.post.service.PostService.save(..))")
     public Object filterPosts(ProceedingJoinPoint pjp){
         String m = pjp.getSignature().getName();
-
         logger.info("Post filter before - {}", m);
+
         Object[] objects = pjp.getArgs();
         User user = (User) objects[1];
-//        @todo send here to a queue from first response to the user.
         Post filteredPost = filteringEngine.filterPost((Post) objects[0],user);
         objects[0] = filteredPost;
 
@@ -46,8 +53,8 @@ public class PostsAOP {
 
     @Before("execution(* com.texi.app.user.service.UserServices.*(..))")
     public void before(JoinPoint joinPoint) {
-        //Advice
         logger.info("User Service method "+joinPoint.getSignature().getName());
+//        rabbitTemplate.convertAndSend(EXCHANGE,ROUTING_KEY,joinPoint.getSignature().getName());
     }
 
 }

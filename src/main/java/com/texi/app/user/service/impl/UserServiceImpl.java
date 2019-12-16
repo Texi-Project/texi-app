@@ -124,6 +124,12 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
+    public void updateStatus(User user, Status status) {
+        user.setStatus(status);
+        repository.save(user);
+    }
+
+    @Override
     public void update(User user) {
 
     }

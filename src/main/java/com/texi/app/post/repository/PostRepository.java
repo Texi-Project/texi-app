@@ -38,5 +38,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(nativeQuery = true, value = "select * from post p where p.dtype = 'Advert'")
     List<Advert> findAllAdverts();
-
 }

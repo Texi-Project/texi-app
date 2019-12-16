@@ -5,8 +5,10 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,13 +20,14 @@ import java.util.Set;
 @Setter
 @Entity
 //@Data
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min = 4, message = "size.min")
     @Column(unique = true)
+    @Email(message = "email")
     private String username;
 
     @Size(min = 5, message = "size.min")
@@ -38,7 +41,7 @@ public class User {
 
     private String photoUrl;
 
-    @Past(message = "birthday")
+//    @Past(message = "birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
