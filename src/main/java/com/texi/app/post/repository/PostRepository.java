@@ -3,7 +3,6 @@ package com.texi.app.post.repository;
 import com.texi.app.domain.Advert;
 import com.texi.app.domain.Post;
 import com.texi.app.domain.Status;
-import com.texi.app.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +18,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAll();
 
-    List<Post> findAllByUserOrderByDateDesc(User user);
+    @Query("from Post po join po.photos ph where po.user.id = :id and po.status = 'ACTIVE'")
+    List<Post> findAllByUserOrderByDateDesc(@Param("id") Long id);
 
     @Query("from Post p where p.status =:status")
     List<Post> findByStatus(Status status);
@@ -27,12 +27,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query("update Post p set p.status = 'ACTIVE' where p.id = :id")
     void enablePost(Long id);
-    // should load the latest posts from followers' posts and own posts order by created Date
+
+    // should load the latest posts from followings' posts and own posts order by created Date
     @Query(nativeQuery = true,
 //            value = "from Post p join p.user u join u.following f where u.id = :id " +
 //                    "or exists (select u from User u join u.following f where f.id = :id) order by p.date desc")
-            value = "select * from post po, photo ph where po.id = ph.post_id and po.user_id = :id or po.user_id in " +
-                    "(select following_id from user_following where user_id = :id) order by po.date desc")
+            value = "select * from post po join photo ph on po.id = ph.post_id where po.user_id = :id " +
+                    "or po.user_id in (select following_id from user_following where user_id = :id) order by po.date desc")
     List<Post> getPostsForUser(@Param("id") Long id);
 
     @Query(nativeQuery = true, value = "select * from post p where p.dtype = 'Advert'")

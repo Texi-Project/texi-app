@@ -1,30 +1,40 @@
 package com.texi.app.post.service.impl;
 
-import com.texi.app.domain.Advert;
-import com.texi.app.domain.Post;
-import com.texi.app.domain.Status;
-import com.texi.app.domain.User;
+import com.texi.app.domain.*;
 import com.texi.app.post.repository.PostRepository;
 import com.texi.app.post.service.PostService;
+import com.texi.app.user.repository.UserRepository;
+import com.texi.app.utility.Upload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class PostServiceImpl implements PostService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     PostRepository postRepository;
+    UserRepository userRepository;
+    Upload upload;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository, Upload upload) {
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
+        this.upload = upload;
     }
 
     @Override
-    public void save(Post post, User user) {
-        postRepository.save(post);
+    public Post save(Post post, User user) {
+        post.setUser(user);
+        return postRepository.save(post);
     }
 
     @Override
@@ -55,7 +65,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByUser(User user) {
-        return postRepository.findAllByUserOrderByDateDesc(user);
+        return postRepository.findAllByUserOrderByDateDesc(user.getId());
     }
 
     @Override
@@ -66,5 +76,27 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Advert> getAdverts() {
         return postRepository.findAllAdverts();
+    }
+
+    @Override
+    public void handlePostProcessing(PostData postData) {
+        // the big assumption here is that the @Transactional annotation will take care of the persisting, and/or merging for us
+        Post post = postRepository.getOne(postData.getPostId());
+
+        if (postData.getNotify()) {
+            String fullName = String.format("%s %s", post.getUser().getFirstName(), post.getUser().getLastName());
+            logger.info("notify {}'s followers", fullName);
+            // just store the post owner's id for the text
+            String text = String.format("%s", post.getUser().getId());
+            Notification notification = new Notification();
+            notification.setText(text);
+
+            List<User> followers = userRepository.getFollowers(post.getUser().getId());
+            followers.stream().forEach(f -> {
+                List<Notification> notifications = new ArrayList<>();
+                notifications.add(notification);
+                f.setNotifications(notifications);
+            });
+        }
     }
 }

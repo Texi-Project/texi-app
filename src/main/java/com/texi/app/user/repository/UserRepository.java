@@ -1,7 +1,6 @@
 package com.texi.app.user.repository;
 
 import com.texi.app.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,9 @@ public interface UserRepository extends PagingAndSortingRepository<User,Long> {
 
     @Query(nativeQuery = true, value = "select * from user u left join user_following f on u.id = f.user_id where u.id " +
             "not in (select h.following_id from user_following h where h.user_id = :id) AND u.id != :id")
-
     List<User> whoToFollow(Long id);
+
+    @Query("from User u join u.following f where f.id = :id")
+    List<User> getFollowers(Long id);
 
 }

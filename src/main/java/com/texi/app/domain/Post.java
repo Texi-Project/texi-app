@@ -5,13 +5,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Post {
+public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +26,7 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private List<Photo> photos;
 

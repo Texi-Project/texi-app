@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Sample Form</title>
+</head>
+<body>
+<section layout:replace="components :: top-image-area">
+    <!-- display this segment on the timeline -->
+</section><!-- top area -->
+<div class="col-lg-3" layout:fragment="left-sidebar">
+    <aside class="sidebar static">
+        <div class="widget" layout:replace="components :: left-shortcuts-user">
+            Intentionally left blank
+        </div><!-- User Shortcuts -->
+
+        <div class="widget stick-widget" layout:replace="components :: who-to-follow">
+            Intentionally left blank
+        </div><!-- who's following -->
+    </aside>
+</div><!-- sidebar -->
+
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta">
+        <div class="editing-interest">
+            <h5 class="f-title"><i class="ti-bell"></i>All Notifications </h5>
+            <div class="notification-box">
+                <ul>
+                    <li th:each="notification : ${notifications}">
+                        <figure><img th:src="${notification?.owner?.photoUrl}" alt=""></figure>
+                        <div class="notifi-meta">
+                            <a th:href="${'/user/timeline/' + notification?.owner?.id}">
+                                <p th:text="${notification?.owner?.firstName + ' ' + notification?.owner?.lastName + ' just posted on Texi'}">New notification goes here ;-)</p>
+                            </a>
+                            <span th:text="${{notification?.notifyTime}}">30 mins ago</span>
+                        </div>
+                        <i class="del fa fa-close"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3" layout:fragment="right-sidebar">
+        <aside class="sidebar static">
+            <div class="widget" layout:replace="components :: advert-area">
+                Intentionally left blank
+            </div>
+            <div class="widget friend-list stick-widget" layout:replace="components :: friends-list-area">
+                Intentionally left blank
+            </div><!-- friends list sidebar -->
+        </aside>
+    </div><!-- sidebar -->
+
+</body>
+
+</html>
