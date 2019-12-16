@@ -1,5 +1,7 @@
 package com.texi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -82,5 +84,11 @@ public class User implements Serializable {
     public void addFlag(Flag flag){
         flag.setUser(this);
         flags.add(flag);
+    }
+
+    @JsonBackReference
+    @JsonManagedReference
+    public Set<User> getFollowing() {
+        return following;
     }
 }

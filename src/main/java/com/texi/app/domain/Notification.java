@@ -23,7 +23,7 @@ public class Notification {
 
     private LocalDateTime notifyTime;
 
-    @ManyToMany(mappedBy = "notifications")
+    @ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
     private List<User> target;
 
     @Transient

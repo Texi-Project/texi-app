@@ -37,7 +37,7 @@
                 <li><a data-ripple="" th:href="@{/user/dashboard}" title="Home"><i class="ti-home"></i></a></li>
                 <li>
                     <a data-ripple="" href="#" title="Notification">
-                        <i class="ti-bell"></i><span th:text="${notifications.size()}">20</span>
+                        <i class="ti-bell"></i><span id="ctr2" th:text="${notifications.size()}">4</span>
                     </a>
                     <div class="dropdowns">
                         <span th:text="${notifications.size() + ' New Notification(s)'}">~ New Notifications</span>
@@ -186,7 +186,7 @@
                                             </li>
                                             <li>
                                                 <i class="ti-bell"></i>
-                                                <a href="notifications.html" title="">Notifications</a>
+                                                <a th:href="@{/notifications/}" title="">Notifications</a>
                                             </li>
                                             <li>
                                                 <i class="ti-power-off"></i>
@@ -495,7 +495,7 @@
                                             </figure>
                                             <div class="page-meta">
                                                 <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
-                                                <span><i class="ti-bell"></i><a th:href="@{/notifications/}" title="">Notifications <em th:text="${notifications.size()}">2</em></a></span>
+                                                <span><i class="ti-bell"></i><a th:href="@{/notifications/}" title="">Notifications <em id="ctr1" th:text="${notifications.size()}">2</em></a></span>
                                             </div>
                                             <div class="page-likes">
                                                 <ul class="nav nav-tabs likes-btn">

@@ -7,9 +7,7 @@ import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -34,5 +32,14 @@ public class NotificationController {
         model.addAttribute("notifications", notifications);
 
         return "notifications";
+    }
+
+    @PostMapping(value="/new", produces="application/json")
+    public @ResponseBody
+    Integer getAll(Principal principal) {
+        if (principal == null) return 0;
+        User u = userService.findByUsername(principal.getName());
+        List<Notification> notifications = notifyService.getNotificationsForUser(u.getId());
+        return notifications.size();
     }
 }

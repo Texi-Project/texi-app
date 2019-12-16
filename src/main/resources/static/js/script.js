@@ -328,7 +328,7 @@ jQuery(document).ready(function ($) {
 			console.log("Value : "+v);
 
 			var comment = jQuery(this).val();
-			var commentjson={}
+			var commentjson={};
 			commentjson["commentText"]=comment;
 			commentjson["postId"]=v;
 			var parent = jQuery(".showmore").parent("li");
@@ -439,7 +439,44 @@ jQuery(document).ready(function ($) {
 		$("<p class='post'>" + post + "</p>").appendTo("section");
 	});
 
+	setInterval(checkForNotifications, 10000);
+
+	function checkForNotifications() {
+		const endpoint = window.location.origin + "/notifications/new";
+
+		$.ajax({
+			url: endpoint,
+			type: 'post',
+		})
+			.done(function (count) {
+				// console.log(count)
+				$("#ctr1").html(count + 1);
+				$("#ctr2").html(count + 1)
+			})
+			.fail(function (xhr, status, errorThrown) {
+				console.log(`Status: ${status}\nError: ${errorThrown}`);
+				// console.dir(xhr);
+			});
+
+		/*fetch(endpoint, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => res.json())
+			.then((notifications) => {
+				console.log(notifications)
+			})
+			.catch(err => {
+				console.log(`Error: ${err}`);
+			})*/
+		return false;
+	}
+
 });//document ready end
+
+
 
 
 
