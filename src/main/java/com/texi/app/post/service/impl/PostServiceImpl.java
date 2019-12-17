@@ -46,5 +46,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByDescriptionOrByTitleOrByUser_UsernameOrUser_LastNameOrUser_FirstNameAllIgnoreCaseContainsOrderByDateDesc(description, title, username, lName, fName);
     }
 
-    
+    @Override
+    public List<Post> findFollowingsPost(Integer id, String title, String descrtiption, String fName, String lName, String uName, String fLName, String FfName, String fUName) {
+        return postRepository.findFollowingsPost(id, title, descrtiption, fName, lName, uName, fLName, FfName, fUName);
+    }
+
+
 }

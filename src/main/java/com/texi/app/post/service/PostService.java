@@ -15,6 +15,6 @@ public interface PostService  {
 
     void delete(Long id);
 
-    List<Post> findByUser(User user);
-
+    public List<Post> findAllByDescriptionOrByTitleOrByUser_UsernameOrUser_LastNameOrUser_FirstNameAllIgnoreCaseContainsOrderByDateDesc(String description,String title,String username,String lName,String fName);
+    public List<Post> findFollowingsPost(Integer id,String title,String descrtiption,String fName,String lName,String uName,String fLName,String FfName,String fUName );
 }

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
 import sun.jvm.hotspot.utilities.Assert;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.Optional;
 
