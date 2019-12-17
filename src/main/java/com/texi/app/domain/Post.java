@@ -37,7 +37,7 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post")
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     @ManyToOne

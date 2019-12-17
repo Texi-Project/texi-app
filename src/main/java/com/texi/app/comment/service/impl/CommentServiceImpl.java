@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findByPost(Post post) {
-       return commentRepository.findByPost(post);
+       return commentRepository.findByPostOrderByDateDesc(post);
     }
 
 
