@@ -20,6 +20,7 @@ public class Post implements Serializable {
     @NotEmpty(message = "string.notEmpty")
     private String title;
     private LocalDateTime date;
+
     @Lob
     private String description;
 
