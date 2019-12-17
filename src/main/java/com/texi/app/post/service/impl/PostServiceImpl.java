@@ -42,7 +42,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findByUser(User user) {
-        return postRepository.findAllByUser(user);
+    public List<Post> findAllByDescriptionOrByTitleOrByUser_UsernameOrUser_LastNameOrUser_FirstNameAllIgnoreCaseContainsOrderByDateDesc(String description, String title, String username, String lName, String fName) {
+        return postRepository.findAllByDescriptionOrByTitleOrByUser_UsernameOrUser_LastNameOrUser_FirstNameAllIgnoreCaseContainsOrderByDateDesc(description, title, username, lName, fName);
     }
+
+    
 }
