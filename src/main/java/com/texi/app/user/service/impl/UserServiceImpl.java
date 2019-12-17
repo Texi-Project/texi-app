@@ -7,6 +7,7 @@ import com.texi.app.core.Translator;
 import com.texi.app.domain.Role;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
+import com.texi.app.notifications.repository.NotificationRepository;
 import com.texi.app.user.repository.RoleRepository;
 import com.texi.app.user.repository.UserRepository;
 import com.texi.app.user.service.UserServices;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserServices {
     private Translator translator;
     private ResponseBuilder responseBuilder;
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository repository, RoleRepository roleRepository,
@@ -120,7 +124,18 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
+    public void updateStatus(User user, Status status) {
+        user.setStatus(status);
+        repository.save(user);
+    }
+
+    @Override
     public void update(User user) {
 
+    }
+
+    @Override
+    public List<User> getFollowers(Long userId) {
+        return repository.getFollowers(userId);
     }
 }

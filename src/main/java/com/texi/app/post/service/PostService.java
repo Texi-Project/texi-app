@@ -1,13 +1,11 @@
 package com.texi.app.post.service;
 
-import com.texi.app.domain.Advert;
-import com.texi.app.domain.Post;
-import com.texi.app.domain.User;
+import com.texi.app.domain.*;
 
 import java.util.List;
 
 public interface PostService {
-    void save(Post post, User user);
+    Post save(Post post, User user);
 
     Post findById(Long id);
 
@@ -24,4 +22,6 @@ public interface PostService {
     List<Post> getPostsForUser(User user);
 
     List<Advert> getAdverts();
+
+    void handlePostProcessing(PostData postData);
 }

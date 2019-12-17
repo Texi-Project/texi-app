@@ -1,13 +1,14 @@
 package com.texi.app.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,13 +20,14 @@ import java.util.Set;
 @Setter
 @Entity
 //@Data
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min = 4, message = "size.min")
     @Column(unique = true)
+    @Email(message = "email")
     private String username;
 
     @Size(min = 5, message = "size.min")
@@ -39,7 +41,7 @@ public class User {
 
     private String photoUrl;
 
-    @Past(message = "birthday")
+//    @Past(message = "birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
@@ -61,16 +63,24 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Like> likes = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "user")
+    private List<Flag> flags;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
     public User() {
         this.following = new HashSet<>();
         this.status = Status.ACTIVE;
         this.roles = new HashSet<>();
+        this.flags = new ArrayList<>();
     }
 
     public void addToFollowing(User user) {
         following.add(user);
+    }
+    public void addFlag(Flag flag){
+        flag.setUser(this);
+        flags.add(flag);
     }
 }
