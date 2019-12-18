@@ -92,7 +92,7 @@ public class PostController {
         if (notify) producer.produce(new PostData(post.getId(), notify));
 
         // Post in this case is actually only ever and "Advert"
-        if (target != null && target > 0) postService.logTargetAudience(target, (Advert) post);
+        if (target != null && target >= 0) postService.logTargetAudience(target, (Advert) post);
 
         return new RedirectView("/user/dashboard");
     }

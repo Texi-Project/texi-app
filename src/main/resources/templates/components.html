@@ -37,10 +37,10 @@
                 <li><a data-ripple="" th:href="@{/user/dashboard}" title="Home"><i class="ti-home"></i></a></li>
                 <li>
                     <a data-ripple="" href="#" title="Notification">
-                        <i class="ti-bell"></i><span id="ctr2" th:text="${notifications.size()}">4</span>
+                        <i class="ti-bell"></i><span id="ctr2" th:text="${notifications?.size()}">4</span>
                     </a>
                     <div class="dropdowns">
-                        <span th:text="${notifications.size() + ' New Notification(s)'}">~ New Notifications</span>
+                        <span th:text="${notifications?.size() + ' New Notification(s)'}">~ New Notifications</span>
                         <ul class="drops-menu">
                             <li th:each="notification : ${notifications}">
                                 <a th:href="@{/notifications/}" title="">
