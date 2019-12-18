@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+    <meta charset="utf-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="description"/>
@@ -29,7 +30,7 @@
         <div class="top-area">
             <div class="top-search">
                 <form class="" method="post">
-                    <input placeholder="Search Friend" type="text">
+                    <input th:placeholder="#{searchFriend}" type="text"/>
                     <button data-ripple><i class="ti-search"></i></button>
                 </form>
             </div>
@@ -52,10 +53,10 @@
                                         <i th:text="${{notification?.notifyTime}}">2 mins ago</i>
                                     </div>
                                 </a>
-                                <span class="tag green">New</span>
+                                <span class="tag green" th:text="#{new}"></span>
                             </li>
                         </ul>
-                        <a class="more-mesg" th:href="@{/notifications/}" title="">view more</a>
+                        <a class="more-mesg" th:href="@{/notifications/}" title="" th:text="#{vewMore}"></a>
                     </div>
                 </li>
                 <li><a data-ripple="" href="#" title="Languages"><i class="fa fa-globe"></i></a>
@@ -69,9 +70,9 @@
                 <img alt="" th:src="${user.photoUrl}">
                 <span class="status f-online"></span>
                 <div class="user-setting">
-                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-user"></i> view profile</a>
-                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                    <a th:href="@{/logout}" title=""><i class="ti-power-off"></i>log out</a>
+                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-user" th:text="#{viewProfile}"></i> </a>
+                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-pencil-alt" th:text="#{editProfile}"></i></a>
+                    <a th:href="@{/logout}" title=""><i class="ti-power-off" th:text="#{logOut}"></i></a>
                 </div>
             </div>
         </div>
@@ -88,8 +89,8 @@
             </div>
             <form class="edit-phto">
                 <i class="fa fa-camera-retro"></i>
-                <label class="fileContainer">
-                    Edit Cover Photo
+                <label class="fileContainer" th:text="#{editCoverPhoto}" >
+
                     <input type="file"/>
                 </label>
             </form>
@@ -101,8 +102,7 @@
                                 <img alt="" th:src="${user?.photoUrl}">
                                 <form class="edit-phto">
                                     <i class="fa fa-camera-retro"></i>
-                                    <label class="fileContainer">
-                                        Edit Display Photo
+                                    <label class="fileContainer" th:text="#{editDisplayPhoto}">
                                         <input type="file"/>
                                     </label>
                                 </form>
@@ -117,13 +117,13 @@
                                     <!--<span>Group Admin</span>-->
                                 </li>
                                 <li>
-                                    <a class="active" data-ripple="" th:href="@{/user/timeline}" title="">time line</a>
-                                    <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
+                                    <a class="active" data-ripple="" th:href="@{/user/timeline}" title="" th:text="#{timeLine}"></a>
+                                    <a class="" data-ripple="" href="timeline-photos.html" title="" th:text="#{photos}"></a>
                                     <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
-                                    <a class="" data-ripple="" href="timeline-friends.html" title="">Following</a>
-                                    <a class="" data-ripple="" href="groups.html" title="">Groups</a>
-                                    <a class="" data-ripple="" href="about.html" title="">about</a>
-                                    <a class="" data-ripple="" href="#" title="">more</a>
+                                    <a class="" data-ripple="" href="timeline-friends.html" title="" th:text="#{following}"></a>
+                                    <a class="" data-ripple="" href="groups.html" title="" th:text="#{groups}"></a>
+                                    <a class="" data-ripple="" href="about.html" title="" th:text="#{about}"></a>
+                                    <a class="" data-ripple="" href="#" title="" th:text="#{more}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -176,7 +176,7 @@
                                             </li>
                                             <li>
                                                 <i class="ti-image"></i>
-                                                <a href="#" title="">images</a>
+                                                <a href="#" title="" th:text="#{images}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-video-camera"></i>
@@ -228,7 +228,7 @@
                                             <form enctype="multipart/form-data" id="post-form" method="post" th:action="@{/posts/add}">
                                                 <!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
                                                 <!--                    <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>-->
-                                                <textarea id="title" name="title" placeholder="write something" rows="2"></textarea>
+                                                <textarea id="title" name="title" th:placeholder="#{writeSomething}" rows="2"></textarea>
                                                 <div class="attachments">
                                                     <ul>
                                                         <li>
@@ -431,7 +431,7 @@
                             <div class="col-lg-3" layout:fragment="right-sidebar">
                                 <aside class="sidebar static">
                                     <div class="widget" layout:fragment="page-like-area">
-                                        <h4 class="widget-title">Your page</h4>
+                                        <h4 class="widget-title" th:text="#{yourPage}"></h4>
                                         <div class="your-page">
                                             <figure>
                                                 <a href="#" title=""><img alt="" th:src="${user.photoUrl}"></a>
@@ -444,7 +444,7 @@
                                                 <ul class="nav nav-tabs likes-btn">
                                                     <li class="nav-item"><a class="active" data-toggle="tab"
                                                                             href="#link1" th:text="#{likes}"></a></li>
-                                                    <li class="nav-item"><a class="" data-toggle="tab" href="#link2">views</a>
+                                                    <li class="nav-item"><a class="" data-toggle="tab" href="#link2" th:text="#{views}"></a>
                                                     </li>
                                                 </ul>
                                                 <!-- Tab panes -->
@@ -651,7 +651,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <span class="copyright">© Texi 2019. All rights reserved.</span>
+                    <span class="copyright" th:text="#{allRightsReserved}"></span>
                     <i><img alt="" th:src="@{/images/credit-cards.png}"></i>
                 </div>
             </div>
