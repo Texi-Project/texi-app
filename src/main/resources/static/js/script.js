@@ -483,6 +483,12 @@ jQuery(document).ready(function ($) {
 		return false;
 	}
 
+	$(".heart.fa").click(function() {
+		let v = $(this).parent().find("#count").val();
+		$(this).toggleClass("fa-heart fa-heart-o");
+		$(this).parent().find("#count").val(v+1);
+	});
+
 });//document ready end
 
 

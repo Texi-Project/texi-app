@@ -37,7 +37,7 @@
                 Intentionally left blank
             </ul>
             <div class="user-img" style="margin-right: 2rem;">
-                <img alt="" th:src="@{/images/resources/admin.jpg}">
+                <img alt="" th:src="${user.photoUrl}" style="height: 2rem">
 <!--                <img alt="" th:src="${user.photoUrl}">-->
                 <span class="status f-online"></span>
                 <div class="user-setting">
@@ -49,8 +49,8 @@
         </div>
     </div><!-- topbar -->
 
-    <section layout:replace="components :: top-image-area">
-        Nothing in this file
+    <section layout:replace="components :: top-image-area" th:text="#{nothingInThisFile}" >
+
     </section><!-- top area -->
 
     <section>

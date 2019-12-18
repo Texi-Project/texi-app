@@ -57,8 +57,8 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @OneToMany
@@ -89,6 +89,11 @@ public class User implements Serializable {
     public void addFlag(Flag flag){
         flag.setUser(this);
         flags.add(flag);
+    }
+
+    public void addRole(Role role){
+        role.setUser(this);
+        roles.add(role);
     }
 
     @JsonBackReference

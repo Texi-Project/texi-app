@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -15,7 +15,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/color.css}">
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
-
 </head>
 <body>
 <!--<div class="se-pre-con"></div>-->
@@ -299,7 +298,7 @@
                                                             <li>
                                                                 <span class="like" data-toggle="tooltip" title="like">
                                                                     <i class="heart fa fa-heart-o"></i>
-                                                                    <ins></ins>
+                                                                    <ins id="count"></ins>
 
                                                                 </span>
                                                             </li>
