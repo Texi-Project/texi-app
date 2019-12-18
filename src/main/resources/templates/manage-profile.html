@@ -8,8 +8,8 @@
 <div class="col-lg-6" layout:fragment="main-content">
     <div class="central-meta">
         <div class="editing-info">
-            <h5 class="f-title"><i class="ti-info-alt"></i> Edit Basic Information</h5>
-            <p th:if="${success}">Profile update successful</p>
+            <h5 class="f-title"><i class="ti-info-alt" th:text="#{editBasicInformation}"></i> </h5>
+            <p th:if="${success}"  th:text="#{profileUpdateSuccessful}"></p>
             <form method="post" th:action="@{/user/update}"  th:object="${user}">
                 <div class="form-group half">
                     <input type="text" id="input1" th:field="*{firstName}" required="required"/>
@@ -37,7 +37,7 @@
                     <span class="danger-color" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
                 <div class="submit-btns">
-                    <button type="submit" class="mtr-btn"><span>Update</span></button>
+                    <button type="submit" class="mtr-btn"><span th:text="#{update}"></span></button>
                 </div>
             </form>
         </div>

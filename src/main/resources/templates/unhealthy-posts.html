@@ -2,7 +2,7 @@
 <html lang="en" layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Unhealthy Posts</title>
+    <title th:text="#{unhealthyPosts}"></title>
 </head>
 <body>
 <section layout:fragment="top-image-area">
@@ -29,7 +29,7 @@
                                     <h4 th:text="${post.user.firstName}"></h4>
                                     <span th:text="${{post.date}}"></span>
                                     <small th:text="${post.description}"></small>
-                                    <a th:href="@{/posts/enable(p=${post.id})}" title="" class="add-butn" data-ripple="">Enable<span class="ripple"><span class="ink" style="height: 89px; width: 89px; background-color: rgb(10, 169, 246); top: -26.5px; left: -4.953125px;"></span></span></a>
+                                    <a th:href="@{/posts/enable(p=${post.id})}" title="" class="add-butn" data-ripple="" th:text="#{enable}"><span class="ripple"><span class="ink" style="height: 89px; width: 89px; background-color: rgb(10, 169, 246); top: -26.5px; left: -4.953125px;"></span></span></a>
                                 </div>
                             </div>
                         </li>
