@@ -132,7 +132,8 @@ public class PostServiceImpl implements PostService {
                 break;
             }
             default: {
-                // Nothing to do
+                audience = (List<User>) userRepository.findAll(); // default to all users
+                advert.setTarget(audience);
             }
 
         }
