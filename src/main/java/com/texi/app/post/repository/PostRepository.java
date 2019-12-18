@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
@@ -33,9 +32,16 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(nativeQuery = true,
 //            value = "from Post p join p.user u join u.following f where u.id = :id " +
 //                    "or exists (select u from User u join u.following f where f.id = :id) order by p.date desc")
-            value = "select * from post po left join photo ph on po.id = ph.post_id left join " +
-                    "video v on po.video_id = v.id where po.status = 'ACTIVE' AND (po.user_id = :id " +
-                    "or po.user_id in (select following_id from user_following where user_id = :id)) order by po.date desc")
+            value = "select * from post po\n" +
+                    "    left join photo ph on po.id = ph.post_id\n" +
+                    "    left join video v on po.video_id = v.id\n" +
+                    "    left join post_target pt on po.id = pt.advert_id\n" +
+                    "where po.status = 'ACTIVE'\n" +
+                    "  AND (po.user_id = :id\n" +
+                    "           or po.user_id in (select following_id from user_following where user_id = :id)\n" +
+                    "           or pt.target_id = :id\n" +
+                    "      )\n" +
+                    "order by po.date desc;")
     List<Post> getPostsForUser(@Param("id") Long id);
 
     @Query(nativeQuery = true, value = "select * from post p where p.dtype = 'Advert'")
