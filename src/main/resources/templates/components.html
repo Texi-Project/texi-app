@@ -146,33 +146,33 @@
                                         <ul class="naves" sec:authorize="hasRole('ROLE_ADMIN')">
                                             <li>
                                                 <i class="ti-files"></i>
-                                                <a th:href="@{/admin/adverts}" title="">Manage Adverts</a>
+                                                <a th:href="@{/admin/adverts}" title="" th:text="#{manageAdverts}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-user"></i>
-                                                <a th:href="@{/admin/users}" title="">Manage Users</a>
+                                                <a th:href="@{/admin/users}" title="" th:text="#{manageUsers}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-image"></i>
-                                                <a href="#" th:href="@{/posts/unhealthy}" title="">Unhealthy Posts</a>
+                                                <a href="#" th:href="@{/posts/unhealthy}" title="" th:text="#{unhealthyPosts}"></a>
                                             </li>
                                         </ul>
                                     </div>
 
                                     <div class="widget" layout:fragment="left-shortcuts-user" sec:authorize="hasRole('ROLE_USER')">
-                                        <h4 class="widget-title">Shortcuts</h4>
+                                        <h4 class="widget-title" th:text="#{shortcuts}"></h4>
                                         <ul class="naves">
                                             <li>
                                                 <i class="ti-clipboard"></i>
-                                                <a th:href="@{/user/dashboard}" title="">News feed</a>
+                                                <a th:href="@{/user/dashboard}" title="" th:text="#{newsfeed}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-files"></i>
-                                                <a th:href="@{/user/manage-profile}" title="">My profile</a>
+                                                <a th:href="@{/user/manage-profile}" title="" th:text="#{myprofile}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-user"></i>
-                                                <a th:href="@{/user/follow}" title="">Following</a>
+                                                <a href="timeline-friends.html" title=""th:text="#{friends}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-image"></i>
@@ -180,26 +180,26 @@
                                             </li>
                                             <li>
                                                 <i class="ti-video-camera"></i>
-                                                <a href="#" title="">videos</a>
+                                                <a href="timeline-videos.html" title="" th:text="#{videos}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-bell"></i>
-                                                <a th:href="@{/notifications/}" title="">Notifications</a>
+                                                <a href="notifications.html" title="" th:text="#{notifications}"></a>
                                             </li>
                                             <li>
                                                 <i class="ti-power-off"></i>
-                                                <a th:href="@{/logout/}" title="">Logout</a>
+                                                <a th:href="@{/logout/}" title="" th:text="#{logout}"></a>
                                             </li>
                                         </ul>
                                     </div><!-- Shortcuts -->
 
                                     <div class="widget stick-widget" layout:fragment="who-to-follow">
-                                        <h4 class="widget-title">Who to follow</h4>
+                                        <h4 class="widget-title" th:text="#{whoToFollow}"></h4>
                                         <div class="chat-box" th:if="${wtf?.isEmpty()}">
                                             <ul>
                                                 <li>
                                                     <div class="friend-meta">
-                                                        <h4><a href="#" title="">We didn't find any today</a></h4>
+                                                        <h4><a href="#" title="" th:text="#{wedidntFindAnyToday}"></a></h4>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -210,7 +210,7 @@
                                                 </figure>
                                                 <div class="friend-meta">
                                                     <h4><a th:href="${'/user/timeline/' + suggested.id}" title=""><span th:text="${suggested.firstName + ' ' + suggested.lastName}"></span></a></h4>
-                                                    <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}">Follow</a>
+                                                    <a class="underline" title="" th:href="@{/user/follow(f=${suggested.id})}" th:text="#{addFriend}"></a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -250,7 +250,7 @@
                                                         </li>
                                                         <input type="hidden" value="post" name="type" />
                                                         <li>
-                                                            <button form="post-form" id="post-submit" name="post-submit" type="submit">Post</button>
+                                                            <button form="post-form" id="post-submit" name="post-submit" type="submit" th:text="#{post}"></button>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -438,12 +438,12 @@
                                             </figure>
                                             <div class="page-meta">
                                                 <a class="underline" th:href="@{/user/timeline}" title=""> <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
-                                                <span><i class="ti-bell"></i><a th:href="@{/notifications/}" title="">Notifications <em id="ctr1" th:text="${notifications.size()}">2</em></a></span>
+                                                <span><i class="ti-bell"></i><a th:href="@{/notifications/}" title="" th:text="#{notifications}"> <em th:text="${notifications.size()}">2</em></a></span>
                                             </div>
                                             <div class="page-likes">
                                                 <ul class="nav nav-tabs likes-btn">
                                                     <li class="nav-item"><a class="active" data-toggle="tab"
-                                                                            href="#link1">likes</a></li>
+                                                                            href="#link1" th:text="#{likes}"></a></li>
                                                     <li class="nav-item"><a class="" data-toggle="tab" href="#link2">views</a>
                                                     </li>
                                                 </ul>
@@ -530,22 +530,22 @@
                                                 <i class="fa fa-ellipsis-h"></i>
                                             </div>
                                             <div class="banermeta">
-                                                <p>
-                                                    create your own favourit page.
+                                                <p th:text="#{createYourOwnFavouritPage}">
+
                                                 </p>
-                                                <span>like them all</span>
-                                                <a data-ripple="" href="#" title="">start now!</a>
+                                                <span th:text="#{likeThemAll}"></span>
+                                                <a data-ripple="" href="#" title="" th:text="#{startNow}"></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="widget friend-list stick-widget" layout:fragment="friends-list-area">
-                                        <h4 class="widget-title">Following</h4>
+                                        <h4 class="widget-title" th:text="#{friends}"></h4>
 
                                         <div class="chat-box" th:if="${friends?.isEmpty()}">
                                             <ul>
                                                 <li>
                                                     <div class="friend-meta">
-                                                        <h4><a href="#" title="">You have no friends yet</a></h4>
+                                                        <h4><a href="#" title="" th:text="#{youHaveNoFriendsYet}"></a></h4>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -559,14 +559,14 @@
                                                 </figure>
                                                 <div class="friendz-meta">
                                                     <a th:href="${'/user/timeline/' + friend.id}"><span th:text="${friend.firstName + ' ' + friend.lastName}"></span></a>
-                                                    <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}">Unfollow</a>
+                                                    <a class="underline" title="unfollow" th:href="@{/user/unfollow(f=${friend.username})}" th:text="#{unfollow}"></a>
                                                 </div>
                                             </li>
                                         </ul>
                                         <div class="chat-box">
                                             <div class="chat-head">
                                                 <span class="status f-online"></span>
-                                                <h6>Bucky Barnes</h6>
+                                                <h6 th:text="#{buckyBarnes}"></h6>
                                                 <div class="more">
                                                     <span><i class="ti-more-alt"></i></span>
                                                     <span class="close-mesage"><i class="ti-close"></i></span>
