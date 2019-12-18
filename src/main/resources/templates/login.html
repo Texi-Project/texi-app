@@ -52,7 +52,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="login-reg-bg">
                     <div class="log-reg-area sign">
-                        <h2 class="log-title">Login</h2>
+                        <h2 class="log-title" th:text="#{login}"></h2>
                         <p>
                             Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
@@ -60,11 +60,11 @@
                         <form method="POST" th:action="@{/user/login}" th:object="${user}">
                             <div class="form-group">
                                 <input id="input" required="required" type="text" th:field="*{username}"/>
-                                <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
+                                <label class="control-label" for="input" th:text="#{username}"></label><i class="mtrl-select"></i>
                             </div>
                             <div class="form-group">
                                 <input required="required" type="password" th:field="*{password}"/>
-                                <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+                                <label class="control-label" for="input" th:text="#{password}"></label><i class="mtrl-select"></i>
                             </div>
 <!--                            <div class="checkbox">-->
 <!--                                <label>-->
@@ -72,8 +72,8 @@
 <!--                                    Me.-->
 <!--                                </label>-->
 <!--                            </div>-->
-                            <a class="text-warning" href="/claim" title="">Blocked Account</a>
-                            <a class="forgot-pwd" href="#" title="">Forgot Password?</a>
+                            <a class="text-warning" href="/claim" title="" th:text="#{blockedAccount}"></a>
+                            <a class="forgot-pwd" href="#" title="" th:text="#{forgotPassword}"></a>
                             <div class="submit-btns">
                                 <button class="mtr-btn" type="submit"><span>Login</span></button>
                                 <button class="mtr-btn signup" type="button"><span>Register</span></button>
@@ -81,7 +81,7 @@
                         </form>
                     </div>
                     <div class="log-reg-area reg">
-                        <h2 class="log-title">Register</h2>
+                        <h2 class="log-title" th:text="#{register}"></h2>
                         <p>
                             Don’t use Texi Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join
                             now</a>
@@ -89,13 +89,13 @@
                         <form method="post" th:action="@{/create}" th:object="${user}" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input required="required" type="text" th:field="*{firstName}"/>
-                                <label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
+                                <label class="control-label" for="input" th:text="#{firstName}"></label><i class="mtrl-select"></i>
                                 <span class="danger-color" th:if="${#fields.hasErrors('firstName')}"
                                       th:errors="*{firstName}"></span>
                             </div>
                             <div class="form-group">
                                 <input required="required" type="text" th:field="*{lastName}"/>
-                                <label class="control-label" for="input">Last Name</label><i class="mtrl-select"></i>
+                                <label class="control-label" for="input" th:text="#{lastName}" ></label><i class="mtrl-select"></i>
                                 <span class="danger-color" th:if="${#fields.hasErrors('lastName')}"
                                       th:errors="*{lastName}"></span>
                             </div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="form-group">
                                 <input required="required" type="date"  th:field="*{birthday}"/>
-                                <label class="control-label" for="input">Birthday <span class="small">yyyy-MM-dd</span></label><i class="mtrl-select"></i>
+                                <label class="control-label" for="input" th:text="#{birthday}"> <span class="small">yyyy-MM-dd</span></label><i class="mtrl-select"></i>
                                 <span class="danger-color" th:if="${#fields.hasErrors('birthday')}"
                                       th:errors="*{birthday}"></span>
                             </div>
@@ -121,7 +121,7 @@
                                 <div>
                                     <img id="ImageP" src="" class="img-circle"/>
                                 </div>
-                                <button id="photos" onclick="document.getElementById('photoProfile').click(); return false;">Upload Profile Photo</button>
+                                <button id="photos" onclick="document.getElementById('photoProfile').click(); return false;" th:text="#{uploadProfilePhoto}"></button>
                                 <input type="file" id="photoProfile" onchange="readURL(this);" name="photo" accept="image/*" style="visibility: hidden"/>
                             </div>
 <!--                            <div class="checkbox">-->
@@ -130,7 +130,7 @@
 <!--                                    Conditions ?-->
 <!--                                </label>-->
 <!--                            </div>-->
-                            <a class="already-have" href="#" title="">Already have an account</a>
+                            <a class="already-have" href="#" title="" th:text="#{alreadyHaveAccount}"></a>
                             <div class="submit-btns">
                                 <button class="mtr-btn" type="submit" ><span>Register</span></button>
                             </div>
