@@ -444,6 +444,9 @@ jQuery(document).ready(function ($) {
 		var post = $("textarea").val();
 		$("<p class='post'>" + post + "</p>").appendTo("section");
 	});
+	$(".heart.fa").click(function() {
+		$(this).toggleClass("fa-heart fa-heart-o");
+	});
 
 });//document ready end
 
