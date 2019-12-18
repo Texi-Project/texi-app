@@ -90,10 +90,8 @@ public class UserServiceImpl implements UserServices {
         String encoded = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoded);
         user.setStatus(Status.ACTIVE);
-        Role userRole = roleRepository.findByRole("ROLE_USER");
-        Set<Role> roles  = new HashSet<>();
-        roles.add(userRole);
-        user.setRoles(roles);
+        Role userRole = new Role("ROLE_USER");
+        user.addRole(userRole);
         repository.save(user);
         return responseBuilder.buildSuccess(translator.getMessage("user.success"), user);
     }
