@@ -24,14 +24,14 @@ jQuery(document).ready(function ($) {
 	});
 
 //--- side message box	
-	$('.friendz-list > li, .chat-users > li').on('click', function () {
+	/*$('.friendz-list > li, .chat-users > li').on('click', function () {
 		$('.chat-box').addClass("show");
 		return false;
 	});
 	$('.close-mesage').on('click', function () {
 		$('.chat-box').removeClass("show");
 		return false;
-	});
+	});*/
 
 //------ scrollbar plugin
 	if ($.isFunction($.fn.perfectScrollbar)) {
