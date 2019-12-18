@@ -21,8 +21,8 @@ public class ClientController {
     private ResponseBuilder responseBuilder;
 
     @GetMapping(value = "/posts", produces = "application/json")
-    public @ResponseBody Response posts() {
+    public @ResponseBody List<Post> posts() {
         List<Post> postList = postService.findAll();
-        return responseBuilder.buildSuccess(postList);
+        return postList;
     }
 }

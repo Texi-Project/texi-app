@@ -21,11 +21,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         clients.inMemory()
-                .withClient("cs544")
+                .withClient("texi_001")
                 .secret("secret")
-                .authorizedGrantTypes("authorization_code","client_credentials", "password")
+                .authorizedGrantTypes("authorization_code")
+//                .authorizedGrantTypes("authorization_code","client_credentials", "password")
                 .scopes("read")
-                .authorities("ROLE_ADMIN","ROLE_USER","CLIENT").redirectUris("http://localhost:8090/showEmployees");
+                .authorities("ROLE_ADMIN","ROLE_USER","CLIENT").redirectUris("http://localhost:8090/showPosts");
 //
 //        clients
 //                .inMemory()

@@ -30,8 +30,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder();
     }
 
-
-
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -41,14 +39,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/oauth/token").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic();
+//
+//        http.csrf().disable();
+
+
+        http.authorizeRequests()
+                .antMatchers("/","/oauth/token").permitAll()
+                .antMatchers("/client/posts").hasAnyRole("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
+                .formLogin()
+//                    .loginPage("/auth")
+//                    .loginProcessingUrl("/user/login")
+//                    .failureUrl("/auth")
+//                    .usernameParameter("username")
+//                    .passwordParameter("password")
+//                    .defaultSuccessUrl("/user/dashboard")
+                .permitAll()
                 .and()
-                .csrf().disable();
+                .logout().permitAll();
+
+        http.csrf().disable();
     }
 
     /**
@@ -62,4 +79,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
