@@ -2,6 +2,7 @@ package com.texi.app.controller;
 
 import com.texi.app.core.Response;
 import com.texi.app.domain.Claim;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
@@ -97,6 +98,7 @@ public class HomeController {
         Claim claim = new Claim();
         claim.setUser(user);
         claim.setReason(reason);
+        claim.setStatus(Status.ACTIVE);
         claim.setClaimDate(LocalDate.now());
         redirectAttributes.addFlashAttribute("response", services.saveClaim(claim).getMessage());
         return "redirect:/claim";

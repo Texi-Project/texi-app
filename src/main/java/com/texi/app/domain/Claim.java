@@ -26,4 +26,6 @@ public class Claim {
 
     @Min(value = 12, message = "{size.min")
     private String reason;
+
+    private Status status;
 }
