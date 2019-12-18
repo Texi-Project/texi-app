@@ -15,5 +15,15 @@ class ResourceServer extends ResourceServerConfigurerAdapter {
                 .antMatchers("/client/**")
                 .and().authorizeRequests().anyRequest()
                 .access("#oauth2.hasScope('read')");
+
+//            http
+//                    .headers()
+//                    .frameOptions()
+//                    .disable()
+//                    .and()
+//                    .authorizeRequests()
+//                    .antMatchers("/","/home","/login","/auth").permitAll()
+//                    .antMatchers("/private/**").authenticated();
+
     }
 }
