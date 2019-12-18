@@ -34,17 +34,16 @@
                 <div class="col-md-5 d-flex align-items-center">
                     <div>
 
-                        <h3 class="font-weight-bold mb-4">Your account is suspended</h3>
+                        <h3 class="font-weight-bold mb-4" th:text="#{yourAccountIsSuspended}"></h3>
 
-                        <p>You must have exceeded 20 unhealthy posts, and as such your account was suspended. <br>
-                            You can submit a claim to have you account activated by filling the form bellow</p>
+                        <p th:text="#{accountWasSuspended}"></p>
                         <!-- Form -->
                         <form class="text-center" style="color: #757575;" action="/claim" method="post">
-                            <h4>Send a claim</h4>
+                            <h4 th:text="#{sendClaim}"></h4>
                             <!-- Email -->
                             <div class="md-form">
                                 <input type="email" id="materialLoginFormEmail" name="email" class="form-control">
-                                <label for="materialLoginFormEmail">E-mail</label>
+                                <label for="materialLoginFormEmail" th:text="#{email}"></label>
                             </div>
 
                             <!-- Password -->
@@ -52,8 +51,8 @@
                                 <textarea type="text" id="materialLoginFormPassword" class="form-control" name="reason" ></textarea>
                             </div>
                             <p class="text-danger" th:text="${response}"></p>
-                            <p class="text-primary"><small><a href="/">back to home</a></small></p>
-                            <button type="submit" class="btn btn-orange btn-rounded mx-0">Submit</button>
+                            <p class="text-primary"><small><a href="/" th:text="#{backToHome}"></a></small></p>
+                            <button type="submit" class="btn btn-orange btn-rounded mx-0" th:text="#{submit}"></button>
                         </form>
                     </div>
                 </div>

@@ -38,7 +38,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Timeline
-                        <span class="sr-only">(current)</span>
+                        <span class="sr-only" >(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -49,7 +49,7 @@
 
             <form class="form-inline my-2 my-lg-0 ml-auto">
                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
+                <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit" th:text="#{search}"></button>
             </form>
         </div>
         <!-- Collapsible content -->
@@ -61,8 +61,8 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-default"
                      aria-labelledby="navbarDropdownMenuLink-333">
-                    <a class="dropdown-item" href="#">My Profile</a>
-                    <a class="dropdown-item" href="#">My Posts</a>
+                    <a class="dropdown-item" href="#" th:text="#{myProfile}"></a>
+                    <a class="dropdown-item" href="#" th:text="#{myPosts}"></a>
                     <a class="dropdown-item" th:href="@{/logout/}">Logout</a>
                 </div>
             </li>
@@ -97,15 +97,13 @@
                     <div class="col-md-5 d-flex align-items-center">
                         <div>
 
-                            <h3 class="font-weight-bold mb-4">Welcome to Texi</h3>
+                            <h3 class="font-weight-bold mb-4" th:text="#{welcomeToTexi}"></h3>
 
-                            <p>Text all day, share your feelings, watch videos, all night too. Yes you gotta get it all
-                                by just signing up to join millions of people waiting to connect with you and go bowling,
-                                fishing, snacking, or even flying</p>
+                            <p th:text="#{textAllDay}"></p>
 
-                            <button type="button" class="btn btn-orange btn-rounded mx-0"><a href="/auth">Join Now</a></button>
+                            <button type="button" class="btn btn-orange btn-rounded mx-0"><a href="/auth" th:text="#{joinNow}"></a></button>
 
-                            <button type="button" class="btn btn-white btn-rounded mx-0"><a href="/auth">Sign in</a></button>
+                            <button type="button" class="btn btn-white btn-rounded mx-0"><a href="/auth" th:text="#{signIn}"></a></button>
                         </div>
                     </div>
                 </div>
