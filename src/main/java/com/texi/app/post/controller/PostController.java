@@ -24,7 +24,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
-@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
+//@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
+@ControllerAdvice
 public class PostController {
 
     private final PostService postService;
@@ -119,8 +120,8 @@ public class PostController {
 
     @GetMapping("/enable")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPER')")
-    public String enablePosts(@RequestParam("p") Long id, Model model) {
-        postService.enablePost(id);
+    public String enablePosts(@RequestParam("p") String id, Model model) {
+        postService.enablePost(Long.valueOf(id));
         return "unhealthy-posts";
     }
 
