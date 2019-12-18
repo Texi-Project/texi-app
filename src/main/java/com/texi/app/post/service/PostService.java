@@ -2,6 +2,7 @@ package com.texi.app.post.service;
 
 import com.texi.app.domain.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface PostService {
@@ -24,4 +25,6 @@ public interface PostService {
     List<Advert> getAdverts();
 
     void handlePostProcessing(PostData postData);
+    List<Post> searchPostsForUser(Long id, String term);
+//    List<Post> searchPostsForUser(Long id, String term, Pageable pageable);
 }

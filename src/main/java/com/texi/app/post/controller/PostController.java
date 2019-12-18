@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -101,6 +103,7 @@ public class PostController {
         return "/user-profile"; // todo create view template 'user-profile'
     }
 
+
     @PostMapping("/delete/{postId}")
     public @ResponseBody
     Response delete(@PathVariable String postId) {
@@ -124,5 +127,20 @@ public class PostController {
         postService.enablePost(Long.valueOf(id));
         return "unhealthy-posts";
     }
+    @GetMapping(value = {"/dashboard/search"})
+    public String search(String term, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        // if (principal == null)  return "redirect:/auth";
+        User user=userService.findByUsername(principal.getName());
+        Long uId=user.getId();
+        List<Post> postList=postService.searchPostsForUser(uId,term);
+        //List<Post> postList=postService.getPostsForUser(user);
+
+        //List<Post> postList = postService.getPostsForUser(u);
+        model.addAttribute("posts", postList);
+        model.addAttribute("user",user);
+
+        return "dashboard";
+    }
+
 
 }
