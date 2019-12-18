@@ -358,6 +358,11 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	// $('.like').on("click",function () {
+	// 	let v = $(this).parent().find(".like").val();
+	// 	$(this).val(v+1);
+	// })
+
 //inbox page 	
 //***** Message Star *****//  
 	$('.message-list > li > span.star-this').on("click", function () {

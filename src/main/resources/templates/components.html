@@ -277,12 +277,12 @@
                                                     <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
                                                     <div class="we-video-info">
                                                         <ul>
-                                                            <li>
-                                                                <span class="views" data-toggle="tooltip" title="views">
-                                                                    <i class="fa fa-eye"></i>
-                                                                    <ins>1.2k</ins>
-                                                                </span>
-                                                            </li>
+<!--                                                            <li>-->
+<!--                                                                <span class="views" data-toggle="tooltip" title="views">-->
+<!--                                                                    <i class="fa fa-eye"></i>-->
+<!--                                                                    <ins>1.2k</ins>-->
+<!--                                                                </span>-->
+<!--                                                            </li>-->
                                                             <li>
                                                                 <span class="comment" data-toggle="tooltip"
                                                                       title="Comments">
@@ -293,15 +293,15 @@
                                                             <li>
                                                                 <span class="like" data-toggle="tooltip" title="like">
                                                                     <i class="ti-heart"></i>
-                                                                    <ins>2.2k</ins>
+                                                                    <ins></ins>
                                                                 </span>
                                                             </li>
-                                                            <li>
-                                                                <span class="dislike" data-toggle="tooltip" title="dislike">
-                                                                    <i class="ti-heart-broken"></i>
-                                                                    <ins>200</ins>
-                                                                </span>
-                                                            </li>
+<!--                                                            <li>-->
+<!--                                                                <span class="dislike" data-toggle="tooltip" title="dislike">-->
+<!--                                                                    <i class="ti-heart-broken"></i>-->
+<!--                                                                    <ins>200</ins>-->
+<!--                                                                </span>-->
+<!--                                                            </li>-->
                                                             <li class="social-media">
                                                                 <div class="menu">
                                                                     <div class="btn trigger"><i
@@ -316,39 +316,39 @@
                                                                                                      title=""><i
                                                                                 class="fa fa-facebook"></i></a></div>
                                                                     </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
+<!--                                                                    <div class="rotater">-->
+<!--                                                                        <div class="btn btn-icon"><a href="#"-->
+<!--                                                                                                     title=""><i-->
+<!--                                                                                class="fa fa-google-plus"></i></a></div>-->
+<!--                                                                    </div>-->
                                                                     <div class="rotater">
                                                                         <div class="btn btn-icon"><a href="#"
                                                                                                      title=""><i
                                                                                 class="fa fa-twitter"></i></a></div>
                                                                     </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-css3"></i></a></div>
-                                                                    </div>
+<!--                                                                    <div class="rotater">-->
+<!--                                                                        <div class="btn btn-icon"><a href="#"-->
+<!--                                                                                                     title=""><i-->
+<!--                                                                                class="fa fa-css3"></i></a></div>-->
+<!--                                                                    </div>-->
                                                                     <div class="rotater">
                                                                         <div class="btn btn-icon"><a href="#"
                                                                                                      title=""><i
                                                                                 class="fa fa-instagram"></i></a>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
+<!--                                                                    <div class="rotater">-->
+<!--                                                                        <div class="btn btn-icon"><a href="#"-->
+<!--                                                                                                     title=""><i-->
+<!--                                                                                class="fa fa-dribbble"></i></a>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="rotater">-->
+<!--                                                                        <div class="btn btn-icon"><a href="#"-->
+<!--                                                                                                     title=""><i-->
+<!--                                                                                class="fa fa-pinterest"></i></a>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
 
                                                                 </div>
                                                             </li>
@@ -377,7 +377,7 @@
                                                         </div>
                                                         <div class="we-comment">
                                                             <div class="coment-head">
-                                                                <h5><ins><a th:href="${'/user/timeline/' + comment.post.user.id}" th:text="${comment.post.user.firstName + ' ' + comment.post.user.lastName}">Janice Griffith</a></ins>
+                                                                <h5><ins><a th:href="${'/user/timeline/' + comment.user.id}" th:text="${comment.user.firstName + ' ' + comment.user.lastName}">Janice Griffith</a></ins>
                                                                 </h5>
                                                                 <span th:text="'commented on: ' + ${{comment.date}}">june,2 2018 19:PM</span>
                                                                 <a class="we-reply" href="#" title="Reply"><i
