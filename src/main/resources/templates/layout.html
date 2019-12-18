@@ -28,9 +28,10 @@
 
         <div class="top-area">
             <div class="top-search">
-                <form class="" method="post">
-                    <input th:placeholder="#{searchFriend}" type="text">
-                    <button data-ripple><i class="ti-search"></i></button>
+                <form class="" method="get" action="/posts/dashboard/search">
+<!--                    <input th:placeholder="#{searchFriend}" th:name="term" type="text">-->
+                    <input placeholder="Search post" name="term" type="text">
+                    <button type="submit" data-ripple><i class="ti-search"></i></button>
                 </form>
             </div>
             <ul class="setting-area" layout:replace="components :: settings-area">

@@ -43,7 +43,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(nativeQuery = true,
             value = "select * from post po join photo ph on po.id = ph.post_id where po.status = 'ACTIVE' and po.title LIKE CONCAT('%',:term,'%') AND (po.user_id = :id " +
                     "or po.user_id in (select following_id from user_following where user_id = :id)) order by po.date desc")
-    List<Post> searchPostsForUser(@Param("id") Long id, @Param("term") String term, Pageable pageable);
+    List<Post> searchPostsForUser(@Param("id") Long id, @Param("term") String term);
+//    List<Post> searchPostsForUser(@Param("id") Long id, @Param("term") String term, Pageable pageable);
 
     //List<Post> findByDescriptionContainingOrTitleContaining(String search);
     List<Post> findAllByStatus(Status status);

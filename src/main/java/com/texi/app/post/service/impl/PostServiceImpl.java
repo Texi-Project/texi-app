@@ -8,9 +8,11 @@ import com.texi.app.utility.Upload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,5 +100,9 @@ public class PostServiceImpl implements PostService {
                 f.setNotifications(notifications);
             });
         }
+    }
+    @Override
+    public List<Post> searchPostsForUser(Long id, String term){
+        return postRepository.searchPostsForUser(id,term);
     }
 }
