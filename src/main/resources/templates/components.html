@@ -275,7 +275,10 @@
                                                     <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img alt="" th:src="${post.photos.size() > 0 ? post.photos[0].url : '/images/resources/user-post.jpg'}">
+                                                    <img alt="" th:if="${post?.photos?.size() > 0}" th:src="${post?.photos.size() > 0 ? post?.photos[0]?.url : '/images/resources/user-post.jpg'}">
+                                                    <video width="500" height="360" alt="" th:if="${post?.video != null}" autoplay loop muted plays-inline controls>
+                                                        <source th:src="${post?.video?.url}" type="video/mp4">
+                                                    </video>
                                                     <div class="we-video-info">
                                                         <ul>
 <!--                                                            <li>-->

@@ -28,12 +28,14 @@ public class Upload {
         this.cloudinary = cloudinary;
     }
 
-    public String upload(MultipartFile multipartFile) {
+    public String upload(String fileType, MultipartFile multipartFile) {
         String url = String.format("%s%s-%s",
                 uploads, Instant.now().getEpochSecond(), multipartFile.getOriginalFilename()); // placeholder
         try {
             byte[] bytes = multipartFile.getBytes();
-            Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.emptyMap());
+            Map config = fileType.equals("video") ? ObjectUtils.asMap("resource_type", "video")
+                    : ObjectUtils.asMap("resource_type", "image");
+            Map uploadResult = cloudinary.uploader().upload(bytes, config);
             url = (String) uploadResult.get("url");
             logger.info("{} uploaded successfully to {}\n", multipartFile.getOriginalFilename(), url);
         } catch (IOException e) {

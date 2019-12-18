@@ -70,7 +70,7 @@ public class HomeController {
             return "login";
         }
 
-        String fileNameAndPath = upload.upload(photo);
+        String fileNameAndPath = upload.upload("image", photo);
         user.setPhotoUrl(fileNameAndPath);
         Response res = services.save(user);
 

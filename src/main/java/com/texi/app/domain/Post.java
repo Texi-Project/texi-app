@@ -31,7 +31,7 @@ public class Post implements Serializable {
     @JoinColumn(name = "post_id")
     private List<Photo> photos;
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     private Video video;
 
     @OneToMany(mappedBy = "post")

@@ -78,10 +78,10 @@ public class PostController {
         post.setStatus(Status.ACTIVE);
 
         List<Photo> photos = new ArrayList<>();
-        if (image != null && !image.getOriginalFilename().equals("")) photos.add(new Photo(upload.upload(image)));
+        if (image != null && !image.getOriginalFilename().equals("")) photos.add(new Photo(upload.upload("image", image)));
         post.setPhotos(photos);
 
-        if (video != null && !video.getOriginalFilename().equals("")) post.setVideo(new Video(upload.upload(video)));
+        if (video != null && !video.getOriginalFilename().equals("")) post.setVideo(new Video(upload.upload("video", video)));
 
         // save to DB, and handle the notifications asynchronously
         post = postService.save(post, user);
