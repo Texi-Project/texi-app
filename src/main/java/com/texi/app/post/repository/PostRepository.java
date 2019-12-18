@@ -32,7 +32,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(nativeQuery = true,
 //            value = "from Post p join p.user u join u.following f where u.id = :id " +
 //                    "or exists (select u from User u join u.following f where f.id = :id) order by p.date desc")
-            value = "select * from post po join photo ph on po.id = ph.post_id where po.status = 'ACTIVE' AND (po.user_id = :id " +
+            value = "select * from post po left join photo ph on po.id = ph.post_id left join " +
+                    "video v on po.video_id = v.id where po.status = 'ACTIVE' AND (po.user_id = :id " +
                     "or po.user_id in (select following_id from user_following where user_id = :id)) order by po.date desc")
     List<Post> getPostsForUser(@Param("id") Long id);
 

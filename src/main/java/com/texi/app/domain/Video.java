@@ -14,7 +14,7 @@ public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(mappedBy = "video")
     private Post post;
     private String url;
     private double duration;
