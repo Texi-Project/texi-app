@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="description"/>
+    <meta content="" name="keywords"/>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Texi</title>
+    <link rel="icon" sizes="16x16" th:href="@{/images/fav.png}" type="image/png}">
+
+    <link rel="stylesheet" th:href="@{/css/main.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/color.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+    <div class="postoverlay"></div>
+
+    <div class="topbar stick">
+        <div class="logo">
+            <a th:href="@{/user/dashboard}" title=""><h1 data-shadow='dang!'>Texi</h1><!--<img alt="" th:src="@{/images/logo.png}">--></a>
+        </div>
+
+        <div class="top-area">
+            <div class="top-search">
+                <form class="" method="get" action="/posts/dashboard/search">
+<!--                    <input th:placeholder="#{searchFriend}" th:name="term" type="text">-->
+                    <input placeholder="Search post" name="term" type="text">
+                    <button type="submit" data-ripple><i class="ti-search"></i></button>
+                </form>
+            </div>
+            <ul class="setting-area" layout:replace="components :: settings-area">
+                Intentionally left blank
+            </ul>
+            <div class="user-img" style="margin-right: 2rem;">
+                <img alt="" th:src="${user.photoUrl}" style="height: 2rem">
+<!--                <img alt="" th:src="${user.photoUrl}">-->
+                <span class="status f-online"></span>
+                <div class="user-setting">
+                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-user"></i> view profile</a>
+                    <a th:href="@{/user/manage-profile}" title=""><i class="ti-pencil-alt"></i>edit profile</a>
+                    <a th:href="@{/logout/}" title=""><i class="ti-power-off"></i>log out</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- topbar -->
+
+    <section layout:replace="components :: top-image-area" th:text="#{nothingInThisFile}" >
+
+    </section><!-- top area -->
+
+    <section>
+        <div class="gap gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row merged20" id="page-contents" layout:fragment="page-content">
+                            <div class="col-lg-3" layout:fragment="left-sidebar">
+                                <aside class="sidebar static">
+
+                                    <div class="widget" layout:replace="components :: left-shortcuts-admin">
+                                        Intentionally left blank
+                                    </div> <!-- Admin Shortcuts -->
+
+                                    <div class="widget" layout:replace="components :: left-shortcuts-user">
+                                        Intentionally left blank
+                                    </div><!-- User Shortcuts -->
+
+                                    <div class="widget stick-widget" layout:replace="components :: who-to-follow">
+                                        Intentionally left blank
+                                    </div><!-- who's following -->
+                                </aside>
+                            </div><!-- sidebar -->
+
+                            <div class="col-lg-6" layout:fragment="main-content">
+                                <div class="central-meta new-pst" layout:replace="components :: newpost-form">
+                                    Intentionally left blank
+                                </div><!-- add post new box -->
+
+                                <div class="loadMore" layout:replace="components :: posts-area">
+                                    Intentionally left blank
+                                </div>
+                            </div><!-- centerl meta -->
+
+                            <div class="col-lg-3" layout:fragment="right-sidebar">
+                                <aside class="sidebar static">
+                                    <div class="widget" layout:replace="components :: page-like-area">
+                                        Intentionally left blank
+                                    </div><!-- page like widget -->
+                                    <div class="widget" layout:replace="components :: advert-area">
+                                        Intentionally left blank
+                                    </div>
+                                    <div class="widget friend-list stick-widget" layout:replace="components :: friends-list-area">
+                                        Intentionally left blank
+                                    </div><!-- friends list sidebar -->
+                                </aside>
+                            </div><!-- sidebar -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bottombar" layout:replace="components :: footer-area">
+        Intentionally left blank
+    </div>
+</div>
+
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<!--<script th:src="@{js/map-init.js}"></script>-->
+<!--<script th:src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>-->
+</body>
+</html>

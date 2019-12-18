@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Timeline</title>
+</head>
+<body>
+<section layout:fragment="top-image-area">
+    <!-- leave blank so nothing shows up for the dashboard -->
+</section><!-- top area -->
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta new-pst" layout:replace="components :: newpost-form">
+        Intentionally left blank
+    </div><!-- add post new box -->
+    <div class="loadMore" layout:replace="components :: posts-area">
+        Intentionally left blank
+    </div>
+</div><!-- centerl meta -->
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sample Form</title>
+</head>
+<body>
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta">
+        <div class="editing-info">
+            <h5 class="f-title"><i class="ti-info-alt" th:text="#{editBasicInformation}"></i> </h5>
+            <p th:if="${success}"  th:text="#{profileUpdateSuccessful}"></p>
+            <form method="post" th:action="@{/user/update}"  th:object="${user}">
+                <div class="form-group half">
+                    <input type="text" id="input1" th:field="*{firstName}" required="required"/>
+                    <label class="control-label" for="firstName">First Name</label><i class="mtrl-select"></i>
+                    <span class="danger-color" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </div>
+                <div class="form-group half">
+                    <input type="text" th:field="*{lastName}" required="required"/>
+                    <label class="control-label" for="lastName">Last Name</label><i class="mtrl-select"></i>
+                    <span class="danger-color" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </div>
+                <div class="form-group">
+                    <input th:field="*{username}" type="text" required="required"/>
+                    <label class="control-label" for="username">User Name</a></label><i class="mtrl-select"></i>
+                    <span class="danger-color" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                </div>
+                <div class="form-group">
+                    <input required="required" type="date" th:field="*{birthday}"/>
+                    <label class="control-label" for="birthday">Birthday </label><i class="mtrl-select"></i>
+                    <span class="danger-color" th:if="${#fields.hasErrors('birthday')}"></span>
+                </div>
+                <div class="form-group">
+                    <input required="required" type="password" th:field="*{password}"/>
+                    <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+                    <span class="danger-color" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+                <div class="submit-btns">
+                    <button type="submit" class="mtr-btn"><span th:text="#{update}"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- centerl meta -->
+
+</body>
+
+</html>

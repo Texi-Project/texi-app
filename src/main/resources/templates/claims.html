@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Unhealthy Posts</title>
+</head>
+<body>
+<section layout:fragment="top-image-area">
+    <!-- leave blank so nothing shows up for the dashboard -->
+</section><!-- top area -->
+<div class="col-lg-6" layout:fragment="main-content">
+    <div class="central-meta">
+        <div class="frnds">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="active" href="#posts" data-toggle="tab" th:text="#{unresolvedClaims}"></a> <span th:text="${claims?.size()}"></span></li>
+                <!--                <li class="nav-item"><a class="" href="#frends-req" data-toggle="tab">Follwers</a><span>60</span></li>-->
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active fade show" id="posts">
+                    <ul class="nearby-contct" th:each="claim: ${claims}">
+                        <li th:id="${claim.id}">
+                            <div class="nearly-pepls">
+                                <figure>
+                                    <a href="time-line.html" title=""><img src="images/resources/friend-avatar9.jpg" alt=""></a>
+                                </figure>
+                                <div class="pepl-info">
+                                    <h4 th:text="${claim.user.firstName}"></h4>
+                                    <span th:text="${{claim.claimDate}}"></span>
+                                    <small th:text="${claim.reason}"></small>
+                                    <a th:href="@{/admin/claim/enable(c=${claim.id})}" title="" class="add-butn" data-ripple="">Enable
+                                        <span class="ripple"><span class="ink" style="height: 89px; width: 89px; background-color: rgb(10, 169, 246); top: -26.5px; left: -4.953125px;"></span></span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="lodmore"><button class="btn-view btn-load-more"></button></div>
+                </div>
+                <div class="tab-pane fade" id="frends-req">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- centerl meta -->
+</body>
+</html>

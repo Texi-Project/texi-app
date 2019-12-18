@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Texi| Claim</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link th:href="@{/css/mdb.css}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <!--Section: Content-->
+        <section class="dark-grey-text">
+
+            <div class="row pr-lg-5">
+                <div class="col-md-7 mb-4">
+
+                    <div class="view">
+                        <img src="https://mdbootstrap.com/img/illustrations/drawkit-phone-conversation-colour.svg" class="img-fluid" alt="smaple image">
+                    </div>
+
+                </div>
+                <div class="col-md-5 d-flex align-items-center">
+                    <div>
+
+                        <h3 class="font-weight-bold mb-4" th:text="#{yourAccountIsSuspended}"></h3>
+
+                        <p th:text="#{accountWasSuspended}"></p>
+                        <!-- Form -->
+                        <form class="text-center" style="color: #757575;" action="/claim" method="post">
+                            <h4 th:text="#{sendClaim}"></h4>
+                            <!-- Email -->
+                            <div class="md-form">
+                                <input type="email" id="materialLoginFormEmail" name="email" class="form-control">
+                                <label for="materialLoginFormEmail" th:text="#{email}"></label>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="md-form">
+                                <textarea type="text" id="materialLoginFormPassword" class="form-control" name="reason" ></textarea>
+                            </div>
+                            <p class="text-danger" th:text="${response}"></p>
+                            <p class="text-primary"><small><a href="/" th:text="#{backToHome}"></a></small></p>
+                            <button type="submit" class="btn btn-orange btn-rounded mx-0" th:text="#{submit}"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<!--/.Card-->
+<!-- /Start your project here-->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+
+</body>
+</html>
