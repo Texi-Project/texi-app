@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -57,6 +56,7 @@ public class PostController {
                             @RequestParam("video") MultipartFile video, Principal principal,
                             @RequestParam("type") String type, @RequestParam(value = "start", required = false) String start,
                             @RequestParam(value = "end", required = false) String end,
+                            @RequestParam(value = "target", required = false) Integer target,
                             @RequestParam(required = false, defaultValue = "false") boolean notify) throws IOException {
         if (title.equals("") || image.isEmpty() && video.isEmpty()) {
             System.out.println("Blank post received, ignoring...");
@@ -88,8 +88,11 @@ public class PostController {
         // save to DB, and handle the notifications asynchronously
         post = postService.save(post, user);
 
-        PostData postData = new PostData(post.getId(), notify);
-        producer.produce(postData);
+        // post processing follows...
+        if (notify) producer.produce(new PostData(post.getId(), notify));
+
+        // Post in this case is actually only ever and "Advert"
+        if (target != null && target > 0) postService.logTargetAudience(target, (Advert) post);
 
         return new RedirectView("/user/dashboard");
     }

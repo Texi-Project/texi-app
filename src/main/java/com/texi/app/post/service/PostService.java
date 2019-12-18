@@ -1,12 +1,16 @@
 package com.texi.app.post.service;
 
-import com.texi.app.domain.*;
+import com.texi.app.domain.Advert;
+import com.texi.app.domain.Post;
+import com.texi.app.domain.PostData;
+import com.texi.app.domain.User;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public interface PostService {
     Post save(Post post, User user);
+
+    void logTargetAudience(Integer target, Advert advert);
 
     Post findById(Long id);
 

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,5 +23,8 @@ public interface UserRepository extends PagingAndSortingRepository<User,Long> {
 
     @Query("from User u join u.following f where f.id = :id")
     List<User> getFollowers(Long id);
+
+    @Query("from User u where u.birthday between :start and :end")
+    List<User> findUsersInAgeRange(LocalDate start, LocalDate end);
 
 }
