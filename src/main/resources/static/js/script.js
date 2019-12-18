@@ -358,6 +358,11 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	// $('.like').on("click",function () {
+	// 	let v = $(this).parent().find(".like").val();
+	// 	$(this).val(v+1);
+	// })
+
 //inbox page 	
 //***** Message Star *****//  
 	$('.message-list > li > span.star-this').on("click", function () {
@@ -438,6 +443,9 @@ jQuery(document).ready(function ($) {
 	$("[type = submit]").click(function () {
 		var post = $("textarea").val();
 		$("<p class='post'>" + post + "</p>").appendTo("section");
+	});
+	$(".heart.fa").click(function() {
+		$(this).toggleClass("fa-heart fa-heart-o");
 	});
 
 	setInterval(checkForNotifications, 10000);

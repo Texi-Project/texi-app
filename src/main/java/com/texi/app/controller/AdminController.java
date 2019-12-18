@@ -1,7 +1,9 @@
 package com.texi.app.controller;
 
 import com.texi.app.claim.repository.ClaimRepository;
+import com.texi.app.claim.service.ClaimService;
 import com.texi.app.domain.Advert;
+import com.texi.app.domain.Claim;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
@@ -9,10 +11,7 @@ import com.texi.app.user.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -31,6 +30,9 @@ public class AdminController {
     @Autowired
     ClaimRepository claimRepository;
 
+    @Autowired
+    ClaimService claimService;
+
     @GetMapping("/users")
     public String users(HttpSession session, Model model){
         List<User> users = userServices.findAll();
@@ -39,10 +41,19 @@ public class AdminController {
         return "users";
     }
 
-    @RequestMapping("/user/{u}/status/{s}")
-    public String blockUser(@PathVariable("u") String username, @PathVariable("s") String status){
+    @RequestMapping("/user/{username}/status/{status}")
+    public String blockUser(@PathVariable("username") String username, @PathVariable("status") String status){
         userServices.updateStatus(username, status);
         return "users";
+    }
+
+    @RequestMapping("/claim/enable")
+    public String blockUser(@RequestParam("c") String id){
+        Claim claim = claimService.resolveClaim(Long.valueOf(id));
+        if(claim!=null) {
+            userServices.updateStatus(claim.getUser(), Status.ACTIVE);
+        }
+        return "claims";
     }
 
     @RequestMapping("/adverts")
@@ -56,8 +67,8 @@ public class AdminController {
     public String claims(HttpSession session, Model model){
         List<User> users = userServices.findAll();
 //        session.setAttribute("users",users);
-
         model.addAttribute("claims",claimRepository.findByStatusOrderByClaimDateDesc(Status.ACTIVE));
         return "claims";
     }
+
 }
