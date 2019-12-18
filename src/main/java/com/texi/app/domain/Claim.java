@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -24,7 +25,7 @@ public class Claim {
 
     private LocalDate claimDate;
 
-    @Min(value = 12, message = "{size.min")
+    @Size(min = 10 , message = "{size.min}")
     private String reason;
 
     private Status status;

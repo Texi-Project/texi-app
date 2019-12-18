@@ -39,7 +39,7 @@ public class FilteringEngine {
     private RabbitTemplate rabbitTemplate;
     private static final String EXCHANGE = "texiPostUnhealthy";
     private static final String ROUTING_KEY = "texiPostUnhealthy";
-    private static int FLAG_COUNT = 2;
+    private static int FLAG_COUNT = 1;
 
     private List<String> badWords;
 

@@ -26,10 +26,6 @@ public class PostsAOP {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
-    //    private static final String EXCHANGE = "texi.post.unhelthy";
-//    private static final String ROUTING_KEY = "texi.post.unhealthy";
-    private static final String EXCHANGE = "duncan";
-    private static final String ROUTING_KEY = "msg";
 
     @Around("execution(* com.texi.app.post.service.PostService.save(..))")
     public Object filterPosts(ProceedingJoinPoint pjp){
@@ -53,8 +49,7 @@ public class PostsAOP {
 
     @Before("execution(* com.texi.app.user.service.UserServices.*(..))")
     public void before(JoinPoint joinPoint) {
-        logger.info("User Service method "+joinPoint.getSignature().getName());
-//        rabbitTemplate.convertAndSend(EXCHANGE,ROUTING_KEY,joinPoint.getSignature().getName());
+
     }
 
 }

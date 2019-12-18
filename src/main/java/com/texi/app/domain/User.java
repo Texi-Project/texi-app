@@ -26,18 +26,18 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(value = 4, message = "{size.min}")
+    @Size(min = 6, message = "{size.min}")
     @Column(unique = true)
     @Email(message = "email")
     private String username;
 
-    @Min(value = 4, message = "{size.min}")
+    @Size(min = 4, message = "{size.min}")
     private String password;
 
-    @Min(value = 2, message = "{size.min}")
+    @Size(min = 2, message = "{size.min}")
     private String firstName;
 
-    @Min(value = 2, message = "{size.min}")
+    @Size(min = 2, message = "{size.min}")
     private String lastName;
 
     private String photoUrl;
