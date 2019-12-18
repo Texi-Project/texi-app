@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -27,18 +28,18 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 4, message = "size.min")
+    @Min(value = 4, message = "{size.min}")
     @Column(unique = true)
     @Email(message = "email")
     private String username;
 
-    @Size(min = 5, message = "size.min")
+    @Min(value = 4, message = "{size.min}")
     private String password;
 
-    @Size(min = 2, message = "size.min")
+    @Min(value = 2, message = "{size.min}")
     private String firstName;
 
-    @Size(min = 2, message = "size.min")
+    @Min(value = 2, message = "{size.min}")
     private String lastName;
 
     private String photoUrl;

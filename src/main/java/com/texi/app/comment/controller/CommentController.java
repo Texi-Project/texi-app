@@ -33,9 +33,7 @@ public class CommentController {
             responsejson.setMsg(errors.getAllErrors().stream().map(x->x.getDefaultMessage()).collect(Collectors.joining(",")));
             return ResponseEntity.badRequest().body(responsejson);
         }
-        responsejson.setPostId(commentJson.getPostId());
-        responsejson.setCommentText(commentJson.getCommentText());
-        responsejson.setMsg("Success");
+
         Post post=postService.findById(commentJson.getPostId());
         User user=userServices.findByUsername(principal.getName());
         Comment commentObj=new Comment();
@@ -43,6 +41,11 @@ public class CommentController {
         commentObj.setPost(post);
         commentObj.setUser(user);
         commentService.save(commentObj);
+        responsejson.setCommentPostUserId(user.getId());
+        responsejson.setCommentText(commentJson.getCommentText());
+        responsejson.setCommentDate(commentObj.getDate());
+        responsejson.setCommentPostUserName(user.getFirstName()+" "+user.getLastName());
+        responsejson.setMsg("Success");
         return ResponseEntity.ok(responsejson);
     }
 //    @PostMapping("/add")// to be modified to implement PRG pattern
