@@ -12,24 +12,24 @@
     <div class="central-meta">
         <div class="frnds">
             <ul class="nav nav-tabs">
-                <li class="nav-item"><a class="active" href="#posts" data-toggle="tab">Unhealthy Posts</a> <span th:text="${unhealthy.size()}"></span></li>
-<!--                <li class="nav-item"><a class="" href="#frends-req" data-toggle="tab">Follwers</a><span>60</span></li>-->
+                <li class="nav-item"><a class="active" href="#posts" data-toggle="tab">Unresolved Claims</a> <span th:text="${claims?.size()}"></span></li>
+                <!--                <li class="nav-item"><a class="" href="#frends-req" data-toggle="tab">Follwers</a><span>60</span></li>-->
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane active fade show" id="posts">
-                    <ul class="nearby-contct" th:each="post: ${unhealthy}">
-                        <li th:id="${post.id}">
+                    <ul class="nearby-contct" th:each="claim: ${claims}">
+                        <li th:id="${claim.id}">
                             <div class="nearly-pepls">
                                 <figure>
                                     <a href="time-line.html" title=""><img src="images/resources/friend-avatar9.jpg" alt=""></a>
                                 </figure>
                                 <div class="pepl-info">
-                                    <h4 th:text="${post.user.firstName}"></h4>
-                                    <span th:text="${{post.date}}"></span>
-                                    <small th:text="${post.description}"></small>
-                                    <a th:href="@{/post/enable(p=${post.id})}" title="" class="add-butn" data-ripple="">Enable<span class="ripple"><span class="ink" style="height: 89px; width: 89px; background-color: rgb(10, 169, 246); top: -26.5px; left: -4.953125px;"></span></span></a>
+                                    <h4 th:text="${claim.user.firstName}"></h4>
+                                    <span th:text="${{claim.claimDate}}"></span>
+                                    <small th:text="${claim.reason}"></small>
+                                    <a th:href="@{/post/enable(p=${claim.user.username})}" title="" class="add-butn" data-ripple="">Enable<span class="ripple"><span class="ink" style="height: 89px; width: 89px; background-color: rgb(10, 169, 246); top: -26.5px; left: -4.953125px;"></span></span></a>
                                 </div>
                             </div>
                         </li>
@@ -44,5 +44,4 @@
     </div>
 </div><!-- centerl meta -->
 </body>
-
 </html>

@@ -1,6 +1,8 @@
 package com.texi.app.controller;
 
+import com.texi.app.claim.repository.ClaimRepository;
 import com.texi.app.domain.Advert;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"user","wtf","friends","users"})
+//@SessionAttributes({"user","wtf","friends","users"})
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -26,10 +28,13 @@ public class AdminController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    ClaimRepository claimRepository;
+
     @GetMapping("/users")
     public String users(HttpSession session, Model model){
         List<User> users = userServices.findAll();
-        session.setAttribute("users",users);
+//        session.setAttribute("users",users);
         model.addAttribute("users",users);
         return "users";
     }
@@ -45,5 +50,14 @@ public class AdminController {
         List<Advert> adverts = postService.getAdverts();
         model.addAttribute("adverts", adverts);
         return "adverts";
+    }
+
+    @GetMapping("/claims")
+    public String claims(HttpSession session, Model model){
+        List<User> users = userServices.findAll();
+//        session.setAttribute("users",users);
+
+        model.addAttribute("claims",claimRepository.findByStatusOrderByClaimDateDesc(Status.ACTIVE));
+        return "claims";
     }
 }

@@ -1,6 +1,8 @@
 package com.texi.app.controller;
 
 import com.texi.app.core.Response;
+import com.texi.app.domain.Claim;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.post.service.PostService;
 import com.texi.app.user.service.UserServices;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 public class HomeController {
@@ -74,5 +77,29 @@ public class HomeController {
         ra.addFlashAttribute("user",res.getData());
         model.addAttribute("user", res.getData());
         return "redirect:auth";
+    }
+
+
+    @GetMapping("/claim")
+    public String claim(@ModelAttribute String response, Model model) {
+        return "claim";
+    }
+
+    @PostMapping("/claim")
+    public String claimReceive(@RequestParam("email") String email, @RequestParam("reason") String reason,
+                               RedirectAttributes redirectAttributes, Model model) {
+        User user = services.findByUsername(email);
+        if(user==null){
+            model.addAttribute("response", "User not found");
+            return "claim";
+        }
+
+        Claim claim = new Claim();
+        claim.setUser(user);
+        claim.setReason(reason);
+        claim.setStatus(Status.ACTIVE);
+        claim.setClaimDate(LocalDate.now());
+        redirectAttributes.addFlashAttribute("response", services.saveClaim(claim).getMessage());
+        return "redirect:/claim";
     }
 }

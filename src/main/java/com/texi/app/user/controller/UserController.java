@@ -4,6 +4,7 @@ import com.texi.app.core.Response;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.domain.Notification;
 import com.texi.app.domain.Post;
+import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
 import com.texi.app.notifications.service.NotifyService;
 import com.texi.app.post.service.PostService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,9 +24,9 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
+//@SessionAttributes({"user", "wtf", "friends", "followers", "notifications"})
 @RequestMapping("/user")
-//@SessionAttributes("user")
+@ControllerAdvice
 public class UserController {
     public static String uploadDirectory = System.getProperty("user.dir")+"/photoUploads";
 
@@ -129,10 +131,16 @@ public class UserController {
     }
 
     @GetMapping(value = {"/dashboard"})
-    public String dashboard(Model model, Principal principal) {
+    public String dashboard(Model model, Principal principal, RedirectAttributes redirectAttributes) {
         if (principal == null)  return "redirect:/auth";
 
         User u = (User) model.asMap().get("user");
+
+        if(u.getStatus().equals(Status.DEACTIVATED)){
+            redirectAttributes.addFlashAttribute("user",u);
+            //@TODO logout the user, clear Principle
+            return "claim";
+        }
 
         List<Post> postList = postService.getPostsForUser(u);
         model.addAttribute("posts", postList);
@@ -153,7 +161,7 @@ public class UserController {
         String errorMessge = null;
         if (error != null) {
             errorMessge = "Username or Password is incorrect !!";
-            System.out.println("Principle: login "+principal.getName());
+            System.out.println("Principle: login "+principal.getName()+" --------##########--------");
             return "dashboard";
         }
         if (logout != null) {

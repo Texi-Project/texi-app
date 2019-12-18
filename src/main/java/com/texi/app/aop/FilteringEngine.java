@@ -13,6 +13,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class FilteringEngine {
     private RabbitTemplate rabbitTemplate;
     private static final String EXCHANGE = "texiPostUnhealthy";
     private static final String ROUTING_KEY = "texiPostUnhealthy";
-    private static int FLAG_COUNT = 9;
+    private static int FLAG_COUNT = 1;
 
     private List<String> badWords;
 
