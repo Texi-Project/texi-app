@@ -208,7 +208,7 @@
 
     <div class="topbar stick">
         <div class="logo">
-            <a href="newsfeed.html" title=""><img alt="" src="images/logo.png"></a>
+            <a th:href="@{/user/dashboard}" title=""><h1 data-shadow='dang!'>Texi</h1><!--<img alt="" th:src="@{/images/logo.png}">--></a>
         </div>
 
         <div class="top-area">
@@ -258,25 +258,6 @@
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-10 col-sm-9">
-                        <div class="timeline-info">
-                            <ul>
-                                <li class="admin-name">
-                                    <h5>Janice Griffith</h5>
-                                    <span>Group Admin</span>
-                                </li>
-                                <li>
-                                    <a class="active" data-ripple="" href="time-line.html" title="">time line</a>
-                                    <a class="" data-ripple="" href="timeline-photos.html" title="">Photos</a>
-                                    <a class="" data-ripple="" href="timeline-videos.html" title="">Videos</a>
-                                    <a class="" data-ripple="" href="timeline-friends.html" title="">Following</a>
-                                    <a class="" data-ripple="" href="timeline-groups.html" title="">Groups</a>
-                                    <a class="" data-ripple="" href="about.html" title="">about</a>
-                                    <a class="" data-ripple="" href="#" title="">more</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -291,7 +272,7 @@
                             <h2>logged out</h2>
                             <span>Do you want to check Janice Griffith’s Profile?</span>
                             <p>
-                                Please <a href="landing.html" title="">Login</a> or <a href="landing.html" title="">Register</a>
+                                Please <a th:href="@{/auth}" title="">Login</a> or <a th:href="@{/auth}" title="">Register</a>
                                 now to create your own profile and have access to all the Winku awesome features!
                             </p>
                         </div>

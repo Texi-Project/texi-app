@@ -42,7 +42,7 @@ public class HomeController {
 
     @GetMapping("/logout/")
     public String logout() {
-        return "logout";
+        return "redirect:/logout";
     }
 
     @GetMapping("/denied")

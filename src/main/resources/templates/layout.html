@@ -23,7 +23,7 @@
 
     <div class="topbar stick">
         <div class="logo">
-            <a th:href="@{/user/dashboard}" title=""><img alt="" th:src="@{/images/logo.png}"></a>
+            <a th:href="@{/user/dashboard}" title=""><h1 data-shadow='dang!'>Texi</h1><!--<img alt="" th:src="@{/images/logo.png}">--></a>
         </div>
 
         <div class="top-area">
@@ -43,7 +43,7 @@
                 <div class="user-setting">
                     <a th:href="@{/user/manage-profile}" title=""><i class="ti-user"></i> view profile</a>
                     <a th:href="@{/user/manage-profile}" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                    <a th:href="@{/logout}" title=""><i class="ti-power-off"></i>log out</a>
+                    <a th:href="@{/logout/}" title=""><i class="ti-power-off"></i>log out</a>
                 </div>
             </div>
         </div>
@@ -106,6 +106,9 @@
         </div>
     </section>
 
+    <div class="bottombar" layout:replace="components :: footer-area">
+        Intentionally left blank
+    </div>
 </div>
 
 <script th:src="@{/js/main.min.js}"></script>
