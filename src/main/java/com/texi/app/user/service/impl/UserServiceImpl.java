@@ -1,9 +1,11 @@
 package com.texi.app.user.service.impl;
 
+import com.texi.app.claim.repository.ClaimRepository;
 import com.texi.app.core.Response;
 import com.texi.app.core.ResponseBuilder;
 import com.texi.app.core.ResponseCode;
 import com.texi.app.core.Translator;
+import com.texi.app.domain.Claim;
 import com.texi.app.domain.Role;
 import com.texi.app.domain.Status;
 import com.texi.app.domain.User;
@@ -27,18 +29,21 @@ public class UserServiceImpl implements UserServices {
     private Translator translator;
     private ResponseBuilder responseBuilder;
     private PasswordEncoder passwordEncoder;
+    private ClaimRepository claimRepository;
 
     @Autowired
     private NotificationRepository notificationRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository repository, RoleRepository roleRepository,
-                           Translator translator, ResponseBuilder responseBuilder, PasswordEncoder passwordEncoder) {
+                           Translator translator, ResponseBuilder responseBuilder,
+                           PasswordEncoder passwordEncoder, ClaimRepository claimRepository) {
         this.repository = repository;
         this.roleRepository = roleRepository;
         this.translator = translator;
         this.responseBuilder = responseBuilder;
         this.passwordEncoder = passwordEncoder;
+        this.claimRepository = claimRepository;
     }
 
     @Override
@@ -137,5 +142,14 @@ public class UserServiceImpl implements UserServices {
     @Override
     public List<User> getFollowers(Long userId) {
         return repository.getFollowers(userId);
+    }
+
+    @Override
+    public Response saveClaim(Claim claim) {
+        if(claim.getUser().getStatus()!=Status.DEACTIVATED){
+            return responseBuilder.buildFail(translator.getMessage("user.not.suspended"));
+        }
+        claimRepository.save(claim);
+        return responseBuilder.buildSuccess(translator.getMessage("user.claim.submitted"));
     }
 }

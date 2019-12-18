@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"user","wtf","friends","users"})
+//@SessionAttributes({"user","wtf","friends","users"})
 @RequestMapping("/admin")
 public class AdminController {
 

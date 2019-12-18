@@ -70,11 +70,15 @@ public class User implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Claim> claims;
+
     public User() {
         this.following = new HashSet<>();
         this.status = Status.ACTIVE;
         this.roles = new HashSet<>();
         this.flags = new ArrayList<>();
+        this.claims = new HashSet<>();
     }
 
     public void addToFollowing(User user) {
