@@ -8,11 +8,10 @@ import com.texi.app.utility.Upload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +103,39 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> searchPostsForUser(Long id, String term){
         return postRepository.searchPostsForUser(id,term);
+    }
+
+    @Override
+    public void logTargetAudience(Integer target, Advert advert) {
+        List<User> audience = new ArrayList<>();
+        LocalDate start, end;
+        switch (target) {
+            case 3:{
+                start = LocalDate.now().minusYears(90);
+                end = LocalDate.now().minusYears(50);
+                audience = userRepository.findUsersInAgeRange(start, end);
+                advert.setTarget(audience);
+                break;
+            }
+            case 2:{
+                start = LocalDate.now().minusYears(50);
+                end = LocalDate.now().minusYears(20);
+                audience = userRepository.findUsersInAgeRange(start, end);
+                advert.setTarget(audience);
+                break;
+            }
+            case 1:{
+                start = LocalDate.now().minusYears(20);
+                end = LocalDate.now().minusYears(0);
+                audience = userRepository.findUsersInAgeRange(start, end);
+                advert.setTarget(audience);
+                break;
+            }
+            default: {
+                audience = (List<User>) userRepository.findAll(); // default to all users
+                advert.setTarget(audience);
+            }
+
+        }
     }
 }

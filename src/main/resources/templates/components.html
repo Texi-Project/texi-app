@@ -271,8 +271,10 @@
                                                     <img alt="" th:src="${post.user.photoUrl}">
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a th:href="${'/user/timeline/' + post.user.id}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a></ins>
-                                                    <span th:text="'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
+                                                    <ins>
+                                                        <a th:href="${'/user/timeline/' + post.user.id}" th:text="${post.user.firstName + ' ' + post.user.lastName}">Janice Griffith</a>
+                                                    </ins>
+                                                    <span th:text="(post?.start != null) ? 'published: ' + ${{post.date}} + ' - Sponsored' : 'published: ' + ${{post.date}}">june,2 2018 19:PM</span>
                                                 </div>
                                                 <div class="post-meta">
                                                     <img alt="" th:if="${post?.photos?.size() > 0}" th:src="${post?.photos.size() > 0 ? post?.photos[0]?.url : '/images/resources/user-post.jpg'}">

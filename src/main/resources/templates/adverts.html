@@ -46,6 +46,15 @@
                         <input required="required" type="date" name="end" placeholder="Choose start date">
                         <label class="control-label" for="end" th:text="#{to}"></label><i class="mtrl-select"></i>
                     </div>
+                    <div class="form-group half">
+                        <select required="required" id="target" name="target">
+                            <option th:value="-1" selected="selected">Select target audience</option>
+                            <option th:value="0">All Users</option>
+                            <option th:value="1">< 20 years old</option>
+                            <option th:value="2">20 - 50 years old</option>
+                            <option th:value="3">> 50 years old</option>
+                        </select>
+                    </div>
                 </form>
             </div>
         </div>
