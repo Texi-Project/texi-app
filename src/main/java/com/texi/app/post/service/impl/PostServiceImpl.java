@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +92,7 @@ public class PostServiceImpl implements PostService {
             String text = String.format("%s", post.getUser().getId());
             Notification notification = new Notification();
             notification.setText(text);
+            notification.setNotifyTime(LocalDateTime.now());
 
             List<User> followers = userRepository.getFollowers(post.getUser().getId());
             followers.stream().forEach(f -> {

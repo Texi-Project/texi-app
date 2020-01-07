@@ -1,5 +1,7 @@
 package com.texi.app.utility;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.texi.app.domain.PostData;
 import com.texi.app.post.service.PostService;
 import org.slf4j.Logger;
@@ -21,8 +23,13 @@ public class Consumer {
     private String queue;
 
     @RabbitListener(queues = {"#{postsQueue.name}"})
-    public void consume(PostData payload) throws InterruptedException {
-        logger.info("received {} from {} queue", payload, queue);
-        postService.handlePostProcessing(payload);
+    public void consume(String message) throws InterruptedException {
+        logger.info("received {} from {} queue", message, queue);
+        try {
+            PostData payload = new ObjectMapper().readValue(message, PostData.class);
+            postService.handlePostProcessing(payload);
+        } catch (JsonProcessingException e) {
+            System.out.println(e.getStackTrace());
+        }
     }
 }

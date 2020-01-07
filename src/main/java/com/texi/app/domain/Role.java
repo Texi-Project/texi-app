@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -28,5 +29,6 @@ public class Role {
     }
 
     @ManyToOne
+    @JsonManagedReference
     private User user;
 }

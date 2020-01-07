@@ -8,8 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -52,6 +50,7 @@ public class User implements Serializable {
     private Set<User> following;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
@@ -59,6 +58,7 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 //    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonBackReference
     private Set<Role> roles;
 
     @OneToMany
@@ -70,6 +70,7 @@ public class User implements Serializable {
     private List<Flag> flags;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

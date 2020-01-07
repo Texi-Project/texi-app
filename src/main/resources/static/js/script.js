@@ -448,7 +448,35 @@ jQuery(document).ready(function ($) {
 		$(this).toggleClass("fa-heart fa-heart-o");
 	});
 
-	setInterval(checkForNotifications, 10000);
+	(function() {
+		// var ws = new SockJS("http://127.0.0.1:15674/stomp");
+		let ws = new WebSocket('ws://127.0.0.1:15674/ws');
+		let client = Stomp.over(ws);
+
+		client.heartbeat.outgoing = 0;
+		client.heartbeat.incoming = 0;
+
+		let onDebug = function(m) {
+			console.log("DEBUG", m);
+		};
+
+		let onConnect = function() {
+			// subscribe to the exchange named "posts-exchange" and the routing key "posts"
+			client.subscribe("/exchange/posts-exchange/posts", function(d) {
+				console.log(JSON.parse(d.body));
+				setTimeout(checkForNotifications, 1000)
+			})
+		};
+
+		let onError = function(e) {
+			console.log("ERROR", e);
+		};
+
+		client.debug = onDebug;
+		client.connect("guest", "guest", onConnect, onError, "/");
+	})();
+
+	// setInterval(checkForNotifications, 10000);
 
 	function checkForNotifications() {
 		const endpoint = window.location.origin + "/notifications/new";
@@ -457,10 +485,13 @@ jQuery(document).ready(function ($) {
 			url: endpoint,
 			type: 'post',
 		})
-			.done(function (count) {
-				// console.log(count)
-				$("#ctr1").html(count + 1);
-				$("#ctr2").html(count + 1)
+			.done(function (notifications) {
+				console.log(notifications);
+
+				if (notifications.length > 0) updateNotificationDisplay(notifications);
+
+				$("#ctr1").html(notifications.length);
+				$("#ctr2").html(notifications.length);
 			})
 			.fail(function (xhr, status, errorThrown) {
 				console.log(`Status: ${status}\nError: ${errorThrown}`);
@@ -481,6 +512,30 @@ jQuery(document).ready(function ($) {
 				console.log(`Error: ${err}`);
 			})*/
 		return false;
+	}
+
+	function updateNotificationDisplay(notifications) {
+		const div = $("div.dropdowns");
+		const ul = $("ul.drops-menu");
+		div.html("");
+		div.append(`<span>${notifications.length} New Notifications</span>`);
+		$.each(notifications, function(key, notification) {
+			let owner = notification.owner;
+			ul.html(""); // clear user list container first
+			ul.append(`<li>
+				<a href="/notifications/" title="">
+				<img alt="" src="owner.photoUrl">
+				<div class="mesg-meta">
+				<h6></h6>
+				<span>${owner.firstName} ${owner.lastName} just posted on Texi. </span>
+				<i>${notification.notifyTime}</i>
+				</div>
+				</a>
+				<span class="tag green">New</span>
+				</li>`)
+		});
+		div.append(ul);
+		div.append(`<a class="more-mesg" href="/notifications/" title="">view more</a>`)
 	}
 
 	$(".heart.fa").click(function() {

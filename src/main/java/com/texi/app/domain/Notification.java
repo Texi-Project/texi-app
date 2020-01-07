@@ -1,5 +1,6 @@
 package com.texi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Notification {
     private LocalDateTime notifyTime;
 
     @ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<User> target;
 
     @Transient

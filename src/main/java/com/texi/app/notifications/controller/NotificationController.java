@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,10 +37,10 @@ public class NotificationController {
 
     @PostMapping(value="/new", produces="application/json")
     public @ResponseBody
-    Integer getAll(Principal principal) {
-        if (principal == null) return 0;
+    List<Notification> getAll(Principal principal) {
+        if (principal == null) return new ArrayList<>();
         User u = userService.findByUsername(principal.getName());
         List<Notification> notifications = notifyService.getNotificationsForUser(u.getId());
-        return notifications.size();
+        return notifications;
     }
 }

@@ -2,6 +2,7 @@ package com.texi.app.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ public class Post implements Serializable {
     private Long id;
 
     @NotEmpty(message = "string.notEmpty")
+    @Lob
     private String title;
     private LocalDateTime date;
 
@@ -41,6 +43,7 @@ public class Post implements Serializable {
     private List<Comment> comments;
 
     @ManyToOne
+    @JsonManagedReference
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
