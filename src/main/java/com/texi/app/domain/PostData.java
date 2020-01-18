@@ -2,11 +2,13 @@ package com.texi.app.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PostData implements Serializable {
     Long postId;
     String imageName;

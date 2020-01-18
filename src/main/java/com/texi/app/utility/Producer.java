@@ -30,7 +30,7 @@ public class Producer {
             String message = new ObjectMapper().writer().writeValueAsString(content);
             rabbitTemplate.convertAndSend(exchange, routingKey, message);
         } catch (JsonProcessingException e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 }

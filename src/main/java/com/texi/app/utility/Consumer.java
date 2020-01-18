@@ -29,7 +29,7 @@ public class Consumer {
             PostData payload = new ObjectMapper().readValue(message, PostData.class);
             postService.handlePostProcessing(payload);
         } catch (JsonProcessingException e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 }

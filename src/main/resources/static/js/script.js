@@ -470,10 +470,16 @@ jQuery(document).ready(function ($) {
 
 		let onError = function(e) {
 			console.log("ERROR", e);
+			setTimeout(stompConnect, 5000);
+			console.log('STOMP: Reconnecting in 5 seconds');
 		};
 
+		function stompConnect() {
+			client.connect("guest", "guest", onConnect, onError, "/");
+		}
+
 		client.debug = onDebug;
-		client.connect("guest", "guest", onConnect, onError, "/");
+		stompConnect()
 	})();
 
 	// setInterval(checkForNotifications, 10000);
@@ -524,11 +530,11 @@ jQuery(document).ready(function ($) {
 			ul.html(""); // clear user list container first
 			ul.append(`<li>
 				<a href="/notifications/" title="">
-				<img alt="" src="owner.photoUrl">
+				<img alt="" src="${owner.photoUrl}">
 				<div class="mesg-meta">
 				<h6></h6>
 				<span>${owner.firstName} ${owner.lastName} just posted on Texi. </span>
-				<i>${notification.notifyTime}</i>
+				<i>A few seconds ago</i>
 				</div>
 				</a>
 				<span class="tag green">New</span>
